@@ -1,5 +1,0 @@
-For Aerospace
-- pandas
-- numpy
-- matplotlib
-- jupyter
