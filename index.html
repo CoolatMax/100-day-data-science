@@ -1,999 +1,1533 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="100-Day Data Science Roadmap for Renewable Energy and Aerospace Predictive Modeling">
-<title>100 Days of Domain-Driven Data Science</title>
-
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>100 Days — Renewable Energy Data Scientist</title>
 <style>
-:root{
-  --bg:#08111f;--panel:#0e1a2b;--panel2:#122238;--text:#e7edf7;
-  --muted:#94a3b8;--line:#22344d;--accent:#55d6be;--accent2:#6ea8fe;
-  --solar:#f5c451;--aero:#8ab4ff;--danger:#ff7b8a;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:linear-gradient(135deg,#07101d,#0a1525 55%,#07111d);
-  color:var(--text);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
-}
-a{color:var(--accent)}
-.container{max-width:1450px;margin:auto;padding:28px}
-.hero{
-  padding:48px 0 32px;border-bottom:1px solid var(--line)
-}
-.badge{
-  display:inline-block;padding:5px 10px;border:1px solid #285e58;border-radius:999px;
-  color:var(--accent);background:#0b2827;font-size:12px;font-weight:700;letter-spacing:.06em
-}
-h1{font-size:clamp(36px,6vw,68px);line-height:1;margin:18px 0 14px;letter-spacing:-.05em}
-.hero p{max-width:900px;color:var(--muted);font-size:17px}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
-.stat{background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:14px}
-.stat strong{display:block;font-size:25px}.stat span{color:var(--muted);font-size:12px}
-.controls{
-  position:sticky;top:0;z-index:20;padding:14px 0;background:#08111fe8;
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)
-}
-.controls-inner{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-button,input{
-  background:var(--panel);color:var(--text);border:1px solid var(--line);
-  border-radius:9px;padding:9px 12px
-}
-button{cursor:pointer;font-weight:600}
-button:hover,button.active{border-color:var(--accent);color:var(--accent)}
-input{min-width:240px}
-.progress{height:7px;background:#17263a;border-radius:99px;overflow:hidden;margin-top:10px}
-.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.phase{
-  margin:34px 0 12px;padding:18px 20px;border:1px solid var(--line);
-  border-radius:15px;background:linear-gradient(90deg,#102138,#0d1a2b)
-}
-.phase h2{margin:0 0 4px}.phase p{margin:0;color:var(--muted)}
-.days{display:grid;gap:10px}
-.day{
-  background:var(--panel);border:1px solid var(--line);border-radius:13px;
-  overflow:hidden;transition:.2s
-}
-.day:hover{border-color:#31506f}
-.day summary{
-  list-style:none;cursor:pointer;padding:15px 18px;display:flex;gap:12px;align-items:center
-}
-.day summary::-webkit-details-marker{display:none}
-.num{
-  flex:0 0 48px;height:32px;display:grid;place-items:center;border-radius:8px;
-  background:#17283e;color:var(--accent);font-weight:800
-}
-.day-title{font-weight:750;flex:1}
-.check{width:20px;height:20px;accent-color:var(--accent)}
-.content{padding:0 18px 20px;border-top:1px solid var(--line)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
-.card{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:15px}
-.card h4{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.07em}
-.focus h4{color:var(--accent)}
-.energy h4{color:var(--solar)}
-.aero h4{color:var(--aero)}
-.github h4{color:#c5d0e0}
-.card p{margin:0;color:#c6d0df}
-.resources{
-  margin:38px 0;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:16px
-}
-.resources-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.resources ul{padding-left:20px;color:var(--muted)}
-footer{padding:40px 0 70px;color:var(--muted);text-align:center}
-@media(max-width:800px){
-  .stats,.grid,.resources-grid{grid-template-columns:1fr}
-  .container{padding:18px}.hero{padding-top:28px}
-}
-</style>
-</head>
+:root{--bg:#091018;--panel:#101b27;--panel2:#142334;--text:#edf4f8;--muted:#94a7b7;--accent:#32d583;--accent2:#46b9ff;--border:#243849}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(circle at top,#10263a 0,#091018 45%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:rgba(9,16,24,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:14px max(20px,calc((100vw - 1280px)/2))}
+.brand{display:flex;justify-content:space-between;gap:20px;align-items:center} .brand h1{font-size:1.1rem;margin:0} .brand small{color:var(--muted)}
+.progress-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:10px} .bar{height:8px;background:#1a2a38;border-radius:99px;overflow:hidden} #barfill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .4s} #count{font-size:.85rem;color:var(--muted);white-space:nowrap}
+main{max-width:1280px;margin:auto;padding:28px 20px 80px} .hero{padding:36px 0 22px} .hero h1{font-size:clamp(2rem,5vw,4.4rem);line-height:1.02;margin:0;max-width:1000px} .hero p{max-width:850px;color:var(--muted);font-size:1.08rem}
+.filters{display:grid;grid-template-columns:1fr 280px;gap:12px;margin:18px 0 28px} input,select{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:var(--panel);color:var(--text);font:inherit} option{background:var(--panel)}
+.phase{margin:38px 0 14px;color:var(--accent);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase} .day-card{background:linear-gradient(145deg,var(--panel),#0d1721);border:1px solid var(--border);border-radius:14px;margin:10px 0;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.12)} .card-head{display:flex;align-items:stretch} .check-wrap{width:58px;display:grid;place-items:center;border-right:1px solid var(--border);cursor:pointer} .check-wrap input{display:none} .check-wrap span{width:20px;height:20px;border:2px solid var(--muted);border-radius:6px} .check-wrap input:checked+span{background:var(--accent);border-color:var(--accent)} .day-toggle{border:0;background:transparent;color:inherit;flex:1;text-align:left;padding:18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer} h2{font-size:1.05rem;margin:2px 0 3px} .day-num{color:var(--accent2);font-size:.72rem;font-weight:800;letter-spacing:.1em} .phase-tag{margin:0;color:var(--muted);font-size:.78rem} .chev{font-size:1.4rem;color:var(--muted);transition:transform .2s} .day-card.open .chev{transform:rotate(180deg)} .details{display:none;padding:0 22px 22px 76px} .day-card.open .details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px} .details section{background:var(--panel2);border-radius:10px;padding:14px} .details h3{margin:0 0 6px;color:var(--accent);font-size:.72rem;letter-spacing:.08em} .details p{margin:0;color:#c8d5de;font-size:.92rem}
+.hidden{display:none!important} #empty{display:none;color:var(--muted);padding:40px;text-align:center} footer{color:var(--muted);text-align:center;padding:30px}
+@media(max-width:700px){.filters{grid-template-columns:1fr} .day-card.open .details{grid-template-columns:1fr;padding-left:18px} .check-wrap{width:48px} .brand{align-items:flex-start;flex-direction:column;gap:4px}}
+</style></head><body>
+<header><div class="brand"><div><h1>100 DAYS / RENEWABLE ENERGY DATA SCIENTIST</h1><small>Zero → job-ready curriculum · rigorous · portfolio-driven</small></div><button id="reset" style="background:transparent;color:#94a7b7;border:1px solid #243849;border-radius:8px;padding:7px 10px;cursor:pointer">Reset progress</button></div>
+<div class="progress-row"><div class="bar"><div id="barfill"></div></div><div id="count">0 / 100 complete</div></div></header>
+<main><section class="hero"><h1>Think like a Data Scientist.<br><span style="color:#32d583">Reason like an Energy Engineer.</span></h1><p>A 100-day progression designed from absolute zero: programming mechanics, mathematical reasoning, statistics, machine learning, time series, energy-domain modeling, MLOps, and two deployable capstones.</p></section>
+<section class="filters"><input id="search" placeholder="Search: SQL, XGBoost, solar, wind, time series, battery..." autofocus><select id="phase"><option value="all">All phases</option><option value="Python & SQL Foundations">Python & SQL Foundations</option><option value="Math, Statistics & EDA">Math, Statistics & EDA</option><option value="Classical ML & Feature Engineering">Classical ML & Feature Engineering</option><option value="Time Series & Energy Modeling">Time Series & Energy Modeling</option><option value="MLOps, Capstones & Job Readiness">MLOps, Capstones & Job Readiness</option></select></section>
+<div id="curriculum">
 
-<body>
-<div class="container">
-
-<header class="hero">
-  <span class="badge">100-DAY DOMAIN-DRIVEN DATA SCIENCE</span>
-  <h1>From Civil Engineering → Predictive Modeling Specialist</h1>
-  <p>
-    A 100-day execution-first curriculum for Renewable Energy and Aerospace.
-    Every day produces a GitHub-commit-ready artifact and a LinkedIn learning-in-public story.
-    The technical progression moves from Python/SQL → data engineering → statistics → ML →
-    time-series, anomaly detection, geospatial modeling and deployed applications.
-  </p>
-
-  <div class="stats">
-    <div class="stat"><strong>100</strong><span>Days</span></div>
-    <div class="stat"><strong>5</strong><span>Phases</span></div>
-    <div class="stat"><strong>200</strong><span>Micro-project options</span></div>
-    <div class="stat"><strong>10+</strong><span>Domain datasets</span></div>
-    <div class="stat"><strong>1</strong><span>Capstone portfolio</span></div>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="data science, energy systems &amp; problem framing understand the data-science lifecycle: problem → data → cleaning → analysis → model → evaluation → deployment. map renewable systems into measurable inputs, outputs, constraints, and decisions. frame a solar plant forecasting problem: predict next-hour ac power from weather and irradiance. create readme + problem_statement.md with objective, stakeholders, target, features, horizon, and business metric.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="1"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 001</span><h2>Data Science, Energy Systems &amp; Problem Framing</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
   </div>
-</header>
-
-<div class="controls">
-  <div class="controls-inner">
-    <button class="active" onclick="filterPhase('all',this)">All</button>
-    <button onclick="filterPhase(1,this)">Phase 1</button>
-    <button onclick="filterPhase(2,this)">Phase 2</button>
-    <button onclick="filterPhase(3,this)">Phase 3</button>
-    <button onclick="filterPhase(4,this)">Phase 4</button>
-    <button onclick="filterPhase(5,this)">Phase 5</button>
-    <button onclick="toggleAll()">Expand / Collapse</button>
-    <input id="search" placeholder="Search days, Python, SQL, ML, wind..." oninput="searchDays()">
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Data Science, Energy Systems &amp; Problem Framing</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand the data-science lifecycle: problem → data → cleaning → analysis → model → evaluation → deployment. Map renewable systems into measurable inputs, outputs, constraints, and decisions.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Frame a solar plant forecasting problem: predict next-hour AC power from weather and irradiance.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create README + problem_statement.md with objective, stakeholders, target, features, horizon, and business metric.</p></section>
   </div>
-  <div class="progress"><span id="bar"></span></div>
-  <small id="progressText" style="color:var(--muted)">0 / 100 days completed</small>
-</div>
-
-<main id="roadmap"></main>
-
-<section class="resources">
-<h2>Open Dataset & Resource Library</h2>
-<p style="color:var(--muted)">
-Use these sources throughout the roadmap. Prefer EU-relevant data whenever possible.
-Always check the dataset licence before publishing derived data.
-</p>
-
-<div class="resources-grid">
-<div>
-<h3>🌱 Renewable Energy / CleanTech</h3>
-<ul>
-<li><a href="https://www.renewables.ninja/" target="_blank">Renewables.ninja</a> — simulated European solar and wind generation.</li>
-<li><a href="https://www.entsoe.eu/data/" target="_blank">ENTSO-E Transparency Platform</a> — European electricity generation, load and transmission data.</li>
-<li><a href="https://joint-research-centre.ec.europa.eu/pvgis-photovoltaic-geographical-information-system_en" target="_blank">EU JRC PVGIS</a> — photovoltaic potential and solar-resource data.</li>
-<li><a href="https://www.eurocontrol.int/dashboard/radiation" target="_blank">EUROCONTROL</a> — aviation-related operational datasets and dashboards.</li>
-<li><a href="https://data.europa.eu/" target="_blank">data.europa.eu</a> — EU open-data catalogue.</li>
-<li><a href="https://energy-charts.info/" target="_blank">Fraunhofer Energy-Charts</a> — German electricity generation and market visualisations.</li>
-<li><a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> — open weather API useful for renewable-energy modelling.</li>
-</ul>
-</div>
-
-<div>
-<h3>✈️ Aerospace / Telemetry</h3>
-<ul>
-<li><a href="https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository" target="_blank">NASA PCoE Dataset Repository</a> — turbofan and predictive-maintenance datasets.</li>
-<li><a href="https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/" target="_blank">NASA Prognostics Data Repository</a> — batteries, bearings, turbofan degradation and other PHM datasets.</li>
-<li><a href="https://www.kaggle.com/datasets/behrad3d/nasa-cmaps" target="_blank">NASA C-MAPSS</a> — simulated turbofan engine degradation.</li>
-<li><a href="https://www.nasa.gov/open-data/" target="_blank">NASA Open Data</a> — scientific and engineering datasets.</li>
-<li><a href="https://opensky-network.org/data/" target="_blank">OpenSky Network</a> — open European aircraft tracking data.</li>
-<li><a href="https://www.eurocontrol.int/" target="_blank">EUROCONTROL</a> — European aviation data and research resources.</li>
-<li><a href="https://zenodo.org/" target="_blank">Zenodo</a> — search for aircraft, structural-health-monitoring and aerospace datasets.</li>
-</ul>
-</div>
-</div>
-
-<h3>Recommended Tool Stack</h3>
-<p style="color:var(--muted)">
-Python · VS Code · Jupyter · Git · GitHub · SQL/PostgreSQL · NumPy · Pandas · Matplotlib · Seaborn ·
-GeoPandas · SciPy · Scikit-learn · Statsmodels · XGBoost · SHAP · PyArrow · Streamlit · Folium ·
-Plotly · Docker basics.
-</p>
-</section>
-
-<footer>
-<strong>100 days × 2 industries × 1 portfolio.</strong><br>
-Build first. Explain second. Publish consistently.
-<br><br>
-Which capstone should dominate the final portfolio: <b>Renewable Energy</b> or <b>Aerospace</b>?
-</footer>
-
-</div>
-
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="python environment, files &amp; energy data learn interpreter, scripts, notebooks, virtual environments, csv structure, rows/columns, headers, missing values, and reproducibility. load a small solar or wind csv and inspect its raw structure manually. commit data_dictionary.md and first python script; post the engineering question you translated into a dataset.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="2"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 002</span><h2>Python Environment, Files &amp; Energy Data</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Python Environment, Files &amp; Energy Data</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn interpreter, scripts, notebooks, virtual environments, CSV structure, rows/columns, headers, missing values, and reproducibility.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Load a small solar or wind CSV and inspect its raw structure manually.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit data_dictionary.md and first Python script; post the engineering question you translated into a dataset.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="variables, types &amp; units master int, float, str, bool, none, assignment, mutability intuition, type conversion, and unit consistency. convert irradiance, temperature, wind speed, and power values into consistent units. write variables_units.py plus a unit-conversion output table.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="3"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 003</span><h2>Variables, Types &amp; Units</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Variables, Types &amp; Units</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Master int, float, str, bool, None, assignment, mutability intuition, type conversion, and unit consistency.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Convert irradiance, temperature, wind speed, and power values into consistent units.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write variables_units.py plus a unit-conversion output table.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="operators &amp; numerical reasoning study arithmetic, comparison, logical operators, precedence, rounding, floating-point error, and dimensional sanity checks. calculate capacity factor, energy yield, and percent deviation for a solar plant. publish calculations.py and a terminal output screenshot with formulas explained.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="4"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 004</span><h2>Operators &amp; Numerical Reasoning</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Operators &amp; Numerical Reasoning</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study arithmetic, comparison, logical operators, precedence, rounding, floating-point error, and dimensional sanity checks.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Calculate capacity factor, energy yield, and percent deviation for a solar plant.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish calculations.py and a terminal output screenshot with formulas explained.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="strings, lists &amp; indexing learn sequence storage, zero-based indexing, slicing, concatenation, membership, and why indexing errors occur. store daily generation readings and extract peak and off-peak intervals. build list_operations.py and document three debugging lessons.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="5"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 005</span><h2>Strings, Lists &amp; Indexing</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Strings, Lists &amp; Indexing</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn sequence storage, zero-based indexing, slicing, concatenation, membership, and why indexing errors occur.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Store daily generation readings and extract peak and off-peak intervals.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Build list_operations.py and document three debugging lessons.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="dictionaries, tuples &amp; sets model key-value data, immutable tuples, uniqueness with sets, and practical lookup complexity intuition. represent turbine metadata and detect duplicate turbine ids. create asset_metadata.py and show duplicate-id detection.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="6"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 006</span><h2>Dictionaries, Tuples &amp; Sets</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Dictionaries, Tuples &amp; Sets</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Model key-value data, immutable tuples, uniqueness with sets, and practical lookup complexity intuition.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Represent turbine metadata and detect duplicate turbine IDs.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create asset_metadata.py and show duplicate-ID detection.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="control flow &amp; boolean logic understand if/elif/else, truth tables, short-circuiting, and defensive conditions. classify operating states as normal, curtailed, low-wind, or fault-suspected. write operating_state.py with test cases for every branch.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="7"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 007</span><h2>Control Flow &amp; Boolean Logic</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Control Flow &amp; Boolean Logic</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand if/elif/else, truth tables, short-circuiting, and defensive conditions.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Classify operating states as normal, curtailed, low-wind, or fault-suspected.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write operating_state.py with test cases for every branch.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="loops &amp; iteration patterns learn for/while loops, iterables, counters, accumulators, break/continue, and loop invariants. compute total daily energy from 15-minute meter readings. create daily_energy.py and explain accumulator logic in readme.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="8"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 008</span><h2>Loops &amp; Iteration Patterns</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Loops &amp; Iteration Patterns</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn for/while loops, iterables, counters, accumulators, break/continue, and loop invariants.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compute total daily energy from 15-minute meter readings.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create daily_energy.py and explain accumulator logic in README.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="functions &amp; abstraction study parameters, return values, scope, pure functions, docstrings, and decomposition. write reusable functions for capacity factor and energy conversion. commit energy_metrics.py with docstrings and example calls.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="9"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 009</span><h2>Functions &amp; Abstraction</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Functions &amp; Abstraction</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study parameters, return values, scope, pure functions, docstrings, and decomposition.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Write reusable functions for capacity factor and energy conversion.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit energy_metrics.py with docstrings and example calls.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="errors, exceptions &amp; debugging differentiate syntax, runtime, and logical errors; use traceback-first debugging and try/except deliberately. build a csv reader that handles malformed power values safely. publish robust_reader.py and a short debugging checklist.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="10"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 010</span><h2>Errors, Exceptions &amp; Debugging</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Errors, Exceptions &amp; Debugging</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Differentiate syntax, runtime, and logical errors; use traceback-first debugging and try/except deliberately.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a CSV reader that handles malformed power values safely.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish robust_reader.py and a short debugging checklist.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="modules, packages &amp; project structure learn imports, __name__, module boundaries, dependency separation, and basic src/data/notebooks layout. refactor previous energy calculations into reusable modules. create renewable_energy_foundations repo structure and import demo.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="11"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 011</span><h2>Modules, Packages &amp; Project Structure</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Modules, Packages &amp; Project Structure</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn imports, __name__, module boundaries, dependency separation, and basic src/data/notebooks layout.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Refactor previous energy calculations into reusable modules.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create renewable_energy_foundations repo structure and import demo.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="files, paths &amp; csv parsing understand paths, relative vs absolute paths, context managers, csv dialects, and encoding. parse raw inverter measurements into clean python records. write csv_parser.py and save a cleaned output file.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="12"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 012</span><h2>Files, Paths &amp; CSV Parsing</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Files, Paths &amp; CSV Parsing</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand paths, relative vs absolute paths, context managers, CSV dialects, and encoding.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Parse raw inverter measurements into clean Python records.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write csv_parser.py and save a cleaned output file.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql foundations &amp; relational thinking learn tables, rows, columns, primary keys, foreign keys, normalization basics, select/from/where. query a fictional solar asset table for plants above a capacity threshold. add sql/day13_select.sql and screenshot result.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="13"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 013</span><h2>SQL Foundations &amp; Relational Thinking</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Foundations &amp; Relational Thinking</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn tables, rows, columns, primary keys, foreign keys, normalization basics, SELECT/FROM/WHERE.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Query a fictional solar asset table for plants above a capacity threshold.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Add sql/day13_select.sql and screenshot result.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql filtering, sorting &amp; expressions use where, and/or, in, between, like, order by, aliases, arithmetic expressions. find turbines with high temperature and low power. publish day14_filters.sql with commented query logic.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="14"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 014</span><h2>SQL Filtering, Sorting &amp; Expressions</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Filtering, Sorting &amp; Expressions</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Use WHERE, AND/OR, IN, BETWEEN, LIKE, ORDER BY, aliases, arithmetic expressions.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Find turbines with high temperature and low power.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish day14_filters.sql with commented query logic.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql aggregations &amp; group by learn count, sum, avg, min, max, grouping grain, and aggregate-vs-row-level mistakes. calculate monthly energy and average availability per plant. create aggregation query and a monthly kpi table.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="15"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 015</span><h2>SQL Aggregations &amp; GROUP BY</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Aggregations &amp; GROUP BY</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn COUNT, SUM, AVG, MIN, MAX, grouping grain, and aggregate-vs-row-level mistakes.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Calculate monthly energy and average availability per plant.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create aggregation query and a monthly KPI table.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql joins &amp; data integration understand inner/left joins, join keys, cardinality, row multiplication, and nulls after joins. join plant metadata with generation telemetry. write joins.sql and document expected row counts before/after join.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="16"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 016</span><h2>SQL Joins &amp; Data Integration</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Joins &amp; Data Integration</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand INNER/LEFT joins, join keys, cardinality, row multiplication, and nulls after joins.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Join plant metadata with generation telemetry.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write joins.sql and document expected row counts before/after join.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql subqueries &amp; ctes learn query composition, named intermediate relations, and why ctes improve auditability. rank plants against the fleet average using a cte. publish cte_analysis.sql with business interpretation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="17"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 017</span><h2>SQL Subqueries &amp; CTEs</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Subqueries &amp; CTEs</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn query composition, named intermediate relations, and why CTEs improve auditability.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Rank plants against the fleet average using a CTE.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish cte_analysis.sql with business interpretation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql window functions study over, partition by, order by, row_number, rank, lag, lead, rolling logic. compute prior-hour generation and hour-over-hour change. commit window_functions.sql and explain partition/order choices.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="18"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 018</span><h2>SQL Window Functions</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Window Functions</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study OVER, PARTITION BY, ORDER BY, ROW_NUMBER, RANK, LAG, LEAD, rolling logic.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compute prior-hour generation and hour-over-hour change.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit window_functions.sql and explain partition/order choices.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="sql data quality analysis detect duplicates, nulls, impossible values, inconsistent timestamps, and orphan records. audit utility meter data before modeling. create data_quality.sql producing a quality scorecard.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="19"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 019</span><h2>SQL Data Quality Analysis</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SQL Data Quality Analysis</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Detect duplicates, nulls, impossible values, inconsistent timestamps, and orphan records.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Audit utility meter data before modeling.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create data_quality.sql producing a quality scorecard.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Python & SQL Foundations" data-search="foundation integration sprint integrate python + sql + git into a reproducible mini-pipeline. query plant data, export results, and calculate fleet kpis in python. finish foundation sprint repo with readme, sql, src, data dictionary, and one recruiter-focused post.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="20"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 020</span><h2>Foundation Integration Sprint</h2><p class="phase-tag">Python & SQL Foundations</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Foundation Integration Sprint</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Integrate Python + SQL + Git into a reproducible mini-pipeline.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Query plant data, export results, and calculate fleet KPIs in Python.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Finish Foundation Sprint repo with README, SQL, src, data dictionary, and one recruiter-focused post.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="vectors &amp; linear algebra intuition learn vectors as ordered features, magnitude, direction, dot product, and geometric similarity. represent solar weather observations as feature vectors and compute dot products. create vector_math.py with hand-worked and coded examples.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="21"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 021</span><h2>Vectors &amp; Linear Algebra Intuition</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Vectors &amp; Linear Algebra Intuition</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn vectors as ordered features, magnitude, direction, dot product, and geometric similarity.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Represent solar weather observations as feature vectors and compute dot products.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create vector_math.py with hand-worked and coded examples.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="matrices &amp; transformations study matrices, dimensions, multiplication, transpose, and shape compatibility. represent multi-day sensor data as a matrix and apply a linear transformation. publish matrix_operations.py and dimension checks.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="22"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 022</span><h2>Matrices &amp; Transformations</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Matrices &amp; Transformations</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study matrices, dimensions, multiplication, transpose, and shape compatibility.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Represent multi-day sensor data as a matrix and apply a linear transformation.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish matrix_operations.py and dimension checks.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="statistics: center &amp; spread understand mean, median, mode, variance, standard deviation, outliers, and robust summaries. compare solar generation variability across two months. produce a statistics notebook with summary table and interpretation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="23"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 023</span><h2>Statistics: Center &amp; Spread</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Statistics: Center &amp; Spread</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand mean, median, mode, variance, standard deviation, outliers, and robust summaries.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compare solar generation variability across two months.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Produce a statistics notebook with summary table and interpretation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="distributions &amp; probability study random variables, pmf/pdf, expectation, normal distribution, skewness, and sampling. estimate probability that wind speed exceeds cut-in threshold. create probability_analysis.ipynb with distribution plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="24"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 024</span><h2>Distributions &amp; Probability</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Distributions &amp; Probability</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study random variables, PMF/PDF, expectation, normal distribution, skewness, and sampling.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Estimate probability that wind speed exceeds cut-in threshold.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create probability_analysis.ipynb with distribution plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="conditional probability &amp; bayes learn conditional probability, independence, bayes&#x27; theorem, priors, likelihoods, and posterior updating. estimate fault probability given an alarm signal. publish bayes_fault.py with a confusion-style probability table.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="25"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 025</span><h2>Conditional Probability &amp; Bayes</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Conditional Probability &amp; Bayes</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn conditional probability, independence, Bayes&#x27; theorem, priors, likelihoods, and posterior updating.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Estimate fault probability given an alarm signal.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish bayes_fault.py with a confusion-style probability table.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="sampling &amp; confidence intervals study population/sample, sampling error, standard error, bootstrap intuition, and confidence intervals. estimate mean inverter efficiency with uncertainty. create bootstrap_ci.ipynb and confidence-interval plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="26"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 026</span><h2>Sampling &amp; Confidence Intervals</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Sampling &amp; Confidence Intervals</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study population/sample, sampling error, standard error, bootstrap intuition, and confidence intervals.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Estimate mean inverter efficiency with uncertainty.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create bootstrap_ci.ipynb and confidence-interval plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="hypothesis testing understand null/alternative hypotheses, p-values, alpha, type i/ii errors, effect size, and assumptions. test whether cleaning increased mean panel output. publish hypothesis_test.ipynb with assumptions and conclusion.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="27"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 027</span><h2>Hypothesis Testing</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Hypothesis Testing</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand null/alternative hypotheses, p-values, alpha, Type I/II errors, effect size, and assumptions.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Test whether cleaning increased mean panel output.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish hypothesis_test.ipynb with assumptions and conclusion.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="correlation, covariance &amp; causality separate association from causation; study covariance, pearson correlation, confounding, and leakage. explore irradiance, temperature, and solar power relationships. create correlation heatmap and causal caveats section.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="28"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 028</span><h2>Correlation, Covariance &amp; Causality</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Correlation, Covariance &amp; Causality</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Separate association from causation; study covariance, Pearson correlation, confounding, and leakage.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Explore irradiance, temperature, and solar power relationships.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create correlation heatmap and causal caveats section.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="calculus for optimization learn functions, derivatives, partial derivatives, slope, chain-rule intuition, and loss surfaces. differentiate a simple squared-error power prediction loss by hand and in code. commit gradient_math.py with symbolic reasoning comments.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="29"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 029</span><h2>Calculus for Optimization</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Calculus for Optimization</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn functions, derivatives, partial derivatives, slope, chain-rule intuition, and loss surfaces.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Differentiate a simple squared-error power prediction loss by hand and in code.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit gradient_math.py with symbolic reasoning comments.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="gradient descent from first principles study parameters, predictions, residuals, gradients, learning rate, convergence, and local/global minima. fit a one-feature linear model to solar power using manual gradient descent. plot loss vs iteration and parameter convergence.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="30"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 030</span><h2>Gradient Descent from First Principles</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Gradient Descent from First Principles</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study parameters, predictions, residuals, gradients, learning rate, convergence, and local/global minima.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Fit a one-feature linear model to solar power using manual gradient descent.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Plot loss vs iteration and parameter convergence.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="numpy arrays &amp; vectorization learn ndarray, shape, dtype, broadcasting, vectorization, and why loops can be slower. compute fleet-wide normalized sensor metrics with numpy. publish numpy_vectorization.py with loop vs vectorized comparison.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="31"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 031</span><h2>NumPy Arrays &amp; Vectorization</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>NumPy Arrays &amp; Vectorization</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn ndarray, shape, dtype, broadcasting, vectorization, and why loops can be slower.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compute fleet-wide normalized sensor metrics with NumPy.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish numpy_vectorization.py with loop vs vectorized comparison.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="pandas dataframes &amp; indexing master series/dataframe concepts, index, columns, selection, filtering, assignment, and copies vs views. load solar telemetry and answer ten operational questions. create pandas_basics.ipynb with reproducible cells.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="32"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 032</span><h2>Pandas DataFrames &amp; Indexing</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Pandas DataFrames &amp; Indexing</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Master Series/DataFrame concepts, index, columns, selection, filtering, assignment, and copies vs views.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Load solar telemetry and answer ten operational questions.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create pandas_basics.ipynb with reproducible cells.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="data cleaning with pandas handle missing values, duplicates, parsing errors, type conversion, out-of-range values, and audit logs. clean raw irradiance and power measurements. commit clean_data.py plus before/after quality report.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="33"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 033</span><h2>Data Cleaning with Pandas</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Data Cleaning with Pandas</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Handle missing values, duplicates, parsing errors, type conversion, out-of-range values, and audit logs.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Clean raw irradiance and power measurements.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit clean_data.py plus before/after quality report.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="datetime engineering study timestamps, time zones, frequency, resampling, lags, daylight effects, and temporal leakage. convert irregular solar readings into 15-minute aligned series. publish datetime_engineering.ipynb with resampling plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="34"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 034</span><h2>Datetime Engineering</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Datetime Engineering</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study timestamps, time zones, frequency, resampling, lags, daylight effects, and temporal leakage.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Convert irregular solar readings into 15-minute aligned series.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish datetime_engineering.ipynb with resampling plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="exploratory data analysis workflow build a systematic eda sequence: schema → quality → univariate → bivariate → temporal → domain checks. perform complete eda on solar irradiance and power. create eda notebook with five findings and evidence.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="35"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 035</span><h2>Exploratory Data Analysis Workflow</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Exploratory Data Analysis Workflow</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Build a systematic EDA sequence: schema → quality → univariate → bivariate → temporal → domain checks.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Perform complete EDA on solar irradiance and power.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create EDA notebook with five findings and evidence.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="matplotlib fundamentals learn figures, axes, scales, labels, legends, annotations, and honest visual encoding. plot daily solar generation profiles for multiple days. publish a clean figure and visualization rationale.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="36"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 036</span><h2>Matplotlib Fundamentals</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Matplotlib Fundamentals</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn figures, axes, scales, labels, legends, annotations, and honest visual encoding.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Plot daily solar generation profiles for multiple days.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish a clean figure and visualization rationale.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="statistical visualization use histograms, box plots, scatter plots, heatmaps, and distribution comparisons appropriately. visualize wind-speed distributions and outlier behavior. commit visualization_gallery.ipynb with interpretation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="37"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 037</span><h2>Statistical Visualization</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Statistical Visualization</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Use histograms, box plots, scatter plots, heatmaps, and distribution comparisons appropriately.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Visualize wind-speed distributions and outlier behavior.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit visualization_gallery.ipynb with interpretation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="domain eda: solar physics study ghi, dni, dhi, plane-of-array irradiance, temperature effects, capacity factor, clipping, and curtailment. diagnose a solar plant day with expected vs observed power shape. produce solar_eda_report.md and diagnostic plots.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="38"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 038</span><h2>Domain EDA: Solar Physics</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Domain EDA: Solar Physics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study GHI, DNI, DHI, plane-of-array irradiance, temperature effects, capacity factor, clipping, and curtailment.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Diagnose a solar plant day with expected vs observed power shape.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Produce solar_eda_report.md and diagnostic plots.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="domain eda: wind systems study cut-in, rated, cut-out speeds, power curves, turbulence, availability, and scada signals. compare observed turbine power against a theoretical power curve. create wind_power_curve.ipynb and deviation plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="39"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 039</span><h2>Domain EDA: Wind Systems</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Domain EDA: Wind Systems</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study cut-in, rated, cut-out speeds, power curves, turbulence, availability, and SCADA signals.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compare observed turbine power against a theoretical power curve.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create wind_power_curve.ipynb and deviation plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Math, Statistics & EDA" data-search="math &amp; eda integration sprint turn raw energy data into defensible findings using statistics, domain knowledge, and visualization. deliver a solar/wind data audit answering data quality and performance questions. publish polished eda repository and linkedin post: &#x27;what i learned from real energy telemetry.&#x27;">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="40"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 040</span><h2>Math &amp; EDA Integration Sprint</h2><p class="phase-tag">Math, Statistics & EDA</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Math &amp; EDA Integration Sprint</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Turn raw energy data into defensible findings using statistics, domain knowledge, and visualization.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Deliver a solar/wind data audit answering data quality and performance questions.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish polished EDA repository and LinkedIn post: &#x27;What I learned from real energy telemetry.&#x27;</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="supervised learning foundations define features, targets, train/validation/test splits, iid assumptions, leakage, and generalization. design a dataset to predict next-hour solar power. write modeling_baseline.py with explicit split rationale.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="41"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 041</span><h2>Supervised Learning Foundations</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Supervised Learning Foundations</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Define features, targets, train/validation/test splits, IID assumptions, leakage, and generalization.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Design a dataset to predict next-hour solar power.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write modeling_baseline.py with explicit split rationale.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="linear regression from mechanics study y=xβ+ε, least squares, residuals, coefficients, assumptions, and closed-form vs iterative fitting. predict solar power from irradiance and temperature. plot predicted vs actual and residuals.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="42"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 042</span><h2>Linear Regression from Mechanics</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Linear Regression from Mechanics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study y=Xβ+ε, least squares, residuals, coefficients, assumptions, and closed-form vs iterative fitting.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Predict solar power from irradiance and temperature.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Plot predicted vs actual and residuals.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="regression metrics understand mae, mse, rmse, r², mape limitations near zero, and metric-business alignment. compare naive and linear solar forecasts. create metrics_report.py with metric interpretation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="43"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 043</span><h2>Regression Metrics</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Regression Metrics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand MAE, MSE, RMSE, R², MAPE limitations near zero, and metric-business alignment.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compare naive and linear solar forecasts.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create metrics_report.py with metric interpretation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="regularization learn overfitting, l1/l2 penalties, ridge, lasso, feature scaling, and bias-variance tradeoff. model power using correlated weather features. plot validation error across regularization strengths.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="44"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 044</span><h2>Regularization</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Regularization</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn overfitting, L1/L2 penalties, Ridge, Lasso, feature scaling, and bias-variance tradeoff.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Model power using correlated weather features.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Plot validation error across regularization strengths.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="logistic regression study sigmoid, log-odds, likelihood, decision thresholds, and classification probabilities. predict whether a turbine enters a fault-warning state. publish classifier_baseline.ipynb and probability calibration view.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="45"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 045</span><h2>Logistic Regression</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Logistic Regression</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study sigmoid, log-odds, likelihood, decision thresholds, and classification probabilities.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Predict whether a turbine enters a fault-warning state.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish classifier_baseline.ipynb and probability calibration view.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="classification evaluation master confusion matrix, precision, recall, f1, specificity, roc, pr-auc, class imbalance. evaluate rare wind-turbine fault detection. produce threshold trade-off chart and operational recommendation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="46"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 046</span><h2>Classification Evaluation</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Classification Evaluation</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Master confusion matrix, precision, recall, F1, specificity, ROC, PR-AUC, class imbalance.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Evaluate rare wind-turbine fault detection.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Produce threshold trade-off chart and operational recommendation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="feature engineering fundamentals study raw vs derived features, transformations, interactions, encoding, scaling, pipelines, and leakage. create physically meaningful solar features from weather timestamps. commit feature_engineering.py with feature dictionary.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="47"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 047</span><h2>Feature Engineering Fundamentals</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Feature Engineering Fundamentals</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study raw vs derived features, transformations, interactions, encoding, scaling, pipelines, and leakage.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Create physically meaningful solar features from weather timestamps.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit feature_engineering.py with feature dictionary.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="decision trees understand recursive splits, impurity, information gain, depth, leaves, pruning, and overfitting. classify inverter operating modes. visualize a small tree and explain a decision path.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="48"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 048</span><h2>Decision Trees</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Decision Trees</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand recursive splits, impurity, information gain, depth, leaves, pruning, and overfitting.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Classify inverter operating modes.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Visualize a small tree and explain a decision path.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="random forests study bootstrap aggregation, feature subsampling, out-of-bag intuition, variance reduction, and feature importance limits. predict turbine power with a random forest. compare single tree vs forest metrics.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="49"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 049</span><h2>Random Forests</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Random Forests</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study bootstrap aggregation, feature subsampling, out-of-bag intuition, variance reduction, and feature importance limits.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Predict turbine power with a random forest.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Compare single tree vs forest metrics.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="gradient boosting learn sequential error correction, weak learners, learning rate, depth, and additive modeling. forecast solar power using gradient boosting. plot learning curves and residual improvement.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="50"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 050</span><h2>Gradient Boosting</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Gradient Boosting</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn sequential error correction, weak learners, learning rate, depth, and additive modeling.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Forecast solar power using gradient boosting.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Plot learning curves and residual improvement.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="xgboost study regularized boosted trees, objective functions, shrinkage, subsampling, and early stopping. build an xgboost solar forecast baseline. publish xgboost_model.py and validation results.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="51"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 051</span><h2>XGBoost</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>XGBoost</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study regularized boosted trees, objective functions, shrinkage, subsampling, and early stopping.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build an XGBoost solar forecast baseline.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish xgboost_model.py and validation results.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="lightgbm learn histogram-based splitting, leaf-wise growth, efficiency trade-offs, and categorical handling concepts. compare lightgbm and xgboost on wind telemetry. create benchmark table with speed and accuracy.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="52"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 052</span><h2>LightGBM</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>LightGBM</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn histogram-based splitting, leaf-wise growth, efficiency trade-offs, and categorical handling concepts.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compare LightGBM and XGBoost on wind telemetry.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create benchmark table with speed and accuracy.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="cross-validation understand k-fold cv, grouped cv, time-series cv, variance of estimates, and when random cv fails. validate an energy model without mixing future information into training. publish validation_strategy.md and code.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="53"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 053</span><h2>Cross-Validation</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Cross-Validation</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand k-fold CV, grouped CV, time-series CV, variance of estimates, and when random CV fails.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Validate an energy model without mixing future information into training.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish validation_strategy.md and code.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="hyperparameter tuning study grid search, random search, bayesian intuition, validation budgets, and nested-test discipline. tune a gradient boosting solar model. commit tuning_results.csv and parameter-vs-score plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="54"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 054</span><h2>Hyperparameter Tuning</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Hyperparameter Tuning</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study grid search, random search, Bayesian intuition, validation budgets, and nested-test discipline.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Tune a gradient boosting solar model.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit tuning_results.csv and parameter-vs-score plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="feature importance &amp; shap learn global/local explanation, permutation importance, shap intuition, correlation caveats, and explanation limits. explain why a solar forecast changed for a specific hour. produce shap summary and local explanation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="55"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 055</span><h2>Feature Importance &amp; SHAP</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Feature Importance &amp; SHAP</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn global/local explanation, permutation importance, SHAP intuition, correlation caveats, and explanation limits.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Explain why a solar forecast changed for a specific hour.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Produce SHAP summary and local explanation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="imbalanced learning study resampling, class weights, thresholding, precision-recall focus, and anomaly/fault economics. improve rare turbine-fault classification. publish imbalanced_learning.ipynb with before/after pr metrics.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="56"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 056</span><h2>Imbalanced Learning</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Imbalanced Learning</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study resampling, class weights, thresholding, precision-recall focus, and anomaly/fault economics.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Improve rare turbine-fault classification.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish imbalanced_learning.ipynb with before/after PR metrics.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="data leakage deep dive identify target leakage, temporal leakage, preprocessing leakage, and group leakage. audit a deliberately flawed solar model pipeline. create leakage_audit.md with fixes and tests.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="57"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 057</span><h2>Data Leakage Deep Dive</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Data Leakage Deep Dive</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Identify target leakage, temporal leakage, preprocessing leakage, and group leakage.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Audit a deliberately flawed solar model pipeline.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create leakage_audit.md with fixes and tests.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="experiment tracking &amp; reproducibility learn seeds, configs, artifact logging, baselines, and experiment comparison. run three controlled forecasting experiments. store experiments in structured csv/json and summarize winner.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="58"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 058</span><h2>Experiment Tracking &amp; Reproducibility</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Experiment Tracking &amp; Reproducibility</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn seeds, configs, artifact logging, baselines, and experiment comparison.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Run three controlled forecasting experiments.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Store experiments in structured CSV/JSON and summarize winner.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="domain features: solar forecasting engineer sun angle proxies, hour/day seasonality, cloud/irradiance lags, rolling weather statistics, and clear-sky ratios. build a rich feature table for day-ahead solar forecasting. publish solar_features.py and feature importance.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="59"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 059</span><h2>Domain Features: Solar Forecasting</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Domain Features: Solar Forecasting</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Engineer sun angle proxies, hour/day seasonality, cloud/irradiance lags, rolling weather statistics, and clear-sky ratios.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a rich feature table for day-ahead solar forecasting.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish solar_features.py and feature importance.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="domain features: wind health engineer temperature deltas, vibration trends, rolling statistics, residuals from power curves, and operating regimes. create condition-monitoring features for a turbine. commit wind_health_features.ipynb.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="60"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 060</span><h2>Domain Features: Wind Health</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Domain Features: Wind Health</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Engineer temperature deltas, vibration trends, rolling statistics, residuals from power curves, and operating regimes.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Create condition-monitoring features for a turbine.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit wind_health_features.ipynb.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="domain features: smart grid study load, demand peaks, ramping, seasonality, holidays, weather sensitivity, and aggregation hierarchy. engineer features for feeder-level load prediction. publish load_features.py and feature dictionary.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="61"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 061</span><h2>Domain Features: Smart Grid</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Domain Features: Smart Grid</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study load, demand peaks, ramping, seasonality, holidays, weather sensitivity, and aggregation hierarchy.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Engineer features for feeder-level load prediction.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish load_features.py and feature dictionary.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="model selection as an engineer compare accuracy, latency, interpretability, data requirements, maintenance cost, and failure modes. choose a model for a grid operator forecasting use case. write model_selection.md with decision matrix.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="62"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 062</span><h2>Model Selection as an Engineer</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Model Selection as an Engineer</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Compare accuracy, latency, interpretability, data requirements, maintenance cost, and failure modes.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Choose a model for a grid operator forecasting use case.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write model_selection.md with decision matrix.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="error analysis segment residuals by hour, season, weather regime, asset, and operating condition. find where your solar model fails most severely. create error_analysis.ipynb with prioritized failure list.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="63"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 063</span><h2>Error Analysis</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Error Analysis</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Segment residuals by hour, season, weather regime, asset, and operating condition.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Find where your solar model fails most severely.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create error_analysis.ipynb with prioritized failure list.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="end-to-end classical ml pipeline build ingestion → validation → features → train → evaluate → save model. package a reproducible solar forecasting pipeline. publish complete repo architecture and run instructions.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="64"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 064</span><h2>End-to-End Classical ML Pipeline</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>End-to-End Classical ML Pipeline</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Build ingestion → validation → features → train → evaluate → save model.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Package a reproducible solar forecasting pipeline.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish complete repo architecture and run instructions.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Classical ML & Feature Engineering" data-search="classical ml sprint review consolidate algorithms, metrics, feature engineering, explainability, and debugging habits. compete against your own baseline on an energy prediction task. write ml_sprint_report.md with baseline, improvements, and lessons.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="65"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 065</span><h2>Classical ML Sprint Review</h2><p class="phase-tag">Classical ML & Feature Engineering</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Classical ML Sprint Review</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Consolidate algorithms, metrics, feature engineering, explainability, and debugging habits.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Compete against your own baseline on an energy prediction task.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Write ML_SPRINT_REPORT.md with baseline, improvements, and lessons.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="time-series fundamentals study ordered observations, autocorrelation, stationarity, trend, seasonality, and forecasting horizons. inspect autocorrelation in hourly electricity demand. produce acf/pacf plots and interpretation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="66"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 066</span><h2>Time-Series Fundamentals</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Time-Series Fundamentals</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study ordered observations, autocorrelation, stationarity, trend, seasonality, and forecasting horizons.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Inspect autocorrelation in hourly electricity demand.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Produce ACF/PACF plots and interpretation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="train/test splits for time series learn expanding windows, rolling origin, backtesting, and why random shuffling is invalid. create a rolling validation framework for solar forecasts. publish backtest.py and fold diagram.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="67"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 067</span><h2>Train/Test Splits for Time Series</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Train/Test Splits for Time Series</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn expanding windows, rolling origin, backtesting, and why random shuffling is invalid.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Create a rolling validation framework for solar forecasts.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish backtest.py and fold diagram.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="naive &amp; seasonal baselines study persistence, seasonal naive, climatology, and baseline discipline. benchmark next-hour load forecasts against persistence. commit baseline_models.py and metric comparison.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="68"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 068</span><h2>Naive &amp; Seasonal Baselines</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Naive &amp; Seasonal Baselines</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study persistence, seasonal naive, climatology, and baseline discipline.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Benchmark next-hour load forecasts against persistence.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit baseline_models.py and metric comparison.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="arima mechanics understand ar, i, ma terms, differencing, lag operators, stationarity, and model identification. fit arima to a simplified energy-demand series. publish arima_analysis.ipynb with residual diagnostics.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="69"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 069</span><h2>ARIMA Mechanics</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>ARIMA Mechanics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand AR, I, MA terms, differencing, lag operators, stationarity, and model identification.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Fit ARIMA to a simplified energy-demand series.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish arima_analysis.ipynb with residual diagnostics.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="sarimax &amp; exogenous variables add seasonal terms and external regressors; understand parameter interpretation and future-exogenous-data constraints. forecast solar output using seasonality and weather inputs. create sarimax_forecast.py and forecast interval plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="70"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 070</span><h2>SARIMAX &amp; Exogenous Variables</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>SARIMAX &amp; Exogenous Variables</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Add seasonal terms and external regressors; understand parameter interpretation and future-exogenous-data constraints.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Forecast solar output using seasonality and weather inputs.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create sarimax_forecast.py and forecast interval plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="forecast uncertainty study point forecasts, prediction intervals, calibration, quantiles, and operational risk. communicate uncertainty for a day-ahead solar forecast. publish interval forecast chart and decision note.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="71"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 071</span><h2>Forecast Uncertainty</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Forecast Uncertainty</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study point forecasts, prediction intervals, calibration, quantiles, and operational risk.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Communicate uncertainty for a day-ahead solar forecast.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish interval forecast chart and decision note.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="prophet &amp; decomposable models understand trend, seasonal components, changepoints, holidays, and practical assumptions. forecast grid demand with a decomposable model. compare prophet-style decomposition against a baseline.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="72"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 072</span><h2>Prophet &amp; Decomposable Models</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Prophet &amp; Decomposable Models</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand trend, seasonal components, changepoints, holidays, and practical assumptions.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Forecast grid demand with a decomposable model.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Compare Prophet-style decomposition against a baseline.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="time-series feature pipelines create lags, rolling means, rolling std, calendar variables, and leakage-safe transformations. build a tabular ml dataset from load time series. publish time_features.py with tests.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="73"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 073</span><h2>Time-Series Feature Pipelines</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Time-Series Feature Pipelines</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Create lags, rolling means, rolling std, calendar variables, and leakage-safe transformations.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a tabular ML dataset from load time series.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish time_features.py with tests.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="tree models for forecasting apply gradient boosting to lagged features and compare against statistical baselines. forecast 24-hour load using engineered features. create model comparison dashboard/table.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="74"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 074</span><h2>Tree Models for Forecasting</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Tree Models for Forecasting</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Apply gradient boosting to lagged features and compare against statistical baselines.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Forecast 24-hour load using engineered features.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create model comparison dashboard/table.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="multi-step forecasting study recursive, direct, multi-output, and horizon-specific strategies. generate a 24-hour solar generation forecast. plot error by forecast horizon.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="75"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 075</span><h2>Multi-Step Forecasting</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Multi-Step Forecasting</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study recursive, direct, multi-output, and horizon-specific strategies.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Generate a 24-hour solar generation forecast.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Plot error by forecast horizon.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="wind turbine anomaly detection understand normal behavior models, residual anomalies, thresholds, and false-alarm trade-offs. flag abnormal power-curve residuals in turbine telemetry. publish anomaly_detection.ipynb and flagged timeline.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="76"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 076</span><h2>Wind Turbine Anomaly Detection</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Wind Turbine Anomaly Detection</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Understand normal behavior models, residual anomalies, thresholds, and false-alarm trade-offs.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Flag abnormal power-curve residuals in turbine telemetry.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish anomaly_detection.ipynb and flagged timeline.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="unsupervised anomaly detection study isolation forest, density intuition, contamination assumptions, and scaling. detect unusual multivariate turbine sensor states. compare statistical and isolation-based anomalies.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="77"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 077</span><h2>Unsupervised Anomaly Detection</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Unsupervised Anomaly Detection</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study Isolation Forest, density intuition, contamination assumptions, and scaling.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Detect unusual multivariate turbine sensor states.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Compare statistical and isolation-based anomalies.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="change-point &amp; drift detection learn concept drift, sensor drift, distribution shift, and change-point reasoning. detect a performance degradation period in a solar asset. create drift_report.md with before/after distributions.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="78"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 078</span><h2>Change-Point &amp; Drift Detection</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Change-Point &amp; Drift Detection</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn concept drift, sensor drift, distribution shift, and change-point reasoning.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Detect a performance degradation period in a solar asset.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create drift_report.md with before/after distributions.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="battery energy storage analytics study soc, soh, c-rate, round-trip efficiency, depth of discharge, degradation cycles, and constraints. analyze a battery dispatch log for efficiency and utilization. publish battery_kpis.ipynb and daily soc plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="79"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 079</span><h2>Battery Energy Storage Analytics</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Battery Energy Storage Analytics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study SOC, SOH, C-rate, round-trip efficiency, depth of discharge, degradation cycles, and constraints.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Analyze a battery dispatch log for efficiency and utilization.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish battery_kpis.ipynb and daily SOC plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="battery forecasting &amp; dispatch connect load/price forecasts to charging decisions while respecting operational constraints. build a simple rule-based battery dispatch simulator. commit battery_dispatch.py and savings comparison.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="80"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 080</span><h2>Battery Forecasting &amp; Dispatch</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Battery Forecasting &amp; Dispatch</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Connect load/price forecasts to charging decisions while respecting operational constraints.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a simple rule-based battery dispatch simulator.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit battery_dispatch.py and savings comparison.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="smart grid load forecasting study feeder aggregation, peak demand, weather effects, demand response, and forecast use in operations. build a day-ahead load forecast prototype. publish load_forecasting repo module and peak-error chart.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="81"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 081</span><h2>Smart Grid Load Forecasting</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Smart Grid Load Forecasting</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study feeder aggregation, peak demand, weather effects, demand response, and forecast use in operations.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a day-ahead load forecast prototype.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish load_forecasting repo module and peak-error chart.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="spatial &amp; spatio-temporal energy data learn latitude/longitude features, spatial autocorrelation intuition, interpolation, and spatial leakage. map solar resources or wind observations across locations. create spatial_energy.ipynb with map-ready dataset/plot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="82"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 082</span><h2>Spatial &amp; Spatio-Temporal Energy Data</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Spatial &amp; Spatio-Temporal Energy Data</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn latitude/longitude features, spatial autocorrelation intuition, interpolation, and spatial leakage.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Map solar resources or wind observations across locations.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create spatial_energy.ipynb with map-ready dataset/plot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="carbon accounting analytics study activity data, emission factors, scope 1/2/3 concepts, market vs location-based accounting, and uncertainty. calculate emissions from electricity and operational activity data. publish carbon_accounting.py and methodology note.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="83"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 083</span><h2>Carbon Accounting Analytics</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Carbon Accounting Analytics</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study activity data, emission factors, Scope 1/2/3 concepts, market vs location-based accounting, and uncertainty.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Calculate emissions from electricity and operational activity data.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish carbon_accounting.py and methodology note.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="energy data domain sprint integrate forecasting, anomaly detection, batteries, grid, and carbon into one system-level analysis. build an &#x27;energy operations analytics&#x27; mini-dashboard dataset. create domain_sprint_report.md with three decision recommendations.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="84"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 084</span><h2>Energy Data Domain Sprint</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Energy Data Domain Sprint</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Integrate forecasting, anomaly detection, batteries, grid, and carbon into one system-level analysis.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build an &#x27;energy operations analytics&#x27; mini-dashboard dataset.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create domain_sprint_report.md with three decision recommendations.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="Time Series & Energy Modeling" data-search="specialized modeling review audit assumptions, data quality, validation, uncertainty, and domain constraints across all specialized models. rebuild your strongest energy model from scratch without a tutorial. publish reproducibility checklist and final benchmark.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="85"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 085</span><h2>Specialized Modeling Review</h2><p class="phase-tag">Time Series & Energy Modeling</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Specialized Modeling Review</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Audit assumptions, data quality, validation, uncertainty, and domain constraints across all specialized models.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Rebuild your strongest energy model from scratch without a tutorial.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish reproducibility checklist and final benchmark.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="software engineering for data scientists learn configuration, logging, typing, tests, package structure, separation of concerns, and technical debt. refactor a forecasting notebook into production-style modules. publish src-based project with basic tests.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="86"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 086</span><h2>Software Engineering for Data Scientists</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Software Engineering for Data Scientists</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn configuration, logging, typing, tests, package structure, separation of concerns, and technical debt.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Refactor a forecasting notebook into production-style modules.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish src-based project with basic tests.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="git &amp; github professional workflow master branches, commits, pull requests, issues, semantic messages, code review, and reproducible history. simulate feature development for an energy model. create a branch, pr, issue template, and meaningful commit history.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="87"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 087</span><h2>Git &amp; GitHub Professional Workflow</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Git &amp; GitHub Professional Workflow</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Master branches, commits, pull requests, issues, semantic messages, code review, and reproducible history.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Simulate feature development for an energy model.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create a branch, PR, issue template, and meaningful commit history.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="model serving with fastapi learn http, rest, request validation, serialization, endpoints, model loading, and inference contracts. expose a trained solar forecast model through /predict. publish fastapi service and openapi screenshot.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="88"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 088</span><h2>Model Serving with FastAPI</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Model Serving with FastAPI</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn HTTP, REST, request validation, serialization, endpoints, model loading, and inference contracts.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Expose a trained solar forecast model through /predict.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish FastAPI service and OpenAPI screenshot.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="interactive analytics with streamlit study reactive ui, widgets, state, inputs, charts, and model demos. build a solar forecasting interface for an operations user. deploy-ready streamlit app with screenshot/gif.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="89"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 089</span><h2>Interactive Analytics with Streamlit</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Interactive Analytics with Streamlit</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study reactive UI, widgets, state, inputs, charts, and model demos.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a solar forecasting interface for an operations user.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Deploy-ready Streamlit app with screenshot/GIF.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="docker fundamentals learn images, containers, dockerfile layers, ports, volumes, environment variables, and reproducibility. containerize your fastapi energy predictor. commit dockerfile and exact build/run instructions.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="90"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 090</span><h2>Docker Fundamentals</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Docker Fundamentals</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn images, containers, Dockerfile layers, ports, volumes, environment variables, and reproducibility.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Containerize your FastAPI energy predictor.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Commit Dockerfile and exact build/run instructions.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="testing &amp; data validation study unit tests, integration tests, schema checks, assertions, and data contracts. test feature functions and reject impossible irradiance values. add pytest tests and data-validation rules.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="91"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 091</span><h2>Testing &amp; Data Validation</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Testing &amp; Data Validation</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Study unit tests, integration tests, schema checks, assertions, and data contracts.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Test feature functions and reject impossible irradiance values.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Add pytest tests and data-validation rules.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="monitoring &amp; model lifecycle learn data drift, prediction drift, performance decay, alert thresholds, retraining triggers, and model governance. design monitoring for a solar forecast service. publish monitoring_plan.md with measurable alerts.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="92"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 092</span><h2>Monitoring &amp; Model Lifecycle</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Monitoring &amp; Model Lifecycle</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Learn data drift, prediction drift, performance decay, alert thresholds, retraining triggers, and model governance.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Design monitoring for a solar forecast service.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish monitoring_plan.md with measurable alerts.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 1: solar forecasting architecture design an end-to-end project: data ingestion, cleaning, weather features, backtesting, model registry, api/ui. define architecture and milestone plan for day-ahead solar forecasting. create capstone 1 repository skeleton, architecture diagram, and issue board.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="93"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 093</span><h2>Capstone 1: Solar Forecasting Architecture</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 1: Solar Forecasting Architecture</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Design an end-to-end project: data ingestion, cleaning, weather features, backtesting, model registry, API/UI.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Define architecture and milestone plan for day-ahead solar forecasting.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create Capstone 1 repository skeleton, architecture diagram, and issue board.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 1: solar forecasting build implement data pipeline, baseline, advanced model, validation, and explainability. train and evaluate the complete solar forecasting solution. publish model comparison, forecast plot, and reproducible run command.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="94"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 094</span><h2>Capstone 1: Solar Forecasting Build</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 1: Solar Forecasting Build</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Implement data pipeline, baseline, advanced model, validation, and explainability.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Train and evaluate the complete solar forecasting solution.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish model comparison, forecast plot, and reproducible run command.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 1: deployment &amp; story package the best model into streamlit/fastapi, document assumptions, and explain business value. demonstrate forecast output for a plant operations scenario. finish readme, screenshots, demo flow, and recruiter-oriented linkedin case study.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="95"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 095</span><h2>Capstone 1: Deployment &amp; Story</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 1: Deployment &amp; Story</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Package the best model into Streamlit/FastAPI, document assumptions, and explain business value.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Demonstrate forecast output for a plant operations scenario.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Finish README, screenshots, demo flow, and recruiter-oriented LinkedIn case study.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 2: wind health monitoring architecture design telemetry ingestion, normal-behavior baseline, anomaly scoring, alerting, and investigation workflow. specify a predictive maintenance pipeline for turbines. create capstone 2 architecture, data schema, and evaluation plan.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="96"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 096</span><h2>Capstone 2: Wind Health Monitoring Architecture</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 2: Wind Health Monitoring Architecture</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Design telemetry ingestion, normal-behavior baseline, anomaly scoring, alerting, and investigation workflow.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Specify a predictive maintenance pipeline for turbines.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create Capstone 2 architecture, data schema, and evaluation plan.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 2: wind health monitoring build implement cleaning, feature engineering, anomaly detection/classification, and threshold analysis. detect abnormal operating periods from turbine telemetry. publish anomaly timeline, kpi table, and investigation notebook.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="97"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 097</span><h2>Capstone 2: Wind Health Monitoring Build</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 2: Wind Health Monitoring Build</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Implement cleaning, feature engineering, anomaly detection/classification, and threshold analysis.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Detect abnormal operating periods from turbine telemetry.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish anomaly timeline, KPI table, and investigation notebook.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="capstone 2: deployment &amp; documentation serve results in an interactive application and document model limitations and alert policy. build a maintenance analyst dashboard. finish deployment assets, docker setup, and full technical documentation.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="98"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 098</span><h2>Capstone 2: Deployment &amp; Documentation</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Capstone 2: Deployment &amp; Documentation</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Serve results in an interactive application and document model limitations and alert policy.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Build a maintenance analyst dashboard.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Finish deployment assets, Docker setup, and full technical documentation.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="job-ready portfolio &amp; resume translate projects into evidence: problem, data, methods, metrics, decisions, architecture, and links. audit all repositories for clarity and recruiter scanability. create portfolio readme, resume bullets, and 2 case-study posts.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="99"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 099</span><h2>Job-Ready Portfolio &amp; Resume</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Job-Ready Portfolio &amp; Resume</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Translate projects into evidence: problem, data, methods, metrics, decisions, architecture, and links.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Audit all repositories for clarity and recruiter scanability.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Create portfolio README, resume bullets, and 2 case-study posts.</p></section>
+  </div>
+</article>
+<article class="day-card" data-phase="MLOps, Capstones & Job Readiness" data-search="final defense &amp; data scientist readiness synthesize statistics, ml, time series, energy systems, mlops, communication, and debugging into professional reasoning. defend both capstones: explain assumptions, failures, metrics, alternatives, and production plan. publish a &#x27;100 days → renewable energy data scientist&#x27; retrospective with portfolio links and quantified outcomes.">
+  <div class="card-head">
+    <label class="check-wrap"><input type="checkbox" class="day-check" data-day="100"><span></span></label>
+    <button class="day-toggle" aria-expanded="false">
+      <div><span class="day-num">DAY 100</span><h2>Final Defense &amp; Data Scientist Readiness</h2><p class="phase-tag">MLOps, Capstones & Job Readiness</p></div>
+      <b class="chev">⌄</b>
+    </button>
+  </div>
+  <div class="details">
+    <section><h3>01 — Focus Area</h3><p><strong>Final Defense &amp; Data Scientist Readiness</strong></p></section>
+    <section><h3>02 — Core Theory & Domain Logic</h3><p>Synthesize statistics, ML, time series, energy systems, MLOps, communication, and debugging into professional reasoning.</p></section>
+    <section><h3>03 — Daily Micro-Project Challenge</h3><p>Defend both capstones: explain assumptions, failures, metrics, alternatives, and production plan.</p></section>
+    <section><h3>04 — GitHub & LinkedIn Portfolio Deliverable</h3><p>Publish a &#x27;100 Days → Renewable Energy Data Scientist&#x27; retrospective with portfolio links and quantified outcomes.</p></section>
+  </div>
+</article>
+</div><div id="empty">No days match your search.</div>
+<footer>Progress is stored locally in your browser using localStorage.</footer></main>
 <script>
-const phases = {
-1:["Phase 1 — Foundations","Days 1–20 · Python, SQL, Git, GitHub and Docs-as-Code"],
-2:["Phase 2 — Data Wrangling & Analysis","Days 21–40 · NumPy, Pandas, visualisation and geospatial analysis"],
-3:["Phase 3 — Mathematics & Statistics","Days 41–60 · Linear algebra, probability, calculus, inference and EDA"],
-4:["Phase 4 — Machine Learning Core","Days 61–80 · Supervised learning, unsupervised learning, ensembles and explainability"],
-5:["Phase 5 — Domain Modeling & Portfolio","Days 81–100 · Time series, anomaly detection, GIS, Streamlit and capstone"]
-};
-
-const days = [
-/* PHASE 1 */
-[1,1,"Python Environment & Reproducible Projects",
-"Install Python, VS Code/Jupyter and Git. Learn virtual environments, project structure, requirements files and the basic execution cycle.",
-"Create a clean-energy project repository with README, virtual environment instructions and a script that loads a small solar-generation CSV and prints summary statistics.",
-"Create an aerospace telemetry repository with README, environment setup and a script that loads engine sensor CSV data and prints row/column metadata.",
-"feat: initialize reproducible energy and aerospace DS projects",
-"Day 1: I set up my first reproducible data-science environment and applied it to physical-industry data. The goal is not just learning Python—it is learning to build analysis that another engineer can reproduce."],
-
-[2,1,"Python Variables, Types & Control Flow",
-"Learn strings, numbers, lists, dictionaries, tuples, booleans, conditionals and loops. Focus on writing readable engineering-oriented Python.",
-"Calculate daily solar-energy KPIs from hourly observations: total generation, peak output, average output and capacity-factor approximation.",
-"Calculate engine telemetry KPIs: average temperature, maximum vibration and number of observations exceeding engineering thresholds.",
-"feat: add Python engineering KPI calculations",
-"Day 2: I translated physical measurements into Python KPIs. This is where programming starts becoming useful for engineering decision-making."],
-
-[3,1,"Functions & Modular Code",
-"Learn functions, parameters, return values, scope and basic error handling. Convert repeated calculations into reusable modules.",
-"Build reusable functions for solar yield, capacity factor and missing-value percentage.",
-"Build reusable functions for sensor health, threshold violations and rolling summary statistics.",
-"refactor: convert engineering metrics into reusable functions",
-"Day 3: I refactored engineering calculations into reusable Python functions. Small functions are becoming the foundation of my future modeling pipeline."],
-
-[4,1,"Files, CSV & JSON",
-"Read/write CSV and JSON files and understand relative paths. Learn why raw, processed and output data should be separated.",
-"Build a raw→processed solar-data pipeline that cleans filenames, parses dates and exports a processed CSV.",
-"Build a raw→processed telemetry pipeline that standardizes sensor names and exports cleaned JSON metadata plus CSV observations.",
-"feat: build raw-to-processed data pipeline",
-"Day 4: I built my first raw-to-processed pipeline. Treating data preparation as an engineering workflow—not notebook magic—is a key data-science habit."],
-
-[5,1,"Exceptions, Logging & Validation",
-"Learn try/except, custom validation and Python logging. Treat bad data as an expected engineering condition.",
-"Validate solar records for impossible negative generation, invalid timestamps and missing site IDs; log rejected records.",
-"Validate telemetry for impossible sensor ranges, duplicate timestamps and missing engine IDs; create a validation report.",
-"feat: add automated data validation and logging",
-"Day 5: I added automated data validation to physical sensor data. Reliable predictive modeling starts with knowing which observations deserve trust."],
-
-[6,1,"Git Fundamentals",
-"Learn init, add, commit, branch, diff, log and revert. Practise small, descriptive commits.",
-"Version a solar-data cleaning script through three commits: initial, validation and improvement.",
-"Version an aerospace telemetry parser through three meaningful commits and document the evolution in the README.",
-"docs: document Git workflow for engineering analytics",
-"Day 6: I practised small, meaningful Git commits instead of dumping finished work into a repository. This makes analytical work auditable."],
-
-[7,1,"GitHub & Markdown",
-"Learn repository structure, Markdown, issues, pull requests and README conventions.",
-"Create a GitHub solar-analysis README with dataset source, assumptions, methodology and results screenshot.",
-"Create an aerospace telemetry README with sensor definitions, assumptions, limitations and results screenshot.",
-"docs: publish first engineering analytics README",
-"Day 7: I turned a data experiment into a documented engineering project. Good data science needs technical communication as much as algorithms."],
-
-[8,1,"Python Lists, Dicts & Comprehensions",
-"Deepen Python collection handling and learn list/dict comprehensions.",
-"Transform site-level solar records into nested dictionaries and generate a site KPI summary.",
-"Transform aircraft/engine sensor records into nested dictionaries and produce per-engine KPI summaries.",
-"feat: add structured telemetry and site KPI summaries",
-"Day 8: I used Python data structures to organize multi-site and multi-engine observations. This is the bridge from toy scripts to real analytical datasets."],
-
-[9,1,"SQL SELECT & Filtering",
-"Learn SELECT, WHERE, ORDER BY, LIMIT and aliases using SQLite or PostgreSQL.",
-"Query a solar-generation table for German sites, high-output intervals and selected dates.",
-"Query a telemetry table for specific engines, sensor thresholds and abnormal observations.",
-"feat: add SQL filtering queries for physical-industry data",
-"Day 9: I started using SQL to interrogate engineering data directly. Data scientists need to ask precise questions before they build models."],
-
-[10,1,"SQL Aggregations",
-"Learn COUNT, SUM, AVG, MIN, MAX, GROUP BY and HAVING.",
-"Calculate daily energy, average output and peak generation by renewable site.",
-"Calculate average temperature, vibration and failure-warning counts by engine.",
-"feat: add SQL engineering KPI aggregation queries",
-"Day 10: I generated engineering KPIs directly in SQL. Aggregation is one of the most valuable skills for turning raw measurements into model-ready features."],
-
-[11,1,"SQL JOINs",
-"Learn INNER, LEFT and multiple-table joins. Understand keys and one-to-many relationships.",
-"Join renewable sites, weather metadata and generation observations to produce a site-weather dataset.",
-"Join aircraft, engine and sensor tables to create an integrated telemetry dataset.",
-"feat: join engineering telemetry and metadata tables",
-"Day 11: I joined measurement data with engineering metadata. Context matters: a sensor value without asset information is often incomplete."],
-
-[12,1,"SQL CASE & Data Cleaning",
-"Learn CASE WHEN, NULL handling, COALESCE and conditional aggregation.",
-"Create a solar-quality flag using generation, weather and timestamp rules.",
-"Create a telemetry health flag using sensor thresholds and missingness rules.",
-"feat: add SQL data-quality classification",
-"Day 12: I used SQL to turn messy observations into explicit quality categories. Making assumptions visible is essential for trustworthy modeling."],
-
-[13,1,"SQL Window Functions",
-"Learn ROW_NUMBER, LAG, LEAD and rolling/window concepts.",
-"Calculate previous-hour solar output and hour-over-hour change by site.",
-"Calculate previous sensor reading and vibration change by engine.",
-"feat: add temporal SQL features with window functions",
-"Day 13: I generated temporal features directly in SQL. Understanding sequence is critical for energy forecasting and predictive maintenance."],
-
-[14,1,"SQL Data Modeling",
-"Understand normalized tables, primary keys, foreign keys and analytical schemas.",
-"Design a small renewable-energy database containing sites, weather, generation and equipment tables.",
-"Design an aerospace telemetry schema containing aircraft, engines, flights, sensors and maintenance events.",
-"docs: design renewable and aerospace analytical schemas",
-"Day 14: I designed two analytical schemas for physical industries. Data architecture decisions can determine whether later modeling is easy or painful."],
-
-[15,1,"Python + SQL Integration",
-"Connect Python to SQLite/PostgreSQL and query data into Pandas.",
-"Build a Python script that queries solar KPIs from SQL and exports a modelling dataset.",
-"Build a Python script that queries engine-health features and exports a modelling dataset.",
-"feat: connect Python analytics to SQL datasets",
-"Day 15: I connected Python and SQL into one workflow. This is the beginning of a realistic data-science stack."],
-
-[16,1,"Testing Analytical Code",
-"Learn basic assertions and pytest concepts. Test calculations rather than trusting notebook cells.",
-"Write tests for solar capacity factor, daily yield and invalid-input handling.",
-"Write tests for sensor threshold detection, vibration KPI and missing-data handling.",
-"test: add engineering metric unit tests",
-"Day 16: I added tests to engineering calculations. Predictive systems need confidence in their feature-generation code before model training begins."],
-
-[17,1,"Documentation as Code",
-"Learn structured README sections, assumptions, data dictionaries and reproducibility notes.",
-"Create a data dictionary for solar-generation, weather and site variables.",
-"Create a telemetry data dictionary covering engine sensor names, units and physical meaning.",
-"docs: add engineering data dictionaries",
-"Day 17: I documented variables like an engineer, not just a programmer. Knowing what a feature physically represents will matter when interpreting models."],
-
-[18,1,"Command-Line Data Scripts",
-"Learn argparse and build reusable command-line scripts.",
-"Create `python pipeline.py --site DE01 --date 2026-01-01` to generate a solar report.",
-"Create `python pipeline.py --engine E01 --report health` to generate an engine-health report.",
-"feat: add command-line engineering analytics",
-"Day 18: I converted notebook-style analysis into reusable command-line tooling. This is a major step toward production-quality data science."],
-
-[19,1,"Mini Data Pipeline",
-"Combine ingestion, validation, transformation, analysis and output into one pipeline.",
-"Build an end-to-end European solar-data pipeline with logs, validation report and KPI CSV.",
-"Build an end-to-end telemetry pipeline with validation, feature extraction and engine-health CSV.",
-"feat: build first end-to-end data pipeline",
-"Day 19: I built an end-to-end physical-data pipeline. Instead of analysing one table, I now have a repeatable analytical workflow."],
-
-[20,1,"Phase 1 Portfolio Project",
-"Consolidate Python, SQL, Git and documentation into a polished mini-project.",
-"Publish a German solar-performance analytics repository with SQL queries, Python pipeline, README and charts.",
-"Publish a turbofan/telemetry health analytics repository with SQL, Python, validation and engineering interpretation.",
-"feat: publish Phase 1 physical-industry analytics portfolio",
-"Day 20: Phase 1 complete. I now have a documented Python + SQL project grounded in real engineering data rather than generic tutorials."],
-
-/* PHASE 2 */
-[21,2,"NumPy Arrays",
-"Learn ndarray, shape, dtype, indexing and vectorisation.",
-"Calculate solar-generation transformations using NumPy arrays instead of Python loops.",
-"Calculate normalized engine sensor arrays and vibration statistics using NumPy.",
-"feat: vectorize physical-industry calculations with NumPy",
-"Day 21: I replaced manual loops with vectorized NumPy operations. Efficient numerical computing is the foundation beneath modern ML libraries."],
-
-[22,2,"NumPy Broadcasting",
-"Learn broadcasting and element-wise operations.",
-"Apply site-specific capacity and irradiance scaling to solar observations.",
-"Apply sensor-specific calibration offsets and scaling factors to telemetry arrays.",
-"feat: add vectorized sensor calibration",
-"Day 22: I used broadcasting for multi-sensor engineering calculations. The same idea appears constantly in scientific and ML workflows."],
-
-[23,2,"Pandas Series & DataFrames",
-"Learn Series, DataFrame creation, indexing and column operations.",
-"Create a Pandas solar dataset and calculate site-level KPIs.",
-"Create a Pandas engine telemetry dataset and calculate sensor KPIs.",
-"feat: build Pandas physical-data analysis tables",
-"Day 23: I moved from raw arrays to DataFrames designed for analysis. Pandas is becoming my main language for structured engineering data."],
-
-[24,2,"Pandas Filtering & Sorting",
-"Master boolean masks, query, sort_values and selection.",
-"Find the best/worst renewable sites and intervals using multiple conditions.",
-"Identify engines with abnormal combinations of temperature and vibration.",
-"feat: add condition-based engineering analytics",
-"Day 24: I used Pandas to isolate engineering conditions instead of manually inspecting rows. This is the first layer of analytical reasoning."],
-
-[25,2,"Missing Data",
-"Learn isna, fillna, interpolation and missingness analysis.",
-"Measure and visualize missing solar observations by site and month.",
-"Measure sensor missingness by engine and sensor type; compare failure-warning periods.",
-"feat: analyse missingness across physical sensors",
-"Day 25: I analysed missing data as a signal rather than simply deleting it. In industrial datasets, missingness itself can contain information."],
-
-[26,2,"Duplicates & Data Types",
-"Handle duplicates, datetime parsing, categorical types and numeric coercion.",
-"Clean European solar timestamps and duplicate site observations.",
-"Clean telemetry timestamps, duplicate sensor packets and numeric sensor fields.",
-"fix: standardize timestamps and duplicate handling",
-"Day 26: I cleaned timestamp and duplicate problems that can silently corrupt models. Data quality is now treated as an engineering requirement."],
-
-[27,2,"GroupBy & Aggregation",
-"Master groupby, agg and multi-index results.",
-"Produce daily/monthly solar statistics by site and technology.",
-"Produce flight/engine-level telemetry summaries by sensor and operational phase.",
-"feat: add hierarchical engineering aggregations",
-"Day 27: I created hierarchical engineering summaries with Pandas. Good aggregation helps reveal patterns that individual observations hide."],
-
-[28,2,"Merge, Join & Concat",
-"Master Pandas merge, join and concat operations.",
-"Combine solar generation, weather and site metadata into one analytical table.",
-"Combine engine telemetry, flight metadata and maintenance records.",
-"feat: integrate multi-source engineering datasets",
-"Day 28: I integrated multiple data sources into analysis-ready tables. Real-world data science is often an integration problem before it becomes a modeling problem."],
-
-[29,2,"Datetime Engineering",
-"Learn datetime extraction, resampling, time zones and elapsed time.",
-"Create hour, weekday, month, season and daylight-duration features for solar generation.",
-"Create flight duration, operational phase and elapsed-time features for telemetry.",
-"feat: engineer temporal features from physical data",
-"Day 29: I transformed timestamps into meaningful engineering features. Time is often one of the strongest predictors in physical systems."],
-
-[30,2,"Resampling",
-"Learn hourly/daily/monthly resampling and frequency conversion.",
-"Convert high-frequency solar data into daily/monthly energy summaries.",
-"Convert telemetry into operational-window summaries and daily engine-health metrics.",
-"feat: add time-frequency aggregation pipelines",
-"Day 30: I learned how changing time resolution changes the story in engineering data. Choosing the right granularity is a modeling decision."],
-
-[31,2,"Matplotlib Fundamentals",
-"Learn figures, axes, labels, legends, annotations and subplots.",
-"Plot solar generation profiles for multiple European sites.",
-"Plot engine sensor trajectories across operating cycles.",
-"feat: visualize physical signals with Matplotlib",
-"Day 31: I created my first engineering signal visualizations with Matplotlib. Visual inspection is still one of the fastest ways to discover bad assumptions."],
-
-[32,2,"Seaborn Statistical Graphics",
-"Learn distributions, boxplots, scatterplots, heatmaps and categorical plots.",
-"Compare solar output distributions across sites and seasons.",
-"Compare sensor distributions across engines and operating conditions.",
-"feat: add statistical visual diagnostics",
-"Day 32: I used statistical plots to compare physical populations. Before building models, I want to understand how the data behaves."],
-
-[33,2,"Correlation Analysis",
-"Learn covariance, Pearson correlation and correlation matrices while avoiding causal overclaims.",
-"Build a correlation matrix between irradiance, temperature, wind and solar output.",
-"Build a sensor correlation matrix and identify redundant telemetry channels.",
-"feat: analyse feature correlations in engineering data",
-"Day 33: I used correlations to discover relationships and redundancy. Correlation is useful—but I am deliberately learning not to confuse it with causation."],
-
-[34,2,"Outliers",
-"Identify outliers with IQR, z-scores and domain thresholds.",
-"Compare statistical solar outliers with physically impossible generation values.",
-"Compare statistical telemetry outliers with known sensor operating limits.",
-"feat: combine statistical and engineering outlier detection",
-"Day 34: I compared statistical outliers with engineering limits. Domain knowledge can make anomaly detection much more meaningful."],
-
-[35,2,"Feature Engineering",
-"Transform raw observations into model-ready features.",
-"Create lagged generation, rolling averages, irradiance ratios and seasonal indicators.",
-"Create sensor deltas, rolling vibration, temperature gradients and operating-cycle features.",
-"feat: engineer first predictive features",
-"Day 35: I created predictive features from raw physical measurements. Feature engineering is where domain understanding begins to directly influence ML."],
-
-[36,2,"Data Leakage",
-"Understand target leakage, temporal leakage and train/test contamination.",
-"Demonstrate how future solar generation accidentally leaks into a forecast feature, then fix it.",
-"Demonstrate maintenance-event leakage in engine-failure prediction and remove the leaked feature.",
-"docs: demonstrate and prevent predictive data leakage",
-"Day 36: I deliberately created and fixed data leakage. Learning how models become deceptively accurate is as important as learning how to improve them."],
-
-[37,2,"GeoPandas Fundamentals",
-"Learn GeoDataFrames, geometry, CRS and spatial joins.",
-"Map European renewable sites using GeoPandas and country boundaries.",
-"Map aircraft/airport locations and associate telemetry records with geographic regions.",
-"feat: add geospatial engineering analysis",
-"Day 37: I added geography to physical-industry analytics. Location changes the context of both energy resources and aviation operations."],
-
-[38,2,"Coordinate Reference Systems",
-"Understand latitude/longitude, projected CRS and distance calculations.",
-"Calculate distances between renewable sites and grid/urban reference points.",
-"Calculate aircraft/airport distances and regional operating ranges.",
-"feat: calculate engineering distances with projected CRS",
-"Day 38: I learned why coordinate systems matter before measuring distance. GIS is not just plotting points—it is mathematical spatial analysis."],
-
-[39,2,"Spatial Aggregation",
-"Learn spatial joins and geographic aggregation.",
-"Aggregate renewable capacity by German state or European NUTS region.",
-"Aggregate flight observations or airports by European region.",
-"feat: aggregate engineering metrics geographically",
-"Day 39: I aggregated physical data spatially. This creates a foundation for resource assessment and network-level modeling."],
-
-[40,2,"Phase 2 Analysis Project",
-"Combine NumPy, Pandas, visualization and GeoPandas into one analytical report.",
-"Build a European renewable-site performance dashboard notebook with maps, distributions and engineered features.",
-"Build a European aviation/telemetry exploratory notebook with maps, sensor distributions and operational features.",
-"feat: publish Phase 2 engineering EDA portfolio",
-"Day 40: Phase 2 complete. I can now take messy physical data, clean it, explore it, engineer features and explain the patterns visually."],
-
-/* PHASE 3 */
-[41,3,"Linear Algebra: Vectors",
-"Understand vectors, dimensions, dot products and geometric interpretation.",
-"Represent a renewable site using a feature vector and calculate similarity between sites.",
-"Represent engine operating states as vectors and calculate sensor-profile similarity.",
-"feat: apply vectors to physical system states",
-"Day 41: I started learning linear algebra through engineering states instead of abstract symbols. Vectors are becoming representations of physical systems."],
-
-[42,3,"Matrices",
-"Learn matrices, matrix multiplication, transpose and shape compatibility.",
-"Represent multiple renewable sites and features as a matrix; calculate site-feature transformations.",
-"Represent multiple engines and sensor channels as a telemetry matrix.",
-"feat: model engineering datasets as matrices",
-"Day 42: I represented engineering datasets mathematically as matrices. This is the language underlying many ML algorithms."],
-
-[43,3,"Matrix Inverse & Systems",
-"Understand linear systems, inverse intuition and why numerical methods matter.",
-"Solve a small linear energy-balance system using NumPy.",
-"Solve a simplified structural/telemetry calibration system using matrix operations.",
-"feat: solve engineering systems with linear algebra",
-"Day 43: I connected linear algebra with engineering equations. The math behind ML is becoming less abstract and more practical."],
-
-[44,3,"Eigenvalues & PCA Intuition",
-"Understand eigenvectors/eigenvalues and why PCA finds dominant directions.",
-"Apply PCA to renewable features and visualize dominant variability.",
-"Apply PCA to engine telemetry and identify dominant operating modes.",
-"feat: apply PCA to engineering feature spaces",
-"Day 44: I used PCA to compress high-dimensional engineering data. Dimensionality reduction can reveal system states hidden across many sensors."],
-
-[45,3,"Probability Foundations",
-"Learn random variables, distributions, expectation and variance.",
-"Model uncertainty in hourly renewable generation using empirical distributions.",
-"Model uncertainty in engine sensor readings and operating conditions.",
-"feat: quantify uncertainty in physical measurements",
-"Day 45: I started treating engineering measurements probabilistically. Real systems are uncertain, noisy and variable."],
-
-[46,3,"Common Distributions",
-"Study normal, binomial, Poisson and exponential distributions.",
-"Identify candidate distributions for renewable forecast errors and event counts.",
-"Identify candidate distributions for sensor errors, alert counts and maintenance intervals.",
-"feat: compare probability distributions for engineering data",
-"Day 46: I compared probability distributions against real engineering behavior. Distribution choice should follow data—not convenience."],
-
-[47,3,"Conditional Probability & Bayes",
-"Learn conditional probability, Bayes' theorem and diagnostic reasoning.",
-"Estimate probability of low solar output given cloudy weather.",
-"Estimate probability of impending engine abnormality given a sensor warning.",
-"feat: build Bayesian engineering risk examples",
-"Day 47: I applied conditional probability to engineering risk. Predictive maintenance and energy forecasting both depend on reasoning under uncertainty."],
-
-[48,3,"Sampling",
-"Understand populations, samples, bias and sampling distributions.",
-"Compare random versus time-block sampling of renewable observations.",
-"Compare random versus flight-based sampling of telemetry records.",
-"feat: evaluate sampling strategies for sensor datasets",
-"Day 48: I explored how sampling strategy changes conclusions. Industrial data rarely behaves like an independent textbook sample."],
-
-[49,3,"Central Limit Theorem",
-"Understand sampling means and why approximate normality emerges.",
-"Simulate solar-generation sample means and visualize convergence.",
-"Simulate sensor sample means under different operating conditions.",
-"feat: demonstrate CLT using engineering measurements",
-"Day 49: I demonstrated the Central Limit Theorem using physical measurements. Simulation made the statistical concept much more intuitive."],
-
-[50,3,"Confidence Intervals",
-"Calculate and interpret confidence intervals for engineering KPIs.",
-"Estimate confidence intervals for average daily solar output by site.",
-"Estimate confidence intervals for mean engine vibration by operating state.",
-"feat: add confidence intervals to engineering KPIs",
-"Day 50: I stopped reporting engineering averages without uncertainty. A point estimate alone can hide how uncertain the conclusion really is."],
-
-[51,3,"Hypothesis Testing",
-"Learn null/alternative hypotheses, p-values and test statistics.",
-"Test whether two renewable sites have significantly different mean generation.",
-"Test whether two engine groups have significantly different vibration levels.",
-"feat: perform engineering hypothesis tests",
-"Day 51: I used hypothesis testing to compare physical systems. Statistical significance is now part of my engineering analysis toolkit."],
-
-[52,3,"t-tests",
-"Learn one-sample and two-sample t-tests and assumptions.",
-"Test whether a solar site's average output differs from a benchmark.",
-"Test whether post-maintenance vibration differs from pre-maintenance vibration.",
-"feat: add t-test based engineering comparisons",
-"Day 52: I used t-tests to quantify differences between engineering conditions. The important part is interpreting the result in physical context."],
-
-[53,3,"ANOVA",
-"Learn one-way ANOVA and post-hoc reasoning.",
-"Compare solar output across three site locations or technologies.",
-"Compare sensor behavior across multiple aircraft operating phases.",
-"feat: compare multiple engineering groups with ANOVA",
-"Day 53: I moved from comparing two groups to multiple engineering groups. ANOVA gives me a structured way to ask whether variation is meaningful."],
-
-[54,3,"Correlation vs Causation",
-"Study confounding, spurious correlation and controlled comparisons.",
-"Investigate temperature-generation correlation while controlling for irradiance.",
-"Investigate vibration-temperature relationships while considering engine operating state.",
-"docs: investigate correlation versus causation in physical systems",
-"Day 54: I investigated why correlated engineering signals do not automatically imply causation. Domain context is essential for responsible modeling."],
-
-[55,3,"Calculus: Derivatives",
-"Understand derivatives as rates of change and gradients.",
-"Calculate rate of change of solar output around sunrise/sunset.",
-"Calculate temperature and vibration rates of change during engine operation.",
-"feat: calculate engineering signal gradients",
-"Day 55: I used derivatives to quantify how quickly physical signals change. Rates of change can be more informative than absolute values."],
-
-[56,3,"Optimization Intuition",
-"Understand objective functions, gradients and minimization/maximization.",
-"Optimize a simple solar-tilt simulation for annual energy yield.",
-"Optimize a simplified sensor threshold to balance false alarms and missed events.",
-"feat: optimize engineering objectives with Python",
-"Day 56: I connected optimization with engineering decisions. Machine learning ultimately becomes useful when it improves an objective."],
-
-[57,3,"Regression from Scratch",
-"Derive and implement simple linear regression using NumPy before using Scikit-learn.",
-"Predict solar output from irradiance using a manually implemented regression.",
-"Predict a sensor measurement from another sensor using manual regression.",
-"feat: implement linear regression from scratch",
-"Day 57: I implemented regression before reaching for Scikit-learn. Understanding the mechanics makes later model behavior much easier to interpret."],
-
-[58,3,"Residuals & Model Diagnostics",
-"Learn residuals, MAE, MSE, RMSE and R².",
-"Evaluate solar-output regression and visualize residual patterns.",
-"Evaluate telemetry regression and investigate residuals across operating states.",
-"feat: add regression diagnostics and error analysis",
-"Day 58: I learned that a model is more than its score. Residual analysis can reveal systematic physical behavior that a headline metric hides."],
-
-[59,3,"EDA Case Study",
-"Combine statistical inference, distributions, correlations and diagnostics.",
-"Complete a statistically rigorous European solar performance EDA.",
-"Complete a statistically rigorous aerospace telemetry EDA.",
-"feat: publish statistically driven engineering EDA",
-"Day 59: I combined statistics and engineering EDA into one analysis. I am now asking not only what happened, but how confident I should be."],
-
-[60,3,"Phase 3 Statistics Portfolio",
-"Package the mathematics and statistics work into a reproducible case study.",
-"Publish a solar-generation uncertainty and statistical comparison report.",
-"Publish an engine-health uncertainty and statistical comparison report.",
-"feat: publish Phase 3 statistics portfolio",
-"Day 60: Phase 3 complete. I now have the mathematical and statistical foundation needed to understand, evaluate and explain ML models."],
-
-/* PHASE 4 */
-[61,4,"Scikit-learn Workflow",
-"Learn train/test splits, estimators, fit/predict and evaluation.",
-"Build a baseline solar-output prediction model.",
-"Build a baseline engine-health regression model.",
-"feat: train first Scikit-learn engineering models",
-"Day 61: I trained my first Scikit-learn models on physical data. The focus is now shifting from analysis toward prediction."],
-
-[62,4,"Preprocessing Pipelines",
-"Learn StandardScaler, SimpleImputer, ColumnTransformer and Pipeline.",
-"Create a leakage-safe solar prediction pipeline for numerical and categorical variables.",
-"Create a leakage-safe telemetry prediction pipeline for mixed sensor and metadata features.",
-"feat: build leakage-safe preprocessing pipelines",
-"Day 62: I built preprocessing pipelines instead of manually transforming datasets. Reproducibility and leakage prevention now happen by design."],
-
-[63,4,"Linear Regression",
-"Study linear regression, coefficients and regularization intuition.",
-"Predict renewable generation using weather and historical features.",
-"Predict engine remaining-life proxy from telemetry features.",
-"feat: build interpretable physical regression models",
-"Day 63: I built interpretable regression models for physical systems. Coefficients provide a useful first bridge between ML and engineering reasoning."],
-
-[64,4,"Ridge & Lasso",
-"Learn regularization, shrinkage and feature selection.",
-"Compare Ridge and Lasso for renewable generation prediction.",
-"Compare Ridge and Lasso for high-dimensional engine telemetry.",
-"feat: compare regularized engineering regressors",
-"Day 64: I compared regularization strategies on engineering data. More features do not automatically mean a better model."],
-
-[65,4,"Cross-Validation",
-"Learn K-fold cross-validation and why one train/test split can mislead.",
-"Compare cross-validation strategies for solar prediction.",
-"Compare cross-validation strategies for engine-health prediction.",
-"feat: add cross-validation to predictive models",
-"Day 65: I moved beyond a single train/test split. Reliable model evaluation needs to reflect how the system will actually be used."],
-
-[66,4,"Decision Trees",
-"Learn recursive splits, depth, overfitting and interpretability.",
-"Predict low/high solar-production classes using a decision tree.",
-"Predict engine-warning classes using a decision tree.",
-"feat: add interpretable decision-tree classifiers",
-"Day 66: I trained decision trees for engineering classification. Their rule-like structure makes them particularly useful for explaining baseline decisions."],
-
-[67,4,"Random Forest",
-"Learn bagging, bootstrap samples and random feature selection.",
-"Predict renewable output or low-generation events with Random Forest.",
-"Predict engine anomaly/failure risk with Random Forest.",
-"feat: train Random Forest engineering models",
-"Day 67: I trained Random Forest models and compared them with simpler baselines. Ensemble methods can capture nonlinear relationships without excessive feature engineering."],
-
-[68,4,"Gradient Boosting",
-"Learn boosting and sequential error correction.",
-"Build a gradient-boosted solar production model.",
-"Build a gradient-boosted engine-health model.",
-"feat: train gradient boosting models",
-"Day 68: I tested boosting on physical data. I am learning when model complexity genuinely improves predictive performance."],
-
-[69,4,"Classification Metrics",
-"Learn precision, recall, F1, ROC-AUC and confusion matrices.",
-"Evaluate low-generation event detection with business/engineering-oriented metrics.",
-"Evaluate engine-failure warning classification with emphasis on recall.",
-"feat: evaluate engineering classifiers with operational metrics",
-"Day 69: I learned that accuracy alone is not enough. In predictive maintenance, missing a failure can be far more costly than raising an extra warning."],
-
-[70,4,"Regression Metrics",
-"Compare MAE, RMSE, MAPE and R² and understand when each fails.",
-"Compare solar forecasting models using multiple error metrics.",
-"Compare remaining-life prediction models using MAE/RMSE and degradation plots.",
-"feat: compare regression models with domain metrics",
-"Day 70: I compared regression models using metrics that reflect actual engineering consequences. Evaluation must match the decision being supported."],
-
-[71,4,"Hyperparameter Tuning",
-"Learn GridSearchCV and RandomizedSearchCV.",
-"Tune Random Forest/Gradient Boosting for solar prediction.",
-"Tune an ensemble model for engine-health prediction.",
-"feat: tune physical-system ML models",
-"Day 71: I introduced systematic hyperparameter tuning. I am learning to improve models without turning experimentation into guesswork."],
-
-[72,4,"Feature Importance",
-"Learn permutation importance and tree-based feature importance.",
-"Rank the weather/history variables most important for renewable prediction.",
-"Rank telemetry sensors most important for engine-health prediction.",
-"feat: rank predictive engineering features",
-"Day 72: I identified which measurements drive model predictions. This creates a direct bridge between ML and engineering interpretation."],
-
-[73,4,"SHAP Explainability",
-"Learn local/global SHAP explanations and feature contribution.",
-"Explain individual solar-production predictions with SHAP.",
-"Explain individual engine-health predictions with SHAP.",
-"feat: add SHAP explanations to engineering models",
-"Day 73: I used SHAP to explain individual predictions. A specialist data scientist must be able to answer not only 'what predicted?' but 'why?'" ],
-
-[74,4,"Clustering",
-"Learn K-Means, scaling and cluster interpretation.",
-"Cluster renewable sites into operational/resource profiles.",
-"Cluster engines into operating-condition profiles based on telemetry.",
-"feat: cluster physical systems by operating behavior",
-"Day 74: I used unsupervised learning to discover groups without predefined labels. This can reveal operating regimes that supervised models overlook."],
-
-[75,4,"PCA + Clustering",
-"Combine dimensionality reduction and clustering.",
-"Create a PCA/K-Means map of renewable site behavior.",
-"Create a PCA/K-Means map of engine operating states.",
-"feat: combine PCA and clustering for system-state discovery",
-"Day 75: I combined PCA and clustering to visualize complex physical states. High-dimensional telemetry can become surprisingly interpretable."],
-
-[76,4,"Imbalanced Data",
-"Learn class imbalance, class weights, stratified splits and appropriate metrics.",
-"Detect rare low-generation events with an imbalanced classifier.",
-"Detect rare engine-failure warnings with class-weighted models.",
-"feat: handle rare-event engineering classification",
-"Day 76: I worked with rare engineering events. Rare does not mean unimportant—often it means the cost of missing it is higher."],
-
-[77,4,"Model Selection",
-"Compare baselines, linear models, trees and ensembles using consistent evaluation.",
-"Build a model leaderboard for renewable prediction.",
-"Build a model leaderboard for engine-health prediction.",
-"feat: create engineering model comparison leaderboard",
-"Day 77: I created a reproducible model leaderboard. Model selection is becoming a measured engineering process rather than intuition."],
-
-[78,4,"Error Analysis",
-"Slice errors by time, location, operating condition and target magnitude.",
-"Investigate when renewable predictions fail: cloudy days, seasons or sites.",
-"Investigate when engine predictions fail: operating regimes, engines or degradation stages.",
-"feat: perform segmented predictive error analysis",
-"Day 78: I analysed where models fail instead of only celebrating average performance. Failure modes are often more valuable than a single score."],
-
-[79,4,"ML Experiment Tracking",
-"Learn experiment metadata, seeds, model versions and structured result logs.",
-"Create an experiment CSV/JSON tracking solar models, features, metrics and parameters.",
-"Create an experiment tracker for telemetry models and degradation experiments.",
-"feat: add reproducible ML experiment tracking",
-"Day 79: I started tracking experiments systematically. A portfolio becomes much stronger when every result can be reproduced and compared."],
-
-[80,4,"Phase 4 ML Portfolio",
-"Publish a complete supervised/unsupervised ML case study.",
-"Publish a renewable forecasting/classification repository with model comparison and SHAP.",
-"Publish an aerospace predictive-maintenance repository with model comparison, rare-event handling and SHAP.",
-"feat: publish Phase 4 predictive modeling portfolio",
-"Day 80: Phase 4 complete. I now have end-to-end ML projects with evaluation, feature engineering, explainability and experiment tracking."],
-
-/* PHASE 5 */
-[81,5,"Time-Series Foundations",
-"Understand temporal ordering, autocorrelation, stationarity and why random splits can be dangerous.",
-"Analyse hourly European solar generation and identify daily/seasonal patterns.",
-"Analyse engine telemetry sequences and identify degradation patterns.",
-"feat: analyse temporal structure in physical systems",
-"Day 81: I moved from static ML into time-series modeling. Physical systems evolve through time, so the validation strategy must respect that."],
-
-[82,5,"Lag Features",
-"Build lagged and lead-safe features without leakage.",
-"Create 1h, 6h, 24h and 7-day solar-generation lags.",
-"Create lagged sensor, vibration and temperature features for engine-health prediction.",
-"feat: add temporal lag features",
-"Day 82: I engineered lag features for physical systems. Historical state is often one of the strongest predictors of future state."],
-
-[83,5,"Rolling Statistics",
-"Learn rolling mean, standard deviation, min/max and exponentially weighted statistics.",
-"Build rolling solar-generation and weather features.",
-"Build rolling vibration/temperature statistics and sensor-volatility features.",
-"feat: add rolling temporal features",
-"Day 83: I transformed noisy sensor sequences into stable rolling features. This is a core technique for both forecasting and predictive maintenance."],
-
-[84,5,"Forecasting Baselines",
-"Build persistence, moving-average and seasonal-naive baselines.",
-"Forecast next-hour and next-day solar generation with simple baselines.",
-"Forecast the next telemetry value using persistence and rolling-average baselines.",
-"feat: establish time-series forecasting baselines",
-"Day 84: I learned an important modeling rule: beat a simple baseline before celebrating a complex model."],
-
-[85,5,"ARIMA / Statistical Forecasting",
-"Understand ARIMA intuition and use Statsmodels for a simple forecast.",
-"Forecast solar generation for a selected European site.",
-"Forecast an engine-health metric over an operational sequence.",
-"feat: add statistical time-series forecasting",
-"Day 85: I compared classical time-series modeling with ML approaches. Not every forecasting problem needs a neural network."],
-
-[86,5,"Forecast Evaluation",
-"Use walk-forward validation and time-aware MAE/RMSE.",
-"Evaluate solar forecasting using rolling-origin validation.",
-"Evaluate telemetry forecasting using time-aware validation.",
-"feat: implement walk-forward forecast evaluation",
-"Day 86: I implemented time-aware validation. This prevents future information from quietly entering model training."],
-
-[87,5,"Anomaly Detection",
-"Learn statistical thresholds, Isolation Forest and anomaly scores.",
-"Detect abnormal solar-generation behavior from weather-adjusted expectations.",
-"Detect anomalous engine telemetry using Isolation Forest.",
-"feat: add unsupervised anomaly detection",
-"Day 87: I built anomaly detectors without requiring every anomaly to be labelled. This is especially useful when failures are rare."],
-
-[88,5,"Change-Point Detection",
-"Understand abrupt shifts and regime changes in time-series signals.",
-"Detect sudden changes in renewable generation patterns.",
-"Detect abrupt changes in engine vibration or temperature behavior.",
-"feat: detect physical-system regime changes",
-"Day 88: I explored change-point detection for physical systems. Detecting a shift early can be more useful than predicting an eventual failure."],
-
-[89,5,"Geospatial Resource Modeling",
-"Combine GeoPandas with statistical/ML features.",
-"Map solar resource and predicted generation across European locations.",
-"Map aircraft/airport activity or maintenance events across Europe.",
-"feat: build European geospatial predictive analysis",
-"Day 89: I combined ML features with geography. Spatial context can turn a model output into a useful planning decision."],
-
-[90,5,"Spatial Features",
-"Engineer distance, neighborhood, regional and spatial-context features.",
-"Create distance-to-grid/urban-center and regional resource features for renewable sites.",
-"Create airport-distance, route-region and operational-area features for aviation data.",
-"feat: engineer spatial predictive features",
-"Day 90: I created spatial features rather than treating latitude and longitude as ordinary numbers. Geography can encode real operational constraints."],
-
-[91,5,"Streamlit Fundamentals",
-"Build a simple interactive application with widgets, charts and model outputs.",
-"Create a Streamlit solar-performance explorer with site selection and KPI charts.",
-"Create a Streamlit telemetry explorer with engine selection and sensor charts.",
-"feat: build first physical-industry Streamlit app",
-"Day 91: I turned analysis into an interactive application. A model becomes much more valuable when another person can actually use it."],
-
-[92,5,"Model Inference App",
-"Load a saved model and perform real-time predictions in Streamlit.",
-"Build a solar-output prediction interface using weather inputs.",
-"Build an engine-health prediction interface using sensor inputs.",
-"feat: deploy interactive predictive inference",
-"Day 92: I connected a trained model to an interface. This is the step from notebook experiment toward usable data products."],
-
-[93,5,"Model Monitoring Concepts",
-"Learn drift, data-quality monitoring, prediction distributions and performance monitoring.",
-"Create simulated monitoring for solar forecast drift across seasons.",
-"Create simulated monitoring for sensor distribution drift and engine operating changes.",
-"feat: add model monitoring diagnostics",
-"Day 93: I explored what happens after deployment. A predictive model is not finished when training ends."],
-
-[94,5,"API Thinking",
-"Understand model-serving concepts, input schemas and prediction contracts.",
-"Create a documented prediction schema for a renewable-energy model.",
-"Create a documented telemetry prediction schema for an aerospace health model.",
-"docs: define predictive model input-output contracts",
-"Day 94: I documented model input/output contracts. Clear interfaces make analytical systems easier to integrate into real engineering workflows."],
-
-[95,5,"Portfolio Architecture",
-"Design a professional GitHub portfolio with reusable source, data, notebooks, tests and docs.",
-"Refactor the renewable project into `src/`, `data/`, `notebooks/`, `tests/`, `app/` and `docs/`.",
-"Refactor the aerospace project into the same production-oriented structure.",
-"refactor: restructure domain ML portfolio for production",
-"Day 95: I refactored my project like a real software/data product. The portfolio now demonstrates engineering discipline, not just model training."],
-
-[96,5,"Capstone — Renewable Track",
-"Define the final renewable-energy problem, target, features, evaluation protocol and deployment architecture.",
-"Build a renewable forecasting system: weather + historical generation → next-day generation prediction, with baseline, ML model, SHAP and Streamlit.",
-"Build an aerospace predictive-maintenance system: telemetry → health/failure-risk prediction, with baseline, ML model, SHAP and Streamlit.",
-"feat: implement final domain capstone v1",
-"Day 96: My final domain capstone is underway. I am combining the entire roadmap into one decision-oriented predictive system."],
-
-[97,5,"Capstone — Validation",
-"Stress-test the capstone with temporal splits, edge cases, missing data and error analysis.",
-"Validate renewable forecasts across seasons/sites and document where predictions fail.",
-"Validate aerospace predictions across engines/operating conditions and document failure modes.",
-"test: stress-test domain capstone models",
-"Day 97: I stress-tested my capstone rather than only reporting its best result. Robustness is a core requirement for industrial ML."],
-
-[98,5,"Capstone — Documentation",
-"Write technical documentation covering problem, data, assumptions, features, model, evaluation and limitations.",
-"Document renewable model methodology, dataset lineage, feature definitions and business/engineering interpretation.",
-"Document aerospace model methodology, telemetry definitions, degradation assumptions and limitations.",
-"docs: complete capstone technical documentation",
-"Day 98: I documented the complete modeling chain from raw data to prediction. This is where my technical-writing background becomes a competitive advantage."],
-
-[99,5,"Capstone — Showcase",
-"Create a polished README, architecture diagram, model card, screenshots and 90-second demo narrative.",
-"Produce a renewable-energy case-study page showing problem → data → model → evaluation → dashboard → impact.",
-"Produce an aerospace case-study page showing telemetry → model → anomaly/risk prediction → dashboard → impact.",
-"docs: publish final predictive modeling case study",
-"Day 99: I transformed the capstone into a portfolio case study. The objective is to make the engineering problem and model value understandable within minutes."],
-
-[100,5,"Final Portfolio & Job-Ready Showcase",
-"Audit all repositories, clean GitHub profiles, pin projects, create a skills matrix and publish the final 100-day retrospective.",
-"Publish the renewable-energy capstone, portfolio README, project architecture and LinkedIn showcase.",
-"Publish the aerospace predictive-maintenance capstone, portfolio README, project architecture and LinkedIn showcase.",
-"feat: complete 100-day predictive modeling portfolio",
-"Day 100: I completed 100 days of domain-driven data science. I now have a portfolio demonstrating Python, SQL, statistics, ML, time-series, geospatial analysis, explainability and deployment on real physical-industry problems."]
-];
-
-function render(){
-  const root=document.getElementById("roadmap");
-  root.innerHTML="";
-  for(let p=1;p<=5;p++){
-    const section=document.createElement("section");
-    section.className="phase";
-    section.dataset.phase=p;
-    section.innerHTML=`<h2>${phases[p][0]}</h2><p>${phases[p][1]}</p><div class="days"></div>`;
-    const list=section.querySelector(".days");
-
-    days.filter(d=>d[1]===p).forEach(d=>{
-      const el=document.createElement("details");
-      el.className="day";
-      el.dataset.phase=p;
-      el.dataset.text=d.join(" ").toLowerCase();
-      el.innerHTML=`
-        <summary>
-          <span class="num">${d[0]}</span>
-          <span class="day-title">Day ${d[0]}: ${d[2]}</span>
-          <input class="check" type="checkbox" aria-label="Mark Day ${d[0]} complete" onclick="event.stopPropagation()" onchange="saveProgress()">
-        </summary>
-        <div class="content">
-          <div class="card focus">
-            <h4>Core Learning Focus</h4>
-            <p>${d[3]}</p>
-          </div>
-          <div class="grid">
-            <div class="card energy">
-              <h4>🌱 Micro-Project Deliverable — Renewable Energy</h4>
-              <p>${d[4]}</p>
-            </div>
-            <div class="card aero">
-              <h4>✈️ Micro-Project Deliverable — Aerospace</h4>
-              <p>${d[5]}</p>
-            </div>
-          </div>
-          <div class="card github" style="margin-top:12px">
-            <h4>GitHub Commit Message</h4>
-            <p><code>${d[6]}</code></p>
-            <h4 style="margin-top:14px">LinkedIn Hook</h4>
-            <p>${d[7]}</p>
-          </div>
-        </div>`;
-      list.appendChild(el);
-    });
-    root.appendChild(section);
-  }
-  loadProgress();
-}
-
-function filterPhase(p,btn){
-  document.querySelectorAll(".controls button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  document.querySelectorAll(".phase").forEach(s=>{
-    s.style.display=(p==="all"||+s.dataset.phase===p)?"block":"none";
-  });
-}
-
-function toggleAll(){
-  const visible=[...document.querySelectorAll(".day")].filter(x=>x.closest(".phase").style.display!=="none");
-  const shouldOpen=visible.some(x=>!x.open);
-  visible.forEach(x=>x.open=shouldOpen);
-}
-
-function searchDays(){
-  const q=document.getElementById("search").value.toLowerCase().trim();
-  document.querySelectorAll(".day").forEach(d=>{
-    d.style.display=!q||d.dataset.text.includes(q)?"block":"none";
-    if(q&&d.dataset.text.includes(q)) d.open=true;
-  });
-  document.querySelectorAll(".phase").forEach(p=>{
-    const visible=[...p.querySelectorAll(".day")].some(d=>d.style.display!=="none");
-    p.style.display=visible?"block":"none";
-  });
-}
-
-function saveProgress(){
-  const state=[...document.querySelectorAll(".check")].map(x=>x.checked);
-  localStorage.setItem("ds100-progress",JSON.stringify(state));
-  updateProgress();
-}
-
-function loadProgress(){
-  try{
-    const state=JSON.parse(localStorage.getItem("ds100-progress")||"[]");
-    document.querySelectorAll(".check").forEach((x,i)=>x.checked=!!state[i]);
-  }catch(e){}
-  updateProgress();
-}
-
-function updateProgress(){
-  const boxes=[...document.querySelectorAll(".check")];
-  const done=boxes.filter(x=>x.checked).length;
-  document.getElementById("bar").style.width=(done/100*100)+"%";
-  document.getElementById("progressText").textContent=`${done} / 100 days completed`;
-}
-
-render();
-</script>
-</body>
-</html>
+const checks=[...document.querySelectorAll('.day-check')], search=document.querySelector('#search'), phase=document.querySelector('#phase');
+function update(){const n=checks.filter(x=>x.checked).length;document.querySelector('#barfill').style.width=(n)+'%';document.querySelector('#count').textContent=`${n} / 100 complete`;}
+checks.forEach(c=>{c.checked=localStorage.getItem('re100_'+c.dataset.day)==='1';c.addEventListener('change',()=>{localStorage.setItem('re100_'+c.dataset.day,c.checked?'1':'0');update();});});
+document.querySelectorAll('.day-toggle').forEach(b=>b.addEventListener('click',()=>{const card=b.closest('.day-card');card.classList.toggle('open');b.setAttribute('aria-expanded',card.classList.contains('open'));}));
+function filter(){const q=search.value.toLowerCase().trim(), p=phase.value;let visible=0;document.querySelectorAll('.day-card').forEach(c=>{const ok=(!q||c.dataset.search.includes(q))&&(p==='all'||c.dataset.phase===p);c.classList.toggle('hidden',!ok);if(ok)visible++;});document.querySelector('#empty').style.display=visible?'none':'block';}
+search.addEventListener('input',filter);phase.addEventListener('change',filter);
+document.querySelector('#reset').addEventListener('click',()=>{checks.forEach(c=>{c.checked=false;localStorage.removeItem('re100_'+c.dataset.day)});update();});
+update();
+</script></body></html>
