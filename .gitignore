@@ -1,0 +1,28 @@
+# Python & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Jupyter Notebook Artifacts
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data Directories (Keep folder structure, ignore contents)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+
+# IDE & OS Configuration
+.vscode/
+.idea/
+.DS_Store
+*.log
