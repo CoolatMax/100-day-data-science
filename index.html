@@ -1,1035 +1,1684 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>100-Day EU Renewable Energy Data Science Roadmap</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0a0f1d;
-      --bg-card: #111827;
-      --bg-card-hover: #1f293d;
-      --border-color: #1f293d;
-      --accent-green: #10b981;
-      --accent-teal: #14b8a6;
-      --accent-cyan: #06b6d4;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --text-subtle: #6b7280;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100-Day EU Renewable Energy Data Science Curriculum - Build in Public</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      line-height: 1.6;
-      display: flex;
-      min-height: 100vh;
-    }
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #252d3d;
+            --accent-primary: #00d9ff;
+            --accent-secondary: #00ff88;
+            --accent-warning: #ffa500;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #3a4455;
+            --success: #00d944;
+            --highlight: #ff006e;
+        }
 
-    /* Sidebar Navigation */
-    aside {
-      width: 300px;
-      background-color: #070a14;
-      border-right: 1px solid var(--border-color);
-      padding: 1.5rem;
-      position: fixed;
-      height: 100vh;
-      overflow-y: auto;
-      z-index: 100;
-    }
-    aside h2 {
-      font-size: 1.1rem;
-      color: var(--accent-green);
-      font-family: 'Fira Code', monospace;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    aside p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-    .nav-group { margin-bottom: 1.5rem; }
-    .nav-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 0.5rem; font-weight: 700; }
-    .nav-links { list-style: none; }
-    .nav-links li { margin-bottom: 0.4rem; }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      display: block;
-      padding: 0.4rem 0.6rem;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active {
-      background: var(--bg-card-hover);
-      color: var(--accent-teal);
-    }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
 
-    /* Main Content */
-    main {
-      margin-left: 300px;
-      flex: 1;
-      padding: 2.5rem;
-      max-width: 1200px;
-    }
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border-bottom: 2px solid var(--accent-primary);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+        }
 
-    header {
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 1.5rem;
-    }
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    header p { color: var(--text-muted); font-size: 1rem; }
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
 
-    /* Progress Tracker Widget */
-    .progress-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 1.2rem;
-      border-radius: 8px;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .progress-bar-container {
-      flex: 1;
-      height: 10px;
-      background: var(--bg-dark);
-      border-radius: 5px;
-      margin: 0 1.5rem;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
-      transition: width 0.3s ease;
-    }
-    .progress-text { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: var(--accent-green); }
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
 
-    /* Filter Controls */
-    .filters {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .filter-btn {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-muted);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--accent-green);
-      color: var(--bg-dark);
-      font-weight: 600;
-      border-color: var(--accent-green);
-    }
+        .container {
+            display: flex;
+            min-height: calc(100vh - 150px);
+        }
 
-    /* Accordion / Cards */
-    .day-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-    .day-card:hover { border-color: var(--accent-teal); }
-    .day-header {
-      padding: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      user-select: none;
-    }
-    .day-title-group { display: flex; align-items: center; gap: 1rem; }
-    .day-number {
-      font-family: 'Fira Code', monospace;
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--accent-green);
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    .day-title { font-size: 1.05rem; font-weight: 600; }
-    .day-tag {
-      font-size: 0.75rem;
-      background: var(--bg-dark);
-      color: var(--accent-cyan);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-    }
-    .day-content {
-      padding: 1.2rem;
-      border-top: 1px solid var(--border-color);
-      background: #0d1322;
-      display: none;
-    }
-    .day-content.open { display: block; }
-    
-    .section-block { margin-bottom: 1rem; }
-    .section-block h4 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      color: var(--accent-teal);
-      margin-bottom: 0.4rem;
-      font-family: 'Fira Code', monospace;
-    }
-    .section-block p, .section-block ul { font-size: 0.95rem; color: var(--text-main); }
-    .section-block ul { padding-left: 1.2rem; }
-    .section-block li { margin-bottom: 0.3rem; }
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 150px);
+        }
 
-    /* Code Snippet / Deliverable Box */
-    .deliverable-box {
-      background: var(--bg-dark);
-      border-left: 3px solid var(--accent-green);
-      padding: 0.8rem 1rem;
-      margin-top: 0.5rem;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
+        .sidebar h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    /* Checkbox styling */
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    .checkbox-container input { display: none; }
-    .checkmark {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--text-subtle);
-      border-radius: 4px;
-      display: inline-block;
-      position: relative;
-      transition: all 0.2s;
-    }
-    .checkbox-container input:checked ~ .checkmark {
-      background-color: var(--accent-green);
-      border-color: var(--accent-green);
-    }
-    .checkbox-container input:checked ~ .checkmark:after {
-      content: '✓';
-      position: absolute;
-      color: var(--bg-dark);
-      font-weight: bold;
-      font-size: 14px;
-      top: -2px;
-      left: 3px;
-    }
+        .phase-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--bg-tertiary);
+            border-left: 3px solid var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
 
-    /* Reference & Post Generator Sections */
-    .info-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .info-card h3 {
-      color: var(--accent-green);
-      font-family: 'Fira Code', monospace;
-      margin-bottom: 1rem;
-    }
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
-    }
-    .resource-item {
-      background: var(--bg-dark);
-      padding: 1rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-    }
-    .resource-item h4 { color: var(--accent-cyan); margin-bottom: 0.4rem; font-size: 0.95rem; }
-    .resource-item p { font-size: 0.85rem; color: var(--text-muted); }
-    .resource-item a { color: var(--accent-teal); text-decoration: none; font-size: 0.8rem; display: inline-block; margin-top: 0.5rem; }
+        .phase-link:hover,
+        .phase-link.active {
+            background-color: rgba(0, 217, 255, 0.1);
+            border-left-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
 
-    textarea {
-      width: 100%;
-      height: 120px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 0.8rem;
-      border-radius: 6px;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-      resize: vertical;
-    }
-  </style>
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: rgba(0, 217, 255, 0.2);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .progress-bar-container {
+            background-color: var(--bg-tertiary);
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .day-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+        }
+
+        .day-header {
+            background-color: var(--bg-tertiary);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            user-select: none;
+        }
+
+        .day-header:hover {
+            background-color: rgba(0, 217, 255, 0.05);
+        }
+
+        .day-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent-primary);
+        }
+
+        .day-number {
+            font-weight: bold;
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            min-width: 50px;
+        }
+
+        .day-title {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .day-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            background-color: rgba(0, 217, 255, 0.15);
+            border: 1px solid var(--accent-primary);
+            border-radius: 3px;
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag.ml { background-color: rgba(255, 160, 0, 0.15); border-color: var(--accent-warning); color: var(--accent-warning); }
+        .tag.energy { background-color: rgba(0, 255, 136, 0.15); border-color: var(--accent-secondary); color: var(--accent-secondary); }
+        .tag.python { background-color: rgba(0, 217, 255, 0.15); border-color: var(--accent-primary); color: var(--accent-primary); }
+        .tag.math { background-color: rgba(255, 0, 110, 0.15); border-color: var(--highlight); color: var(--highlight); }
+        .tag.mlops { background-color: rgba(0, 217, 144, 0.15); border-color: #00d990; color: #00d990; }
+
+        .day-content {
+            display: none;
+            padding: 1.5rem;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-primary);
+        }
+
+        .code-block {
+            background-color: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-secondary);
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            color: var(--accent-secondary);
+        }
+
+        .exercise-highlight {
+            background-color: rgba(255, 160, 0, 0.1);
+            border-left: 3px solid var(--accent-warning);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .deliverable {
+            background-color: rgba(0, 255, 136, 0.1);
+            border-left: 3px solid var(--accent-secondary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .linkedin-template {
+            background-color: var(--bg-tertiary);
+            border: 1px dashed var(--accent-primary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .reference-section {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .reference-section h2 {
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .reference-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .reference-card:hover {
+            border-color: var(--accent-secondary);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+        }
+
+        .reference-card h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .reference-card a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-primary);
+            transition: all 0.2s ease;
+        }
+
+        .reference-card a:hover {
+            color: var(--accent-secondary);
+            border-bottom-color: var(--accent-secondary);
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .collapse-icon {
+            transition: transform 0.3s ease;
+            color: var(--accent-primary);
+        }
+
+        .day-header.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 200px;
+                overflow-x: auto;
+            }
+
+            .main-content {
+                max-height: none;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .phase-link {
+                display: inline-block;
+                margin-right: 0.5rem;
+            }
+        }
+
+        .stats-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .eu-flag {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
 </head>
 <body>
-
-  <aside>
-    <h2>EU Grid DS</h2>
-    <p>100-Day EU Renewable Energy Curriculum</p>
-    
-    <div class="nav-group">
-      <div class="nav-title">Phases</div>
-      <ul class="nav-links">
-        <li><a href="#phase-1">Days 1-20: Foundations & Data Ops</a></li>
-        <li><a href="#phase-2">Days 21-40: Math, Stats & Energy EDA</a></li>
-        <li><a href="#phase-3">Days 41-60: Classical ML for Assets</a></li>
-        <li><a href="#phase-4">Days 61-80: Time-Series & Grid Analytics</a></li>
-        <li><a href="#phase-5">Days 81-95: Deployment & MLOps</a></li>
-        <li><a href="#phase-6">Days 96-100: Capstone & Career Prep</a></li>
-      </ul>
-    </div>
-
-    <div class="nav-group">
-      <div class="nav-title">Quick Links</div>
-      <ul class="nav-links">
-        <li><a href="#resources">EU Datasets Reference</a></li>
-        <li><a href="#post-generator">LinkedIn Post Template</a></li>
-      </ul>
-    </div>
-  </aside>
-
-  <main>
     <header>
-      <h1>100-Day EU Renewable Data Science Roadmap</h1>
-      <p>Targeting Remote EU Energy Data Science & Analytics Roles from India.</p>
+        <h1><span class="eu-flag">🌍</span>100-Day EU Renewable Energy Data Science</h1>
+        <p>Build in Public: From Python Novice to ML-Powered Energy Analyst</p>
     </header>
 
-    <!-- Progress Bar Widget -->
-    <div class="progress-box">
-      <div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Curriculum Completion</div>
-        <div style="font-size: 1.1rem; font-weight: 600;" id="progress-percentage">0%</div>
-      </div>
-      <div class="progress-bar-container">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-      <div class="progress-text" id="progress-count">0 / 100 Days</div>
-    </div>
+    <div class="container">
+        <aside class="sidebar">
+            <h3>📋 Curriculum Phases</h3>
+            <a class="phase-link active" onclick="scrollToPhase('phase1')">Days 1-20: Python & Foundations</a>
+            <a class="phase-link" onclick="scrollToPhase('phase2')">Days 21-40: Math & Stats</a>
+            <a class="phase-link" onclick="scrollToPhase('phase3')">Days 41-60: Classical ML</a>
+            <a class="phase-link" onclick="scrollToPhase('phase4')">Days 61-80: Energy DS Specialization</a>
+            <a class="phase-link" onclick="scrollToPhase('phase5')">Days 81-95: MLOps & Deployment</a>
+            <a class="phase-link" onclick="scrollToPhase('phase6')">Days 96-100: Capstone & Interview</a>
+            
+            <h3 style="margin-top: 2rem;">📚 References</h3>
+            <a class="phase-link" onclick="scrollToReferences()">EU Datasets & Tools</a>
+            <a class="phase-link" onclick="scrollToLinkedIn()">LinkedIn Post Templates</a>
+        </aside>
 
-    <!-- Filter Buttons -->
-    <div class="filters">
-      <button class="filter-btn active" onclick="filterDays('all')">All Topics</button>
-      <button class="filter-btn" onclick="filterDays('Python/SQL')">Python & SQL</button>
-      <button class="filter-btn" onclick="filterDays('Math/Stats')">Math & Stats</button>
-      <button class="filter-btn" onclick="filterDays('ML')">Machine Learning</button>
-      <button class="filter-btn" onclick="filterDays('Energy Domain')">Energy & Time-Series</button>
-      <button class="filter-btn" onclick="filterDays('MLOps')">MLOps & Deployment</button>
-    </div>
-
-    <!-- Curriculum Days Container -->
-    <div id="curriculum-container">
-      <!-- Days populated via JavaScript -->
-    </div>
-
-    <!-- EU Datasets Reference Section -->
-    <div class="info-card" id="resources">
-      <h3>EU Energy Data Ecosystem Reference</h3>
-      <div class="resource-grid">
-        <div class="resource-item">
-          <h4>ENTSO-E Transparency Platform</h4>
-          <p>Central repository for EU electricity generation, load, cross-border flows, and day-ahead prices.</p>
-          <a href="https://transparency.entsoe.eu/" target="_blank">transparency.entsoe.eu ↗</a>
-        </div>
-        <div class="resource-item">
-          <h4>Open Power System Data (OPSD)</h4>
-          <p>Cleaned, standardized time-series datasets of European power systems, capacity lists, and weather data.</p>
-          <a href="https://open-power-system-data.org/" target="_blank">open-power-system-data.org ↗</a>
-        </div>
-        <div class="resource-item">
-          <h4>Renewables.ninja</h4>
-          <p>Simulate hourly wind and solar power generation for any location worldwide using climate reanalysis data.</p>
-          <a href="https://www.renewables.ninja/" target="_blank">renewables.ninja ↗</a>
-        </div>
-        <div class="resource-item">
-          <h4>Copernicus Climate Data Store (C3S)</h4>
-          <p>ERA5 reanalysis climate datasets: solar irradiance, wind speeds at hub height, and temperature data.</p>
-          <a href="https://cds.climate.copernicus.eu/" target="_blank">cds.climate.copernicus.eu ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Build in Public Post Generator -->
-    <div class="info-card" id="post-generator">
-      <h3>"Build in Public" LinkedIn Post Engine</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Select any day to generate a structured LinkedIn post draft reflecting your work.</p>
-      <select id="day-selector" style="background: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.5rem; border-radius: 4px; font-family: 'Fira Code', monospace; width: 100%;">
-        <!-- Populated via JS -->
-      </select>
-      <textarea id="post-output" readonly placeholder="Your generated post framework will appear here..."></textarea>
-    </div>
-
-  </main>
-
-  <script>
-    // Complete 100-Day Curriculum Data
-    const daysData = [
-      // PHASE 1: Days 1-20
-      { day: 1, phase: "phase-1", tag: "Python/SQL", title: "Python Environment & Energy Variable Types", 
-        concept: "Python fundamentals, data types (float, int, str, bool), and setting up a Data Science virtual environment (VS Code, Conda, Git). Understanding basic EU grid parameters (MW, MWh, Hz).", 
-        exercise: "Write a script calculating daily revenue for a 50 MW Spanish solar farm given hourly generation and fixed €/MWh feed-in tariffs.", 
-        deliverable: "GitHub commit: setup repository structure and publish `day01_solar_revenue.py`." 
-      },
-      { day: 2, phase: "phase-1", tag: "Python/SQL", title: "Control Flow & Grid Outage Logic", 
-        concept: "Conditionals (if-elif-else), comparison operators, and boolean logic applied to asset status monitoring.", 
-        exercise: "Create logic that evaluates offshore wind turbine sensor inputs (wind speed m/s, oil temp) to trigger operational states (Normal, Curtailment, Emergency Stop).", 
-        deliverable: "Script `day02_turbine_safety_rules.py` with 5 test cases." 
-      },
-      { day: 3, phase: "phase-1", tag: "Python/SQL", title: "Data Structures: Lists, Tuples & Renewable Bidding", 
-        concept: "Python sequences: indexing, slicing, list comprehensions, and tuple immutability.", 
-        exercise: "Process a list of 24 hourly day-ahead bids for EPEX SPOT Germany; isolate bids above €50/MWh using list comprehensions.", 
-        deliverable: "Gist showing list comprehension filtering for grid pricing data." 
-      },
-      { day: 4, phase: "phase-1", tag: "Python/SQL", title: "Dictionaries & JSON: ENTSO-E API Payloads", 
-        concept: "Key-value pairs, nested dictionaries, JSON parsing, and handling nested energy meta-data.", 
-        exercise: "Parse a nested JSON payload mimicking an ENTSO-E generation response to extract solar vs. offshore wind output by country code.", 
-        deliverable: "Script `day04_parse_entsoe_json.py` extracting target metrics into clean data types." 
-      },
-      { day: 5, phase: "phase-1", tag: "Python/SQL", title: "Functions & Modular Code: Capacity Factor Calculation", 
-        concept: "Function arguments, return statements, docstrings, type hinting, and modular programming.", 
-        exercise: "Build a modular function `calculate_capacity_factor(actual_mwh, nameplate_capacity_mw, hours)` with full type hinting.", 
-        deliverable: "Python module `energy_metrics.py` pushed to GitHub with unit test cases." 
-      },
-      { day: 6, phase: "phase-1", tag: "Python/SQL", title: "File I/O & CSV Parsing: Open Power System Data", 
-        concept: "Reading/writing plain files, standard `csv` library, handling file paths (`pathlib`), and encoding.", 
-        exercise: "Parse a raw CSV of OPSD German generation without pandas; extract total monthly hydro generation.", 
-        deliverable: "Standalone parser script handling raw CSV input streams safely." 
-      },
-      { day: 7, phase: "phase-1", tag: "Python/SQL", title: "Error Handling & Defensive Coding in Grid Feeds", 
-        concept: "Exceptions (try-except-finally), custom exceptions, logging vs printing, handling missing operational sensor telemetry.", 
-        exercise: "Build a robust data-reading loop that gracefully catches `ValueError` and missing data fields in turbine telemetry streams.", 
-        deliverable: "Script demonstrating clean exception handling and structured log outputs." 
-      },
-      { day: 8, phase: "phase-1", tag: "Python/SQL", title: "Object-Oriented Programming (OOP): Renewable Asset Models", 
-        concept: "Classes, `__init__`, attributes, methods, inheritance (Base Asset -> WindTurbine, SolarInverter).", 
-        exercise: "Define a `WindTurbine` class tracking blade length, hub height, nameplate power, and a method computing power output via power curves.", 
-        deliverable: "Object-oriented code file `assets.py` modelling EU energy infrastructure assets." 
-      },
-      { day: 9, phase: "phase-1", tag: "Python/SQL", title: "Advanced Python: Generators & Real-Time Grid Streams", 
-        concept: "Generators, `yield` keyword, memory efficiency when handling multi-gigabyte continuous grid time-series datasets.", 
-        exercise: "Create a generator function streaming simulated high-frequency (1-second) grid frequency measurements (50 Hz baseline).", 
-        deliverable: "Memory footprint analysis demonstrating low usage using Python generators vs lists." 
-      },
-      { day: 10, phase: "phase-1", tag: "Python/SQL", title: "Git, GitHub & Docs-as-Code Setup", 
-        concept: "Git architecture: branching, merging, pull requests, conventional commits, `.gitignore`, and Markdown documentation.", 
-        exercise: "Initialize a production-ready repo `eu-grid-analytics-sandbox` with proper architecture, license, and comprehensive README.", 
-        deliverable: "Public GitHub repository with professional structure and explicit project documentation." 
-      },
-      { day: 11, phase: "phase-1", tag: "Python/SQL", title: "SQL Fundamentals: Grid Asset Registries", 
-        concept: "Relational DB basics, SQLite setup, `CREATE TABLE`, primary keys, data types, `INSERT INTO`.", 
-        exercise: "Create a database schema for EU wind farm registries (country, operator, capacity, turbine model, COD).", 
-        deliverable: "SQL script `01_create_asset_registry.sql` executed via Python `sqlite3`." 
-      },
-      { day: 12, phase: "phase-1", tag: "Python/SQL", title: "SQL Queries: Filtering & Aggregating Generation", 
-        concept: "`SELECT`, `WHERE`, `ORDER BY`, `GROUP BY`, `HAVING`, aggregation functions (`SUM`, `AVG`, `MAX`).", 
-        exercise: "Query a historical generation database to find the top 5 operational hours with highest wind generation in Denmark (DK1 region).", 
-        deliverable: "File containing 5 complex SQL queries with written output logs." 
-      },
-      { day: 13, phase: "phase-1", tag: "Python/SQL", title: "SQL Joins: Linking Spot Prices to Power Output", 
-        concept: "`INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, relational mappings between price zones and plant metadata.", 
-        exercise: "Join plant output tables with Nord Pool hourly day-ahead prices to compute hourly revenue per market bidding zone.", 
-        deliverable: "Multi-table join SQL script with detailed relational execution plans." 
-      },
-      { day: 14, phase: "phase-1", tag: "Python/SQL", title: "SQL Advanced: Window Functions for Grid Load", 
-        concept: "`OVER()`, `PARTITION BY`, `ROW_NUMBER()`, `LAG()`, `LEAD()`, moving averages in pure SQL.", 
-        exercise: "Calculate 24-hour rolling average load and hour-over-hour load ramps for France (RTE grid) using window functions.", 
-        deliverable: "SQL queries implementing advanced window functions for time-series analysis." 
-      },
-      { day: 15, phase: "phase-1", tag: "Python/SQL", title: "SQL Subqueries & CTEs: Energy Market Analytics", 
-        concept: "Common Table Expressions (CTEs), nested subqueries, modularizing complex query pipelines.", 
-        exercise: "Write a CTE isolating hours where total solar output exceeded national demand, causing potential curtailment events.", 
-        deliverable: "Clean, readable SQL code using CTEs for complex renewable market logic." 
-      },
-      { day: 16, phase: "phase-1", tag: "Python/SQL", title: "Python-SQL Integration: SQLAlchemy & DuckDB", 
-        concept: "Connecting Python applications to databases via SQLAlchemy ORM and executing high-performance analytical queries using DuckDB.", 
-        exercise: "Query a multi-GB Parquet file of OPSD data using DuckDB directly inside a Python script.", 
-        deliverable: "Python script integrating DuckDB for lightning-fast local SQL analytics." 
-      },
-      { day: 17, phase: "phase-1", tag: "Python/SQL", title: "Automated Data Scraping: Public EU Energy Portals", 
-        concept: "Web scraping ethical practices, `requests`, `BeautifulSoup`, rate-limiting, scraping energy press releases/regulatory updates.", 
-        exercise: "Scrape daily operational updates or regulatory notices from an EU energy regulator (e.g., ACER or Bundesnetzagentur).", 
-        deliverable: "Script `day17_regulatory_scraper.py` extracting structured table data into CSV format." 
-      },
-      { day: 18, phase: "phase-1", tag: "Python/SQL", title: "REST APIs: Accessing Open Power System Data", 
-        concept: "HTTP protocols, REST API consumption, query parameters, handling authorization tokens, rate limits.", 
-        exercise: "Build an API wrapper to query historical renewable generation parameters from the OPSD API for Germany.", 
-        deliverable: "Python class `OPSDClient` providing clean methods for API queries." 
-      },
-      { day: 19, phase: "phase-1", tag: "Python/SQL", title: "ENTSO-E API Deep Dive: Official Power Data", 
-        concept: "Registering for ENTSO-E API access, XML response parsing using `xml.etree.ElementTree` or `entsoe-py` library.", 
-        exercise: "Fetch day-ahead electricity prices for the Netherlands (NL) using official API protocols.", 
-        deliverable: "Script fetching real live day-ahead pricing data directly from ENTSO-E." 
-      },
-      { day: 20, phase: "phase-1", tag: "Python/SQL", title: "Phase 1 Integration: End-to-End ETL Data Pipeline", 
-        concept: "ETL (Extract, Transform, Load) architectural patterns, code organization, logging, automated runs.", 
-        exercise: "Build a production script that extracts day-ahead data via API, transforms formats in Python, and loads clean records into DuckDB/SQLite.", 
-        deliverable: "Fully functional ETL pipeline repository with clear execution docs." 
-      },
-
-      // PHASE 2: Days 21-40
-      { day: 21, phase: "phase-2", tag: "Math/Stats", title: "NumPy Vectorization & Grid Signal Processing", 
-        concept: "NumPy arrays, vectorization performance vs loops, broadcasting, array slicing.", 
-        exercise: "Convert 1 year of hourly load data into NumPy arrays; vectorize unit conversions (kWh to MWh, MW to GW) and performance comparisons.", 
-        deliverable: "Benchmark analysis showing 100x speedup of vectorized code over Python loops." 
-      },
-      { day: 22, phase: "phase-2", tag: "Math/Stats", title: "Pandas DataFrames: Structuring Time-Series Power Data", 
-        concept: "Pandas Series, DataFrames, indexing, setting datetime indices, selection (`loc`, `iloc`).", 
-        exercise: "Load 3 years of hourly Dutch solar/wind output; set up localized DatetimeIndex (Europe/Amsterdam timezone).", 
-        deliverable: "Jupyter notebook displaying structured Pandas DataFrames with explicit temporal indexing." 
-      },
-      { day: 23, phase: "phase-2", tag: "Math/Stats", title: "Pandas Data Cleaning: Handling Missing Sensor Signals", 
-        concept: "Handling nulls (`dropna`, `fillna`, `interpolate`), linear vs time-based interpolation, detecting duplicate timestamps.", 
-        exercise: "Clean a corrupted offshore wind turbine dataset containing missing values due to sensor dropping.", 
-        deliverable: "Cleaned dataset with detailed report on missing data strategies applied." 
-      },
-      { day: 24, phase: "phase-2", tag: "Math/Stats", title: "Pandas Aggregations: Resampling & Rolling Windows", 
-        concept: "Resampling frequencies (`resample('D')`, `'W'`, `'M'`), rolling stats (`rolling()`), EWMA (exponential weighting).", 
-        exercise: "Resample 15-minute grid frequency measurements into hourly averages and compute 7-day rolling peak demand.", 
-        deliverable: "Interactive notebook showcasing temporal aggregations on high-frequency energy data." 
-      },
-      { day: 25, phase: "phase-2", tag: "Math/Stats", title: "Linear Algebra: Power Grid Matrix Representations", 
-        concept: "Vectors, matrices, matrix multiplication, systems of linear equations ($Ax = b$), application to power flow networks.", 
-        exercise: "Represent a simple 3-bus power grid as a linear system and solve for node voltage angles using `numpy.linalg.solve`.", 
-        deliverable: "Python module applying linear algebra solutions to power flow equations." 
-      },
-      { day: 26, phase: "phase-2", tag: "Math/Stats", title: "Linear Algebra: Eigenvalues & Grid Stability", 
-        concept: "Eigenvalues, eigenvectors, covariance matrices, physical interpretation in dynamic systems stability.", 
-        exercise: "Calculate eigenvalues of a multi-area grid interconnector covariance matrix to identify primary variation axes.", 
-        deliverable: "Notebook showing mathematical step-by-step eigen-decomposition on simulated grid dynamics." 
-      },
-      { day: 27, phase: "phase-2", tag: "Math/Stats", title: "Calculus: Instantaneous Rates of Change & Solar Ramping", 
-        concept: "Derivatives, numerical differentiation (`np.gradient`), rate of change, integral as total accumulated energy.", 
-        exercise: "Calculate solar ramp rates ($MW/min$) and integrate daily solar irradiance curves to obtain total daily MWh energy.", 
-        deliverable: "Plot comparing numerical integration results against raw generation totals." 
-      },
-      { day: 28, phase: "phase-2", tag: "Math/Stats", title: "Descriptive Statistics: Energy Yield Distributions", 
-        concept: "Mean, median, mode, variance, standard deviation, skewness, kurtosis, percentiles (P10, P50, P90 energy yields).", 
-        exercise: "Compute P10, P50, and P90 annual energy yield predictions for a proposed German onshore wind site.", 
-        deliverable: "Statistical summary dashboard outlining asset financial risk profiles based on P-values." 
-      },
-      { day: 29, phase: "phase-2", tag: "Math/Stats", title: "Probability Distributions: Wind Speed & Weibull Fit", 
-        concept: "Probability Density Functions (PDF), Cumulative Density Functions (CDF), Normal, Uniform, and Weibull distributions.", 
-        exercise: "Fit a 2-parameter Weibull distribution to hub-height wind speed data using `scipy.stats.weibull_min`.", 
-        deliverable: "Fitted Weibull distribution overlay plot matching actual wind speed histograms." 
-      },
-      { day: 30, phase: "phase-2", tag: "Math/Stats", title: "Exploratory Data Analysis (EDA): Negative Price Spikes", 
-        concept: "EDA patterns, correlation matrices, boxplots, identifying outliers and extreme market anomalies.", 
-        exercise: "Perform EDA on EPEX SPOT Germany pricing to isolate drivers of negative price events (e.g., high solar + low load).", 
-        deliverable: "Comprehensive EDA notebook with 6 distinct visualizations detailing market conditions." 
-      },
-      { day: 31, phase: "phase-2", tag: "Math/Stats", title: "Visual Analytics: Matplotlib & Seaborn Mastery", 
-        concept: "Customizing plots, subplots, color palettes, heatmaps, dual-axis charts (generation vs price).", 
-        exercise: "Build a publication-grade 4-panel dashboard of regional EU power metrics matching financial report standards.", 
-        deliverable: "High-resolution exported PNG dashboard image with custom styling." 
-      },
-      { day: 32, phase: "phase-2", tag: "Math/Stats", title: "Interactive Visuals: Plotly for Energy Dashboards", 
-        concept: "Interactive charts, hover cards, time-series sliders, Plotly Express vs Graph Objects.", 
-        exercise: "Create an interactive Plotly chart showing hourly generation stack (Solar, Wind, Gas, Hydro, Nuclear) for France.", 
-        deliverable: "Standalone `generation_stack.html` interactive dashboard file." 
-      },
-      { day: 33, phase: "phase-2", tag: "Math/Stats", title: "Sampling Distributions & Central Limit Theorem", 
-        concept: "Population vs sample, sample mean distribution, Central Limit Theorem (CLT) applied to meter telemetry.", 
-        exercise: "Simulate smart meter sampling to demonstrate CLT convergence across 1,000 residential solar setups.", 
-        deliverable: "Simulation script showing convergence of sample distributions to Gaussian shapes." 
-      },
-      { day: 34, phase: "phase-2", tag: "Math/Stats", title: "Hypothesis Testing: Comparing Turbine Output Profiles", 
-        concept: "Null/Alternative hypotheses, p-values, significance thresholds, t-tests (one-sample, two-sample independent, paired).", 
-        exercise: "Perform a two-sample t-test to determine if a software retro-fit significantly increased wind turbine efficiency.", 
-        deliverable: "Hypothesis test report detailing test statistics, p-values, and executive decisions." 
-      },
-      { day: 35, phase: "phase-2", tag: "Math/Stats", title: "ANOVA: Multi-Region Capacity Factor Variations", 
-        concept: "One-way and Two-way Analysis of Variance (ANOVA), F-statistic, post-hoc Tukey HSD tests.", 
-        exercise: "Compare solar capacity factors across Spain, Italy, and Greece during summer months using ANOVA.", 
-        deliverable: "ANOVA summary table and post-hoc pairwise comparison plots." 
-      },
-      { day: 36, phase: "phase-2", tag: "Math/Stats", title: "Non-Parametric Tests: Grid Frequency Deviations", 
-        concept: "Mann-Whitney U test, Wilcoxon signed-rank test, Kruskal-Wallis test for non-normal distributions.", 
-        exercise: "Apply Mann-Whitney U test to evaluate grid frequency variance during extreme weather events vs baseline.", 
-        deliverable: "Statistical notebook detailing non-parametric analysis of non-Gaussian grid metrics." 
-      },
-      { day: 37, phase: "phase-2", tag: "Math/Stats", title: "Correlation & Causality: Wind Speed vs Spot Price", 
-        concept: "Pearson correlation, Spearman rank correlation, confounding variables, correlation vs causation in markets.", 
-        exercise: "Calculate Spearman rank correlation between offshore wind generation in the North Sea and Nord Pool spot prices.", 
-        deliverable: "Correlation matrix visual showing negative price cannibalization patterns." 
-      },
-      { day: 38, phase: "phase-2", tag: "Math/Stats", title: "Feature Engineering: Temporal & Meteorological Signals", 
-        concept: "Cyclical encoding of time (sine/cosine transforms for hour/day/month), lag features, rolling statistics.", 
-        exercise: "Create a feature engineering pipeline taking raw timestamp/solar data and outputting cyclical temporal features.", 
-        deliverable: "Python module `feature_engineering.py` ready for ML pipeline consumption." 
-      },
-      { day: 39, phase: "phase-2", tag: "Math/Stats", title: "Data Pipelines: Building Scikit-Learn Transformers", 
-        concept: "Custom Scikit-Learn transformers (`BaseEstimator`, `TransformerMixin`), building reusable pipelines.", 
-        exercise: "Build a custom transformer that accepts raw ENTSO-E data, handles missing values, and calculates rolling statistics.", 
-        deliverable: "Tested custom Scikit-Learn transformer class for energy data processing." 
-      },
-      { day: 40, phase: "phase-2", tag: "Math/Stats", title: "Phase 2 Capstone: Comprehensive EU Energy EDA", 
-        concept: "End-to-end EDA framework, statistical profiling, domain insights generation, executive summaries.", 
-        exercise: "Perform a end-to-end EDA on 5 years of Open Power System Data for Germany, highlighting coal-to-renewable transition trends.", 
-        deliverable: "Comprehensive GitHub Jupyter Notebook with structured analytical narrative and 10+ visualizations." 
-      },
-
-      // PHASE 3: Days 41-60
-      { day: 41, phase: "phase-3", tag: "ML", title: "Intro to Supervised Learning & Linear Regression", 
-        concept: "Supervised learning paradigm, Cost Function (MSE/RMSE), Ordinary Least Squares (OLS), gradient descent.", 
-        exercise: "Build a simple linear regression from scratch using NumPy to predict solar output based on global horizontal irradiance (GHI).", 
-        deliverable: "Scratch-built Python linear regression estimator class tested against synthetic data." 
-      },
-      { day: 42, phase: "phase-3", tag: "ML", title: "Multiple Linear Regression & Solar Power Modeling", 
-        concept: "Multi-variable regression, feature scaling (StandardScaler, MinMaxScaler), multicollinearity and VIF.", 
-        exercise: "Predict solar plant output using GHI, ambient temperature, and wind speed; check VIF scores.", 
-        deliverable: "Scikit-Learn baseline model notebook evaluating feature coefficients." 
-      },
-      { day: 43, phase: "phase-3", tag: "ML", title: "Regularization: Ridge, Lasso & Feature Selection", 
-        concept: "Overfitting vs underfitting, Bias-Variance tradeoff, L1 (Lasso) and L2 (Ridge) regularization.", 
-        exercise: "Apply Lasso regression to 50 meteorological features to isolate top predictors of wind power output.", 
-        deliverable: "Regularization path plot demonstrating feature coefficients shrinking to zero." 
-      },
-      { day: 44, phase: "phase-3", tag: "ML", title: "Logistic Regression: Predicting Grid Stress Events", 
-        concept: "Binary classification, sigmoid function, log-loss cost function, decision boundaries, odds ratios.", 
-        exercise: "Predict whether a regional grid will experience high stress (Frequency < 49.9 Hz) based on load and generation forecasts.", 
-        deliverable: "Logistic regression pipeline returning event probability estimates." 
-      },
-      { day: 45, phase: "phase-3", tag: "ML", title: "Classification Metrics: Model Performance Evaluation", 
-        concept: "Confusion Matrix, Accuracy, Precision, Recall, F1-Score, ROC Curve, AUC-ROC, PR Curve.", 
-        exercise: "Evaluate grid stress prediction models prioritizing high recall to minimize missed blackouts.", 
-        deliverable: "Model evaluation report comparing Precision-Recall tradeoffs." 
-      },
-      { day: 46, phase: "phase-3", tag: "ML", title: "Decision Trees: Turbine Operational State Classification", 
-        concept: "Tree structures, Information Gain, Gini Impurity, Entropy, pruning strategies (max_depth, min_samples_split).", 
-        exercise: "Train a Decision Tree classifier on SCADA logs to classify turbine operating modes.", 
-        deliverable: "Visualized decision tree diagram outlining asset rule paths." 
-      },
-      { day: 47, phase: "phase-3", tag: "ML", title: "Random Forests: Wind Farm Power Curve Estimation", 
-        concept: "Ensemble learning, Bagging (Bootstrap Aggregating), Out-of-Bag (OOB) error, feature importance.", 
-        exercise: "Build a Random Forest Regressor to model wind turbine power curves using multi-depth anemometer data.", 
-        deliverable: "Random Forest power curve prediction plot vs actual manufacturer specifications." 
-      },
-      { day: 48, phase: "phase-3", tag: "ML", title: "Gradient Boosting: Intro to XGBoost & LightGBM", 
-        concept: "Boosting concept, sequential error correction, gradient boosting math, XGBoost vs LightGBM architectures.", 
-        exercise: "Train a LightGBM model to forecast day-ahead electricity prices for EPEX SPOT Germany.", 
-        deliverable: "LightGBM regression pipeline notebook with benchmark metrics." 
-      },
-      { day: 49, phase: "phase-3", tag: "ML", title: "XGBoost Hyperparameter Tuning: Grid & Random Search", 
-        concept: "Hyperparameters (learning_rate, n_estimators, max_depth, subsample), GridSearchCV vs RandomizedSearchCV.", 
-        exercise: "Tune an XGBoost model predicting solar power output to minimize RMSE using 5-fold cross-validation.", 
-        deliverable: "Hyperparameter tuning search log and optimized parameters config file." 
-      },
-      { day: 50, phase: "phase-3", tag: "ML", title: "Bayesian Optimization with Optuna", 
-        concept: "Bayesian optimization theory, Tree-structured Parzen Estimator (TPE), Optuna framework setup.", 
-        exercise: "Optimize LightGBM hyper-parameters using Optuna for day-ahead price forecasting.", 
-        deliverable: "Optuna study visualization scripts showing hyperparameter convergence." 
-      },
-      { day: 51, phase: "phase-3", tag: "ML", title: "Support Vector Machines (SVM): Fault Classification", 
-        concept: "Support Vector Machines/Regression, hyperplanes, margins, kernel trick (RBF, Polynomial).", 
-        exercise: "Classify gear-box bearing faults in wind turbines using SVM on vibration frequency spectra.", 
-        deliverable: "SVM classification notebook comparing linear vs RBF kernel boundaries." 
-      },
-      { day: 52, phase: "phase-3", tag: "ML", title: "K-Nearest Neighbors & Distance Metrics", 
-        concept: "Instance-based learning, Euclidean, Manhattan, and Minkowski distance, Curse of Dimensionality.", 
-        exercise: "Impute missing wind turbine sensor logs by finding K-most similar historical operational states.", 
-        deliverable: "KNN imputation benchmarking notebook comparing accuracy against mean fill." 
-      },
-      { day: 53, phase: "phase-3", tag: "ML", title: "Unsupervised Learning: K-Means Clustering on Load Profiles", 
-        concept: "Clustering principles, K-Means algorithm, Elbow method, Silhouette score, cluster centroids.", 
-        exercise: "Cluster 1,000 EU smart-meter daily load profiles to discover typical consumer usage patterns.", 
-        deliverable: "Visual plot of distinct daily load cluster profiles with optimal K selection." 
-      },
-      { day: 54, phase: "phase-3", tag: "ML", title: "Hierarchical Clustering & DBSCAN: Grid Anomaly Spatial Detection", 
-        concept: "Hierarchical agglomerative clustering, dendrograms, DBSCAN density-based clustering, noise handling.", 
-        exercise: "Identify spatial clusters of grid voltage anomaly events across a transmission network using DBSCAN.", 
-        deliverable: "DBSCAN spatial clustering script isolating background noise from systemic faults." 
-      },
-      { day: 55, phase: "phase-3", tag: "ML", title: "Principal Component Analysis (PCA): Telemetry Reduction", 
-        concept: "Dimensionality reduction, variance retention, principal components, scree plots.", 
-        exercise: "Reduce 100 high-frequency wind turbine SCADA parameters down to 5 principal components without losing variance.", 
-        deliverable: "PCA projection plot explaining cumulative variance distribution across components." 
-      },
-      { day: 56, phase: "phase-3", tag: "ML", title: "Model Explainability: SHAP Values for Renewable Models", 
-        concept: "Explainable AI (XAI), Shapley values, SHAP summary plots, dependence plots, waterfall charts.", 
-        exercise: "Explain individual XGBoost price forecasts during a negative pricing event using SHAP.", 
-        deliverable: "SHAP waterfall and summary plots explaining model decision drivers." 
-      },
-      { day: 57, phase: "phase-3", tag: "ML", title: "Feature Importance & Model Interpretability: LIME", 
-        concept: "Local Interpretable Model-agnostic Explanations (LIME), global vs local interpretability.", 
-        exercise: "Apply LIME to explain a complex Random Forest prediction on turbine gearbox failure risk.", 
-        deliverable: "LIME explanation dashboard output for single instance asset diagnostic." 
-      },
-      { day: 58, phase: "phase-3", tag: "ML", title: "Handling Class Imbalance: Rare Grid Fault Detection", 
-        concept: "Class imbalance challenges, SMOTE (Synthetic Minority Over-sampling Technique), undersampling, class weights.", 
-        exercise: "Handle severe class imbalance (0.1% fault rate) in wind turbine breakdown prediction datasets using SMOTE.", 
-        deliverable: "Comparative evaluation report showing ROC-AUC improvements using balanced sampling." 
-      },
-      { day: 59, phase: "phase-3", tag: "ML", title: "Ensemble Stacking & Blending: Hybrid Energy Forecasting", 
-        concept: "Stacking classifiers/regressors, meta-learners, out-of-fold predictions, model blending.", 
-        exercise: "Build a stacked ensemble combining Ridge, Random Forest, and LightGBM to forecast solar farm output.", 
-        deliverable: "Ensemble modeling pipeline demonstrating lower overall RMSE than individual models." 
-      },
-      { day: 60, phase: "phase-3", tag: "ML", title: "Phase 3 Capstone: ML Pipeline for Wind Turbine Predictive Maintenance", 
-        concept: "Complete ML lifecycle: preprocessing, feature selection, model comparison, hyperparameter tuning, explainability.", 
-        exercise: "Build a production ML pipeline predicting turbine failure 7 days in advance using multi-sensor SCADA inputs.", 
-        deliverable: "End-to-end GitHub repository featuring modular ML code, Optuna tuning, and SHAP diagnostic reports." 
-      },
-
-      // PHASE 4: Days 61-80
-      { day: 61, phase: "phase-4", tag: "Energy Domain", title: "Time-Series Fundamentals: Stationarity & Decomposition", 
-        concept: "Time-series components (Trend, Seasonality, Residuals), stationarity, Augmented Dickey-Fuller (ADF) test.", 
-        exercise: "Perform classical seasonal decomposition (additive & multiplicative) on 5 years of French electricity demand.", 
-        deliverable: "ADF test output log and seasonal decomposition plot notebook." 
-      },
-      { day: 62, phase: "phase-4", tag: "Energy Domain", title: "Autocorrelation & Stationarity Transformation", 
-        concept: "Autocorrelation Function (ACF), Partial Autocorrelation Function (PACF), differencing, log transforms.", 
-        exercise: "Transform non-stationary day-ahead power price series into stationary signals using log-differencing; plot ACF/PACF.", 
-        deliverable: "ACF/PACF plot analysis determining lag configurations for time-series models." 
-      },
-      { day: 63, phase: "phase-4", tag: "Energy Domain", title: "Statistical Forecasting: ARIMA & SARIMAX", 
-        concept: "ARIMA parameters $(p,d,q)$, Seasonal SARIMAX $(P,D,Q)_s$, incorporating exogenous variables (weather, load forecasts).", 
-        exercise: "Build a SARIMAX model using temperature forecasts as exogenous inputs to predict national gas demand.", 
-        deliverable: "SARIMAX forecasting script with evaluation metrics (MAE, MAPE, RMSE)." 
-      },
-      { day: 64, phase: "phase-4", tag: "Energy Domain", title: "Exponential Smoothing & Holt-Winters Models", 
-        concept: "Simple Exponential Smoothing, Holt's Linear, Holt-Winters Seasonal Smoothing (additive & multiplicative).", 
-        exercise: "Forecast daily regional solar output using Holt-Winters seasonal smoothing model.", 
-        deliverable: "Holt-Winters forecasting model comparison against actual output." 
-      },
-      { day: 65, phase: "phase-4", tag: "Energy Domain", title: "Prophet: Time-Series Forecasting at Scale", 
-        concept: "Meta's Prophet architecture, piecewise linear trends, handling holidays/events, custom seasonality.", 
-        exercise: "Forecast country-wide wind generation using Prophet, incorporating EU public holiday effects.", 
-        deliverable: "Prophet model notebook with forecast component decompositions." 
-      },
-      { day: 66, phase: "phase-4", tag: "Energy Domain", title: "Machine Learning for Time-Series: Feature Lags & Windows", 
-        concept: "Formulating time-series as supervised learning, target rolling means, expanding windows, lag features.", 
-        exercise: "Engineered 24-hour, 48-hour, and 168-hour (1 week) lag features for LightGBM power demand forecasting.", 
-        deliverable: "Feature engineering script specifically tailored for supervised time-series models." 
-      },
-      { day: 67, phase: "phase-4", tag: "Energy Domain", title: "Deep Learning Intro: PyTorch Tensors & Mechanics", 
-        concept: "PyTorch basics, Tensors, Autograd, building custom PyTorch `Dataset` and `DataLoader` for sequential grid data.", 
-        exercise: "Construct a custom PyTorch DataLoader reading historical 15-minute grid frequency values.", 
-        deliverable: "PyTorch dataset module file tested with batch iterations." 
-      },
-      { day: 68, phase: "phase-4", tag: "Energy Domain", title: "Recurrent Neural Networks (RNN) & LSTMs for Energy", 
-        concept: "Sequential models, vanishing gradients, Long Short-Term Memory (LSTM) cells, Gated Recurrent Units (GRU).", 
-        exercise: "Build a PyTorch LSTM model to predict 24-hour ahead solar irradiance using historical weather sequences.", 
-        deliverable: "PyTorch LSTM training pipeline with loss curve plots." 
-      },
-      { day: 69, phase: "phase-4", tag: "Energy Domain", title: "Temporal Convolutional Networks (TCN) & Transformers", 
-        concept: "1D Dilated Convolutions for time series, Self-Attention mechanisms, Time-Series Transformers (Informers/Temporal Fusion Transformers).", 
-        exercise: "Train a 1D TCN model on wind speed time-series data and compare performance against standard LSTM.", 
-        deliverable: "Model comparison notebook evaluating TCN vs LSTM inference latency and MAE." 
-      },
-      { day: 70, phase: "phase-4", tag: "Energy Domain", title: "Evaluating Time-Series Models: Cross-Validation Strategies", 
-        concept: "Data leakage in sequential data, TimeSeriesSplit, rolling-origin backtesting, expanding window validation.", 
-        exercise: "Implement a 5-fold rolling window time-series backtesting framework for day-ahead price forecasters.", 
-        deliverable: "Backtesting validation engine script preventing future data leakage." 
-      },
-      { day: 71, phase: "phase-4", tag: "Energy Domain", title: "Geospatial Data Processing: GeoPandas & Shapely", 
-        concept: "Geospatial data formats (GeoJSON, Shapefiles), Coordinate Reference Systems (CRS/EPSG), GeoPandas DataFrames.", 
-        exercise: "Load EU offshore wind farm boundary shapefiles, convert CRS to local projections, and calculate total surface area.", 
-        deliverable: "GeoPandas script executing spatial data manipulation and geometric calculations." 
-      },
-      { day: 72, phase: "phase-4", tag: "Energy Domain", title: "Spatial Joins & Raster Processing: ERA5 Weather Data", 
-        concept: "Spatial joins, handling NetCDF4/xarray raster formats, extracting climate metrics at exact turbine GPS coordinates.", 
-        exercise: "Extract hourly 100m hub-height wind speeds from Copernicus ERA5 NetCDF files for 5 specific North Sea wind farms using `xarray`.", 
-        deliverable: "Python raster extraction pipeline connecting climate grids with asset locations." 
-      },
-      { day: 73, phase: "phase-4", tag: "Energy Domain", title: "Interactive Spatial Maps: Folium & Pydeck", 
-        concept: "Interactive GIS mapping in Python, Folium map generation, chloropleth maps, Pydeck 3D visualization.", 
-        exercise: "Build an interactive map displaying all Spanish solar installations, color-coded by capacity and operational status.", 
-        deliverable: "Standalone `spain_solar_map.html` interactive map." 
-      },
-      { day: 74, phase: "phase-4", tag: "Energy Domain", title: "Spatial Interpolation: Kriging & IDW for Wind Fields", 
-        concept: "Spatial interpolation, Inverse Distance Weighting (IDW), Kriging interpolation for missing weather station data.", 
-        exercise: "Interpolate wind speed fields across Germany using sparse meteorological tower observations via IDW.", 
-        deliverable: "Contour map of interpolated wind speed fields across target geographic regions." 
-      },
-      { day: 75, phase: "phase-4", tag: "Energy Domain", title: "Grid Congestion & Cross-Border Power Flow Analysis", 
-        concept: "NTC (Net Transfer Capacity), Flow-Based Market Coupling (FBMC), physical vs commercial power flows in the EU.", 
-        exercise: "Analyze physical cross-border electricity flows between Germany, France, and Denmark during peak renewable events.", 
-        deliverable: "Network graph visualization displaying inter-country directional energy flows." 
-      },
-      { day: 76, phase: "phase-4", tag: "Energy Domain", title: "Constrained Optimization: Pyomo & PuLP for Dispatch", 
-        concept: "Linear Programming (LP), Mixed-Integer Linear Programming (MILP), decision variables, objective functions, constraints.", 
-        exercise: "Formulate a simple cost-minimization economic dispatch problem for a hybrid power plant (Solar + Storage + Diesel) using PuLP.", 
-        deliverable: "Mathematical optimization script solving optimal hourly generation schedules." 
-      },
-      { day: 77, phase: "phase-4", tag: "Energy Domain", title: "Battery Energy Storage (BESS) Arbitrage Optimization", 
-        concept: "BESS operational economics, state-of-charge (SoC) tracking, charge/discharge efficiency losses, degradation modeling.", 
-        exercise: "Optimize a 10MW/20MWh battery's daily charge/discharge schedule to maximize revenue on EPEX SPOT day-ahead arbitrage.", 
-        deliverable: "Optimization model output generating revenue-maximized charging/discharging schedules." 
-      },
-      { day: 78, phase: "phase-4", tag: "Energy Domain", title: "Solar & Wind Curtailment Risk Modeling", 
-        concept: "Grid bottleneck causes, negative prices triggering economic curtailment, redispatch measures in Germany/Spain.", 
-        exercise: "Build a probabilistic classifier predicting solar curtailment risk for assets situated behind constrained grid nodes.", 
-        deliverable: "Curtailment risk assessment report featuring node-level predictive scores." 
-      },
-      { day: 79, phase: "phase-4", tag: "Energy Domain", title: "ESG Analytics & EU Taxonomy Scope 1/2/3 Tracking", 
-        concept: "EU Taxonomy alignment, avoided emissions metrics, grid marginal vs average emission factors (gCO2/kWh).", 
-        exercise: "Calculate real-time operational carbon intensity of hourly grid consumption in Poland using ENTSO-E generation mix data.", 
-        deliverable: "Real-time CO2 emission factor calculator script and visualization dashboard." 
-      },
-      { day: 80, phase: "phase-4", tag: "Energy Domain", title: "Phase 4 Capstone: EU Day-Ahead Price & Negative Price Prediction", 
-        concept: "End-to-end domain project integrating time-series, spatial weather inputs, and market fundamentals.", 
-        exercise: "Forecast day-ahead market prices and negative price probability for DK1 bidding zone using LightGBM and weather inputs.", 
-        deliverable: "Comprehensive GitHub project complete with model backtests and market impact insights." 
-      },
-
-      // PHASE 5: Days 81-95
-      { day: 81, phase: "phase-5", tag: "MLOps", title: "Software Engineering Best Practices: Modular Code & Linting", 
-        concept: "Writing production Python code: PEP 8, Black formatter, Flake8 linters, modular package structure (`src/`).", 
-        exercise: "Refactor a monolithic Jupyter Notebook into a structured Python package with clean modular interfaces.", 
-        deliverable: "Refactored repository passing `flake8` and `black` code quality checks." 
-      },
-      { day: 82, phase: "phase-5", tag: "MLOps", title: "Unit Testing for Data Science: Pytest Fundamentals", 
-        concept: "Unit testing concepts, Pytest framework, test fixtures, asserting numerical outputs, testing pipeline components.", 
-        exercise: "Write Pytest test suites verifying data transformations, feature calculation logic, and model output shapes.", 
-        deliverable: "Test execution log showing passing Pytest runs on data processing code." 
-      },
-      { day: 83, phase: "phase-5", tag: "MLOps", title: "API Development with FastAPI: Serving ML Models", 
-        concept: "RESTful API architecture, FastAPI framework, Pydantic data schemas, GET/POST endpoints, JSON serialization.", 
-        exercise: "Build a FastAPI microservice that accepts real-time weather parameters and returns solar plant generation forecasts.", 
-        deliverable: "Functional FastAPI application file `main.py` with Swagger UI documentation." 
-      },
-      { day: 84, phase: "phase-5", tag: "MLOps", title: "Containerization: Docker Basics for Data Scientists", 
-        concept: "Containerization concepts, Dockerfiles, images vs containers, building and running Docker containers.", 
-        exercise: "Write a `Dockerfile` packaging the FastAPI forecast microservice along with all Python dependencies.", 
-        deliverable: "Dockerized API container tested locally via `docker run`." 
-      },
-      { day: 85, phase: "phase-5", tag: "MLOps", title: "Multi-Container Orchestration: Docker Compose", 
-        concept: "Docker Compose syntax, connecting services (API container + PostgreSQL / DuckDB database).", 
-        exercise: "Set up a `docker-compose.yml` orchestrating an API endpoint and a database for storing prediction logs.", 
-        deliverable: "Working Docker Compose setup bringing up a multi-container stack." 
-      },
-      { day: 86, phase: "phase-5", tag: "MLOps", title: "Experiment Tracking with MLflow", 
-        concept: "MLOps principles, tracking metrics, parameters, model artifacts, run comparisons using MLflow.", 
-        exercise: "Integrate MLflow tracking into an LightGBM price forecasting script to log hyperparameter experiments.", 
-        deliverable: "MLflow run comparison screenshot and artifact registry entries." 
-      },
-      { day: 87, phase: "phase-5", tag: "MLOps", title: "Model Registry & Artifact Management", 
-        concept: "MLflow Model Registry, staging vs production tags, model versioning, loading registered models for inference.", 
-        exercise: "Register the top-performing wind forecasting model to MLflow registry and transition status to 'Production'.", 
-        deliverable: "Script showing dynamic loading of 'Production' tagged model for downstream inference." 
-      },
-      { day: 88, phase: "phase-5", tag: "MLOps", title: "Interactive Dashboards: Streamlit Development", 
-        concept: "Streamlit framework, widgets, layout design, reactive state management, integrating Plotly maps.", 
-        exercise: "Build an interactive Streamlit dashboard allowing users to select an EU country and view real-time wind/solar forecasts.", 
-        deliverable: "Streamlit dashboard script `app.py` running locally." 
-      },
-      { day: 89, phase: "phase-5", tag: "MLOps", title: "Advanced Streamlit: Interactive Asset Scenario Analysis", 
-        concept: "Advanced UI components, caching optimization (`@st.cache_data`), user input controls for scenario simulation.", 
-        exercise: "Add scenario analysis features to Streamlit: allow users to simulate battery dispatch strategies under different price profiles.", 
-        deliverable: "Interactive scenario planner dashboard published to Streamlit Community Cloud." 
-      },
-      { day: 90, phase: "phase-5", tag: "MLOps", title: "CI/CD Pipelines: GitHub Actions Automation", 
-        concept: "Continuous Integration / Continuous Deployment (CI/CD), GitHub Actions workflow files (`.github/workflows`), automated testing.", 
-        exercise: "Create a GitHub Actions workflow that automatically runs `pytest` and `flake8` on every code push.", 
-        deliverable: "Passing GitHub Actions build badge on target GitHub repository." 
-      },
-      { day: 91, phase: "phase-5", tag: "MLOps", title: "Automated Data Ingestion Pipelines: Prefect / Airflow", 
-        concept: "Data orchestration, Directed Acyclic Graphs (DAGs), scheduling, task dependencies, retries and failure alerts.", 
-        exercise: "Write a Prefect flow that fetches daily ENTSO-E data, executes transformations, and logs results every 24 hours.", 
-        deliverable: "Prefect flow script running scheduled automated ETL operations." 
-      },
-      { day: 92, phase: "phase-5", tag: "MLOps", title: "Data & Model Monitoring: Evidently AI", 
-        concept: "Data drift, concept drift, feature distribution shifts, monitoring prediction performance deterioration over time.", 
-        exercise: "Use Evidently AI to generate a Data Drift report comparing baseline weather distributions against incoming production features.", 
-        deliverable: "Data drift HTML report identifying distribution shifts in key meteorological features." 
-      },
-      { day: 93, phase: "phase-5", tag: "MLOps", title: "Cloud Deployment: Render / AWS Free Tier Hosting", 
-        concept: "Cloud hosting environments, environment variables, deploying web services and containerized APIs.", 
-        exercise: "Deploy the Dockerized FastAPI forecasting application to a free-tier hosting platform (Render/Railway).", 
-        deliverable: "Live public URL testing active API inference endpoints." 
-      },
-      { day: 94, phase: "phase-5", tag: "MLOps", title: "Database Integration in Cloud APIs", 
-        concept: "Connecting hosted cloud APIs to persistent cloud databases (Supabase / Managed PostgreSQL), managing connections safely.", 
-        exercise: "Connect the live API endpoint to a remote database to record historical forecast queries and actual outputs.", 
-        deliverable: "Verified live database containing incoming API query records." 
-      },
-      { day: 95, phase: "phase-5", tag: "MLOps", title: "Phase 5 Capstone: End-to-End Deployed Energy Analytics Platform", 
-        concept: "Complete integration: Data Pipeline -> Experiment Tracking -> Registered Model -> FastAPI -> Streamlit -> CI/CD.", 
-        exercise: "Deploy a complete EU Renewable Asset Intelligence platform combining automated ingest, ML forecasts, and interactive front-end.", 
-        deliverable: "Public GitHub repository + Live public links to Streamlit app and FastAPI documentation." 
-      },
-
-      // PHASE 6: Days 96-100
-      { day: 96, phase: "phase-6", tag: "MLOps", title: "Portfolio Optimization & GitHub Profile Polish", 
-        concept: "Structuring a top 1% Data Science portfolio: README architecture, project documentation, reproducible notebooks, clean commits.", 
-        exercise: "Polish your 3 main capstone repositories with professional diagrams, architecture charts, clear setup guides, and live links.", 
-        deliverable: "Pinned, fully documented capstone repositories on a professional GitHub profile." 
-      },
-      { day: 97, phase: "phase-6", tag: "MLOps", title: "EU Renewable Energy Domain Resume Optimization", 
-        concept: "Framing prior engineering experience (Civil, Infrastructure Advisory) alongside fresh Data Science skills for EU tech recruiters.", 
-        exercise: "Draft an EU-style targeted resume highlighting renewable market domain knowledge, asset modeling, and concrete DS projects.", 
-        deliverable: "Tailored PDF resume formatted for EU Energy Utility / Tech Start-up applications." 
-      },
-      { day: 98, phase: "phase-6", tag: "MLOps", title: "Technical Case Study Preparation for EU Energy Interviews", 
-        concept: "Approaching live technical take-home assignments and case studies common in EU energy companies (e.g., Orsted, EDP, Statkraft).", 
-        exercise: "Solve a timed mock technical case study: 'Forecast next-day offshore wind farm generation given noisy weather inputs'.", 
-        deliverable: "Executive case study presentation deck + clean structured code notebook." 
-      },
-      { day: 99, phase: "phase-6", tag: "MLOps", title: "System Design for Energy Data Science", 
-        concept: "Designing large-scale grid data architectures: streaming SCADA inputs, batch market processing, model serving under latency limits.", 
-        exercise: "Draft a system architecture diagram for an enterprise-wide battery storage optimization engine handling multi-market data.", 
-        deliverable: "System design architecture diagram with accompanying technical explanation write-up." 
-      },
-      { day: 100, phase: "phase-6", tag: "MLOps", title: "100-Day Graduation & Remote EU Outreach Execution", 
-        concept: "Networking strategies, targeting recruiters and hiring managers in EU energy hubs (Berlin, Amsterdam, Copenhagen, Madrid).", 
-        exercise: "Publish your Day 100 Build-in-Public summary post on LinkedIn detailing your complete portfolio, learnings, and remote availability.", 
-        deliverable: "Comprehensive LinkedIn graduation post + outreach messages sent to target EU energy recruiters." 
-      }
-    ];
-
-    // Render Cards
-    function renderDays(filterTag = 'all') {
-      const container = document.getElementById('curriculum-container');
-      container.innerHTML = '';
-
-      const completedDays = JSON.parse(localStorage.getItem('eu_ds_completed') || '[]');
-
-      daysData.forEach(item => {
-        if (filterTag !== 'all' && item.tag !== filterTag) return;
-
-        const isChecked = completedDays.includes(item.day);
-        
-        const card = document.createElement('div');
-        card.className = 'day-card';
-        card.id = `day-${item.day}`;
-        card.dataset.phase = item.phase;
-        card.dataset.tag = item.tag;
-
-        card.innerHTML = `
-          <div class="day-header" onclick="toggleAccordion(${item.day})">
-            <div class="day-title-group">
-              <label class="checkbox-container" onclick="event.stopPropagation()">
-                <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleComplete(${item.day}, this.checked)">
-                <span class="checkmark"></span>
-              </label>
-              <span class="day-number">Day ${item.day}</span>
-              <span class="day-title">${item.title}</span>
+        <main class="main-content">
+            <!-- Progress Section -->
+            <div class="stats-box">
+                <div class="stat-card">
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">Days Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="progressPercent">0%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="streak">0</div>
+                    <div class="stat-label">Current Streak</div>
+                </div>
             </div>
-            <span class="day-tag">${item.tag}</span>
-          </div>
-          <div class="day-content" id="content-${item.day}">
-            <div class="section-block">
-              <h4>Core Concept & Theoretical Deep Dive</h4>
-              <p>${item.concept}</p>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
             </div>
-            <div class="section-block">
-              <h4>Practical Hands-on Exercise</h4>
-              <p>${item.exercise}</p>
+
+            <div class="controls">
+                <button class="filter-btn active" onclick="filterDays('all')">All Days</button>
+                <button class="filter-btn" onclick="filterDays('python')">Python</button>
+                <button class="filter-btn" onclick="filterDays('math')">Math & Stats</button>
+                <button class="filter-btn" onclick="filterDays('ml')">Machine Learning</button>
+                <button class="filter-btn" onclick="filterDays('energy')">Energy Domain</button>
+                <button class="filter-btn" onclick="filterDays('mlops')">MLOps</button>
+                <button class="filter-btn" onclick="filterDays('completed')">✓ Completed</button>
             </div>
-            <div class="section-block">
-              <h4>Small GitHub / LinkedIn Deliverable</h4>
-              <div class="deliverable-box">${item.deliverable}</div>
+
+            <!-- Days Container -->
+            <div id="daysContainer"></div>
+
+            <!-- EU Datasets & Tools Section -->
+            <div id="referencesSection" style="margin-top: 4rem; scroll-margin-top: 150px;">
+                <div class="reference-section">
+                    <h2>🔌 EU Renewable Energy Datasets & Tools</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        Essential data sources and platforms for European renewable energy data science work:
+                    </p>
+                    <div class="reference-grid">
+                        <div class="reference-card">
+                            <h3>ENTSO-E Transparency Platform</h3>
+                            <p>Real-time and historical data on electricity generation, load, prices, and cross-border flows across Europe.</p>
+                            <a href="https://transparency.entsoe.eu" target="_blank">→ Visit ENTSO-E</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Open Power System Data</h3>
+                            <p>Free, open-source database of European power system data including generation, load, and prices.</p>
+                            <a href="https://open-power-system-data.org" target="_blank">→ Visit OPSD</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Renewables.ninja</h3>
+                            <p>Solar and wind power output simulations at high spatial and temporal resolution for Europe and worldwide.</p>
+                            <a href="https://www.renewables.ninja" target="_blank">→ Visit Renewables.ninja</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Copernicus C3S Climate Data Store</h3>
+                            <p>Climate and energy-related datasets including temperature, solar radiation, and wind speed from EU satellites.</p>
+                            <a href="https://cds.climate.copernicus.eu" target="_blank">→ Visit C3S</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Eurostat Energy Statistics</h3>
+                            <p>Official EU energy statistics including renewable shares, consumption, and capacity by country.</p>
+                            <a href="https://ec.europa.eu/eurostat/web/energy/data" target="_blank">→ Visit Eurostat</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Nord Pool Spot Market Data</h3>
+                            <p>Nordic electricity market data including day-ahead and intraday prices; excellent for time-series forecasting.</p>
+                            <a href="https://www.nordpoolgroup.com/historical-market-data" target="_blank">→ Visit Nord Pool</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>EPEX SPOT</h3>
+                            <p>Central European power exchange with Germany, Austria, France, and Poland market data and pricing.</p>
+                            <a href="https://www.eex.com/en/market-data/power/epex-spot" target="_blank">→ Visit EPEX SPOT</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>Global Energy Monitor</h3>
+                            <p>Database of power plants and renewable projects in Europe with detailed specifications and timelines.</p>
+                            <a href="https://globalenergymonitor.org" target="_blank">→ Visit GEM</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>PyPI Energy Packages</h3>
+                            <p>Key Python libraries: <code>entsoe-py</code>, <code>pvlib</code>, <code>windpowerlib</code>, <code>pyomo</code>, <code>pandapower</code>.</p>
+                            <a href="https://pypi.org" target="_blank">→ Visit PyPI</a>
+                        </div>
+                        <div class="reference-card">
+                            <h3>EU Taxonomy & ESG Data</h3>
+                            <p>European Sustainability Reporting Standards (ESRS) and SFDR disclosures for energy companies.</p>
+                            <a href="https://finance.ec.europa.eu/capital-markets-union/european-sustainability-reporting-standards_en" target="_blank">→ Visit EC Finance</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        `;
 
-        container.appendChild(card);
-      });
+            <!-- LinkedIn Post Templates -->
+            <div id="linkedinSection" style="margin-top: 4rem; scroll-margin-top: 150px;">
+                <div class="reference-section">
+                    <h2>📱 LinkedIn "Build in Public" Post Templates</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        Use these templates to frame your daily learning posts and build your professional brand:
+                    </p>
+                    <div class="linkedin-template">
+                        <strong>Template 1: Learning Milestone</strong><br><br>
+                        "Day [X]/100: Just mastered [Concept] 🚀\n\nToday I learned how [concrete technical detail] works. Applied it to [EU energy use case].\n\nKey insight: [1-2 sentences explaining why this matters for renewable energy]\n\nNextUp: [Teaser for tomorrow]\n\n#EUEnergy #DataScience #LearningInPublic #Renewables"
+                    </div>
+                    <div class="linkedin-template">
+                        <strong>Template 2: Project Showcase</strong><br><br>
+                        "Day [X]/100: Built a [project type] to predict [EU energy problem] 📊\n\nUsed: [Tools/Libraries]\nDataset: [EU source]\nAccuracy/Insight: [Key metric]\n\nLink to repo: [GitHub]\nKey learnings:\n• [Technical insight 1]\n• [Industry insight 2]\n\n#EUEnergy #MachineLearning #ClimateAction"
+                    </div>
+                    <div class="linkedin-template">
+                        <strong>Template 3: Domain Knowledge</strong><br><br>
+                        "Day [X]/100: Understanding [EU Energy Topic] 💡\n\nNegative electricity prices? Grid congestion? Solar curtailment?\n\nThese real problems are what energy data scientists solve daily. Today I analyzed [specific data/scenario].\n\nIf you work in EU renewables, here's what caught my attention: [1-3 insights]\n\n#EUTaxonomy #GridModeling #EnergyTransition"
+                    </div>
+                    <div class="linkedin-template">
+                        <strong>Template 4: Challenge & Reflection</strong><br><br>
+                        "Day [X]/100: I got stuck on [problem]. Here's how I debugged it 🔧\n\nChallenge: [What went wrong]\nApproach: [How I solved it]\nTakeaway: [What this taught me about building production ML]\n\nShoutout to [resource/community] that helped.\n\nRemote job hunt tip: Document your debugging process—employers love this.\n\n#DataScience #RemoteWork"
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-      updateProgress();
-    }
+    <footer>
+        <p>🌱 100-Day Build in Public Curriculum | Designed for Remote Data Science Roles in EU Renewable Energy | Last Updated: Aug 2026</p>
+    </footer>
 
-    // Toggle Accordion Content
-    function toggleAccordion(dayNumber) {
-      const content = document.getElementById(`content-${dayNumber}`);
-      content.classList.toggle('open');
-    }
+    <script>
+        // Curriculum Data
+        const curriculum = [
+            // PHASE 1: Python & Foundations (Days 1-20)
+            {
+                day: 1,
+                title: "Python Setup & Environment",
+                phase: 1,
+                tags: ["python"],
+                concept: "Install Python 3.11, set up VS Code, create virtual environments, and understand the Python ecosystem. Learn why reproducibility matters in energy data science.",
+                exercise: "Install Python via python.org, create a venv, pip install jupyter pandas numpy. Run your first Python command: print('Building EU renewable energy analysis').",
+                deliverable: "GitHub repo 'eu-energy-ds-100days' with README.md documenting your dev setup. LinkedIn post: 'Day 1/100: Starting my journey to remote data science in EU renewables from Mumbai 🚀'",
+                linkedinTip: "Share your motivation. Why EU energy? Why remote? Personal stories resonate."
+            },
+            {
+                day: 2,
+                title: "Variables, Data Types & Operators",
+                phase: 1,
+                tags: ["python"],
+                concept: "Understand Python's core data types (int, float, str, bool), variable assignment, and basic arithmetic. Apply to energy units (MW, MWh, €/MWh).",
+                exercise: "Write a script that converts wind farm power output: given capacity (MW) and capacity factor (%), calculate energy in MWh. Store results in a dictionary.",
+                deliverable: "Python script 'wind_farm_calculator.py' on GitHub. LinkedIn post showing conversion calculations for a real EU wind farm.",
+                linkedinTip: "Use real numbers: 'Just calculated that a 100MW wind farm in Denmark produces X MWh annually'."
+            },
+            {
+                day: 3,
+                title: "Control Flow: Conditionals & Loops",
+                phase: 1,
+                tags: ["python"],
+                concept: "Master if/elif/else statements and for/while loops. Apply to energy logic: classify pricing regimes, detect negative prices, iterate over hourly data.",
+                exercise: "Write a function that takes hourly electricity prices and classifies them as 'cheap' (<€20/MWh), 'normal', or 'spike' (>€80/MWh). Loop through a list of prices.",
+                deliverable: "Script 'price_classifier.py' with function. Commit to GitHub with sample data. LinkedIn post: 'Day 3: Just coded my first energy market analyzer 📊'",
+                linkedinTip: "Screenshot your output showing real EU price classifications from ENTSO-E data."
+            },
+            {
+                day: 4,
+                title: "Functions & Code Reusability",
+                phase: 1,
+                tags: ["python"],
+                concept: "Write DRY (Don't Repeat Yourself) code. Create functions with parameters, return values, and docstrings. Energy example: reusable solar/wind calculators.",
+                exercise: "Refactor Day 2's wind calculator into a function. Add solar calculator function. Include docstrings explaining EU Directive 2023/2001 capacity factor assumptions.",
+                deliverable: "Module 'energy_calculators.py' with well-documented functions. Test with multiple scenarios. GitHub commit with clear messages.",
+                linkedinTip: "Highlight code quality: 'Using docstrings and function design—practices that real energy teams require.'"
+            },
+            {
+                day: 5,
+                title: "Lists, Tuples & Dictionaries",
+                phase: 1,
+                tags: ["python"],
+                concept: "Master Python's core collection types. Lists for ordered data (time-series), tuples for immutable records (coordinates), dicts for key-value mapping (country-to-capacity).",
+                exercise: "Create a dict of EU countries with their renewable capacity (GW). Store hourly prices as lists. Practice slicing and filtering.",
+                deliverable: "Data structure script showing lists of time-series, dicts of countries. Commit to GitHub with sample EU energy data.",
+                linkedinTip: "Post: 'Storing EU renewable capacity data—the foundation for forecasting models.'"
+            },
+            {
+                day: 6,
+                title: "Strings & Text Processing",
+                phase: 1,
+                tags: ["python"],
+                concept: "String manipulation, formatting, and parsing. Energy context: parse CSV headers, format reports, extract data from text files.",
+                exercise: "Parse a mock EU pricing CSV file line by line. Extract date, price, country. Store in structured format. Practice f-strings and string methods.",
+                deliverable: "CSV parser script. Upload sample energy data files to GitHub. LinkedIn post: 'Day 6: Parsing real EU energy market data—critical skill for data pipelines.'"
+            },
+            {
+                day: 7,
+                title: "File Handling & I/O",
+                phase: 1,
+                tags: ["python"],
+                concept: "Read, write, and append files. Understand file modes, context managers (with statement). Energy use case: loading historical wind/solar data.",
+                exercise: "Write a script that reads a CSV of EU electricity prices, processes it, and writes a cleaned version. Use 'with' for file handling.",
+                deliverable: "Data cleaning script with input/output files. GitHub repo updated. LinkedIn: 'Handling files like a pro—essential for production data pipelines.'"
+            },
+            {
+                day: 8,
+                title: "Intro to NumPy",
+                phase: 1,
+                tags: ["python"],
+                concept: "NumPy arrays, vectorized operations, and basic array manipulation. Why NumPy? Speed and efficiency for energy datasets.",
+                exercise: "Create arrays of wind speeds from different EU regions. Perform vectorized calculations (mean, std, max). Compare loops vs. NumPy speed.",
+                deliverable: "NumPy script demonstrating vectorization benefits. Benchmark loops vs. arrays. GitHub commit. LinkedIn post with performance comparison.",
+                linkedinTip: "Show concrete speed gains: 'NumPy made my analysis 100x faster—this matters at scale.'"
+            },
+            {
+                day: 9,
+                title: "Introduction to Pandas",
+                phase: 1,
+                tags: ["python"],
+                concept: "Pandas DataFrames, reading/writing data, basic indexing and selection. The workhorse of data science.",
+                exercise: "Load an ENTSO-E CSV into a DataFrame. Select columns (date, price, generation). Filter data by date range. Save to new file.",
+                deliverable: "Pandas script loading EU energy data. GitHub with sample output. LinkedIn: 'Day 9: Pandas—now I can wrangle energy data efficiently.'"
+            },
+            {
+                day: 10,
+                title: "Git & GitHub Workflow",
+                phase: 1,
+                tags: ["python"],
+                concept: "Version control fundamentals: init, add, commit, push, branching. Essential for remote work and team collaboration.",
+                exercise: "Create a GitHub repo. Write a README explaining your project. Make 5 meaningful commits. Create a dev branch, merge to main.",
+                deliverable: "Clean GitHub repo with commit history, branching, and README. LinkedIn post: 'Day 10: GitHub proficiency—employers can now see my code quality.'"
+            },
+            {
+                day: 11,
+                title: "Object-Oriented Programming Basics",
+                phase: 1,
+                tags: ["python"],
+                concept: "Classes, objects, methods, and attributes. Design: write a WindTurbine or SolarPanel class for energy data.",
+                exercise: "Define a WindTurbine class with attributes (capacity_mw, hub_height, location) and methods (calculate_output, get_capacity_factor).",
+                deliverable: "OOP script with classes. GitHub update. LinkedIn: 'Day 11: Building reusable energy asset classes—software engineering matters.'"
+            },
+            {
+                day: 12,
+                title: "Error Handling & Debugging",
+                phase: 1,
+                tags: ["python"],
+                concept: "Try-except blocks, custom exceptions, logging. Robust code catches errors in production data pipelines.",
+                exercise: "Write a function that loads energy CSV files. Add error handling for missing files, invalid data, and type mismatches.",
+                deliverable: "Robust script with comprehensive error handling. Test edge cases. GitHub commit. LinkedIn: 'Production-ready code handles failures gracefully.'"
+            },
+            {
+                day: 13,
+                title: "Introduction to SQL",
+                phase: 1,
+                tags: ["python"],
+                concept: "SQL basics: SELECT, WHERE, JOIN, GROUP BY. Energy data is often in databases (PostgreSQL, TimescaleDB for time-series).",
+                exercise: "Learn SQL via SQLite. Create a schema for EU wind farms (id, country, capacity, year_built). Write queries: SELECT all > 100MW, COUNT by country.",
+                deliverable: "SQLite database with energy data. SQL scripts on GitHub. LinkedIn: 'Day 13: SQL skills open doors to data engineering roles.'"
+            },
+            {
+                day: 14,
+                title: "SQL Joins & Aggregations",
+                phase: 1,
+                tags: ["python"],
+                concept: "INNER/LEFT/RIGHT JOINs, GROUP BY, aggregation functions. Real-world energy analytics: join generation and price data.",
+                exercise: "Create two tables: wind_generation (date, location, mwh) and prices (date, location, eur_mwh). JOIN and calculate revenue per farm per month.",
+                deliverable: "Complex SQL queries on GitHub. Results visualized. LinkedIn post showing monthly revenue calculations for EU wind farms.",
+                linkedinTip: "Highlight business impact: 'Merging generation and price data to calculate wind farm profitability.'"
+            },
+            {
+                day: 15,
+                title: "Python-SQL Integration",
+                phase: 1,
+                tags: ["python"],
+                concept: "Connect Python to SQL databases via sqlite3 or SQLAlchemy. Query databases, insert data, build ETL pipelines.",
+                exercise: "Use Python to query your SQLite database. Read results into Pandas DataFrame. Perform analysis and save back to DB.",
+                deliverable: "Python script with database connections. GitHub with working example. LinkedIn: 'Bridging Python and SQL—core skill for data engineering.'"
+            },
+            {
+                day: 16,
+                title: "Data Formats: CSV, JSON, Parquet",
+                phase: 1,
+                tags: ["python"],
+                concept: "Understand file formats. CSV for simplicity, JSON for nested data, Parquet for efficiency (big data).",
+                exercise: "Download EU energy data in multiple formats. Load each format into Pandas. Compare speed and file size. Explain trade-offs.",
+                deliverable: "Script demonstrating all three formats. GitHub with benchmark results. LinkedIn: 'Choosing the right data format impacts pipeline performance.'"
+            },
+            {
+                day: 17,
+                title: "APIs & Web Requests",
+                phase: 1,
+                tags: ["python"],
+                concept: "HTTP requests, REST APIs, JSON parsing. Access live EU energy data from ENTSO-E and other platforms.",
+                exercise: "Use Python requests library to query ENTSO-E API for real-time generation data. Parse JSON response. Store in DataFrame.",
+                deliverable: "Script accessing live API. GitHub with sample data. LinkedIn: 'Day 17: Pulling live EU energy data—no more manual downloads.'"
+            },
+            {
+                day: 18,
+                title: "Documentation & Docstrings",
+                phase: 1,
+                tags: ["python"],
+                concept: "Write professional docstrings (Google/NumPy style), README files, and inline comments. Employers value documented code.",
+                exercise: "Go back to previous scripts. Add comprehensive docstrings to all functions. Explain parameters, returns, and energy-domain context.",
+                deliverable: "Well-documented codebase. GitHub with polished README. LinkedIn: 'Professional documentation—a mark of production-ready code.'"
+            },
+            {
+                day: 19,
+                title: "Testing Basics",
+                phase: 1,
+                tags: ["python"],
+                concept: "Unit testing with pytest. Ensure your energy calculators work correctly across scenarios.",
+                exercise: "Write unit tests for your wind and solar calculators. Test edge cases (zero wind, 100% capacity factor). Aim for 80%+ coverage.",
+                deliverable: "Test suite in pytest. GitHub with passing tests. LinkedIn: 'Day 19: Test-driven development ensures reliability in energy data systems.'"
+            },
+            {
+                day: 20,
+                title: "Phase 1 Capstone: EU Energy Data Pipeline",
+                phase: 1,
+                tags: ["python"],
+                concept: "Integrate everything: Python, SQL, APIs, error handling, and testing to build a mini data pipeline.",
+                exercise: "Build a pipeline: fetch EU wind generation from API → clean with Pandas → store in SQLite → query and analyze → export results. Add tests.",
+                deliverable: "Complete GitHub repo with working pipeline. README explaining each step. LinkedIn post: 'Day 20/100: Built my first production-grade energy data pipeline 🚀'",
+                linkedinTip: "Showcase the full journey. Mention EU data sources and scalability potential."
+            },
 
-    // Progress Tracker Functionality
-    function toggleComplete(dayNumber, isChecked) {
-      let completedDays = JSON.parse(localStorage.getItem('eu_ds_completed') || '[]');
-      
-      if (isChecked) {
-        if (!completedDays.includes(dayNumber)) completedDays.push(dayNumber);
-      } else {
-        completedDays = completedDays.filter(d => d !== dayNumber);
-      }
+            // PHASE 2: Math & Stats for DS (Days 21-40)
+            {
+                day: 21,
+                title: "Linear Algebra Fundamentals",
+                phase: 2,
+                tags: ["math"],
+                concept: "Vectors, matrices, operations. Why? ML relies on linear algebra. Energy context: load-balancing matrices, flow networks.",
+                exercise: "Use NumPy to create matrices of EU country-to-country power flows. Perform matrix multiplication. Visualize as network.",
+                deliverable: "NumPy-based linear algebra exercises. GitHub with visualizations. LinkedIn: 'Day 21: Linear algebra—the language of machine learning.'"
+            },
+            {
+                day: 22,
+                title: "Matrix Operations & Transformations",
+                phase: 2,
+                tags: ["math"],
+                concept: "Determinants, inverses, eigenvalues. Application: principal component analysis (PCA) for reducing energy dataset dimensionality.",
+                exercise: "Calculate eigenvalues of a correlation matrix from wind turbine sensor data. Understand what drives variance in generation.",
+                deliverable: "PCA analysis on real EU wind data. Commit to GitHub. LinkedIn post explaining PCA intuition for energy systems.",
+                linkedinTip: "Show concrete dimensionality reduction results: 'Reduced 50 sensors to 5 principal components without losing insights.'"
+            },
+            {
+                day: 23,
+                title: "Calculus: Derivatives & Optimization",
+                phase: 2,
+                tags: ["math"],
+                concept: "Gradients, partial derivatives, optimization. Core to gradient descent in ML models.",
+                exercise: "Use scipy.optimize to minimize a loss function. Visualize gradient descent converging. Energy: optimize battery dispatch schedule.",
+                deliverable: "Optimization script with visualizations. GitHub with example (battery dispatch cost minimization). LinkedIn: 'Day 23: Calculus powers ML optimization.'"
+            },
+            {
+                day: 24,
+                title: "Probability & Distributions",
+                phase: 2,
+                tags: ["math"],
+                concept: "Probability fundamentals, PDF/CDF, common distributions (normal, Poisson, exponential). Energy: wind speed follows Weibull distribution.",
+                exercise: "Analyze wind speed distribution from EU data. Fit Weibull distribution. Compare theoretical vs. actual generation.",
+                deliverable: "Distribution fitting analysis. GitHub with plots. LinkedIn: 'Day 24: Wind speeds follow Weibull—a key insight for forecasting.'"
+            },
+            {
+                day: 25,
+                title: "Statistical Hypothesis Testing",
+                phase: 2,
+                tags: ["math"],
+                concept: "T-tests, chi-square, ANOVA, p-values. Essential for validating energy model improvements.",
+                exercise: "Test if two wind farms have statistically different capacity factors. Use scipy.stats. Calculate confidence intervals.",
+                deliverable: "Hypothesis testing notebook comparing EU wind farms. GitHub commit. LinkedIn: 'Day 25: Statistical rigor—backing claims with data.'"
+            },
+            {
+                day: 26,
+                title: "Correlation & Regression Fundamentals",
+                phase: 2,
+                tags: ["math"],
+                concept: "Pearson correlation, simple linear regression, R-squared, residuals. Foundation for predictive modeling.",
+                exercise: "Correlate temperature with solar power output. Fit a simple linear regression. Plot residuals. Discuss assumptions.",
+                deliverable: "Regression analysis on EU solar data. GitHub with diagnostic plots. LinkedIn: 'Day 26: Linear regression—my first predictive model.'"
+            },
+            {
+                day: 27,
+                title: "Multiple Regression & Feature Scaling",
+                phase: 2,
+                tags: ["math"],
+                concept: "Multiple features, multicollinearity, standardization (z-score), normalization (min-max). Prepare data for ML.",
+                exercise: "Build a model predicting wind power from multiple features: wind speed, direction, temperature, pressure. Compare scaled vs. unscaled.",
+                deliverable: "Multiple regression example with feature scaling comparison. GitHub notebook. LinkedIn: 'Feature scaling improves model convergence 10x faster.'"
+            },
+            {
+                day: 28,
+                title: "Probability Distributions in Energy",
+                phase: 2,
+                tags: ["math", "energy"],
+                concept: "Apply distributions to energy problems: solar irradiance (truncated normal), wind speed (Weibull), demand (normal).",
+                exercise: "Simulate EU electricity demand using normal distribution. Create synthetic 1-year hourly dataset. Validate against real ENTSO-E data.",
+                deliverable: "Synthetic energy demand generator. GitHub with validation plots. LinkedIn: 'Day 28: Synthetic data for testing energy models.'"
+            },
+            {
+                day: 29,
+                title: "Bayes' Theorem & Conditional Probability",
+                phase: 2,
+                tags: ["math"],
+                concept: "Bayes' rule. Application: predict wind turbine failures given sensor readings (P(failure|vibration)).",
+                exercise: "Build a simple Bayesian model: if vibration is high, what's the probability of turbine fault? Use conditional probabilities.",
+                deliverable: "Bayes' theorem application for turbine health. GitHub with probability tables. LinkedIn: 'Day 29: Bayesian thinking for maintenance prediction.'"
+            },
+            {
+                day: 30,
+                title: "EDA Part 1: Univariate Analysis",
+                phase: 2,
+                tags: ["math"],
+                concept: "Exploratory Data Analysis (EDA). Descriptive statistics, histograms, box plots, outlier detection.",
+                exercise: "Download real ENTSO-E generation data. Perform univariate EDA: describe(), distribution plots, outlier detection by country.",
+                deliverable: "EDA notebook with statistical summaries and visualizations. GitHub with findings. LinkedIn: 'Day 30: EDA reveals hidden patterns in EU generation data.'"
+            },
+            {
+                day: 31,
+                title: "EDA Part 2: Bivariate & Multivariate Analysis",
+                phase: 2,
+                tags: ["math"],
+                concept: "Relationships between variables: scatter plots, correlation matrices, heatmaps, pair plots.",
+                exercise: "Correlate wind speed, solar irradiance, temperature with electricity generation. Create correlation heatmap for EU countries.",
+                deliverable: "Bivariate analysis on EU data. Heatmaps and scatter matrices. GitHub notebook. LinkedIn: 'Wind and solar are inversely correlated—key for grid stability.'"
+            },
+            {
+                day: 32,
+                title: "Missing Data & Imputation",
+                phase: 2,
+                tags: ["math"],
+                concept: "Identify and handle missing values: drop, mean/median imputation, forward fill, interpolation.",
+                exercise: "Introduce missing values in EU energy dataset. Compare imputation strategies (forward fill for time-series is better). Measure impact on analysis.",
+                deliverable: "Imputation comparison notebook. GitHub with methodology. LinkedIn: 'Day 32: Handling missing data—90% of real-world work.'"
+            },
+            {
+                day: 33,
+                title: "Outliers & Anomalies",
+                phase: 2,
+                tags: ["math"],
+                concept: "Detect outliers: IQR method, z-score, isolation forests. Energy context: negative prices, extreme grid events.",
+                exercise: "Find outliers in EU electricity prices. Investigate negative price days (they're real!). Understand grid physics behind them.",
+                deliverable: "Outlier analysis on ENTSO-E prices. GitHub with flagged events. LinkedIn: 'Day 33: Negative electricity prices—market anomalies explained.'"
+            },
+            {
+                day: 34,
+                title: "Time-Series Basics",
+                phase: 2,
+                tags: ["math", "energy"],
+                concept: "Temporal data characteristics: trends, seasonality, stationarity. ADF test, autocorrelation (ACF/PACF).",
+                exercise: "Analyze EU electricity load time-series. Decompose into trend + seasonal + residual. Plot ACF/PACF to identify patterns.",
+                deliverable: "Time-series decomposition notebook. GitHub with ACF/PACF plots. LinkedIn: 'Day 34: Load follows daily, weekly, yearly cycles—predictable.'"
+            },
+            {
+                day: 35,
+                title: "Feature Engineering Basics",
+                phase: 2,
+                tags: ["math"],
+                concept: "Create new features from raw data: lag features, rolling statistics, cyclical encoding (hour of day, day of week).",
+                exercise: "Engineer features from hourly EU load data: previous hour load (lag), 24-hour rolling mean, hour of day (sine/cosine encoding).",
+                deliverable: "Feature engineering script for energy data. GitHub with feature importance analysis. LinkedIn: 'Day 35: Features determine model performance—engineering is 80% of work.'"
+            },
+            {
+                day: 36,
+                title: "Dimensionality Reduction: PCA",
+                phase: 2,
+                tags: ["math"],
+                concept: "Principal Component Analysis reduces feature space while preserving variance. Useful for wind sensor data (50+ sensors → 5 PCs).",
+                exercise: "Apply PCA to wind farm multi-sensor data. Determine components needed for 95% variance. Visualize principal components.",
+                deliverable: "PCA analysis on real turbine sensor data. GitHub with explained variance plots. LinkedIn: 'Day 36: PCA simplifies complex sensor data without losing info.'"
+            },
+            {
+                day: 37,
+                title: "Categorical Encoding",
+                phase: 2,
+                tags: ["math"],
+                concept: "One-hot encoding, label encoding, ordinal encoding. Energy: encode country, technology type, weather condition.",
+                exercise: "Encode EU energy data: country codes (one-hot), technology (label), season (ordinal). Compare methods.",
+                deliverable: "Encoding comparison script. GitHub with before/after. LinkedIn: 'Day 37: Proper encoding improves model accuracy measurably.'"
+            },
+            {
+                day: 38,
+                title: "Data Normalization & Standardization",
+                phase: 2,
+                tags: ["math"],
+                concept: "Rescale features for fairness and convergence: z-score (standardization), min-max (normalization), robust scaling.",
+                exercise: "Compare wind speed (0-25 m/s) vs. power output (0-1000 MW) on same model. Show effect of scaling.",
+                deliverable: "Scaling impact analysis. GitHub with quantitative comparison. LinkedIn: 'Day 38: Feature scaling can mean difference between convergence and divergence.'"
+            },
+            {
+                day: 39,
+                title: "Train/Test/Validation Split",
+                phase: 2,
+                tags: ["math"],
+                concept: "Proper data splitting prevents overfitting. Time-series: chronological split (no future leakage). Stratified splits for imbalanced classes.",
+                exercise: "Split EU price data correctly for time-series: 70% train, 15% validation, 15% test—strictly in time order.",
+                deliverable: "Data splitting methodology on GitHub. Show no-leakage principle. LinkedIn: 'Day 39: Proper train-test split is non-negotiable for credible models.'"
+            },
+            {
+                day: 40,
+                title: "Phase 2 Capstone: EDA & Feature Engineering on EU Energy",
+                phase: 2,
+                tags: ["math"],
+                concept: "Integrate stats, EDA, and feature engineering into comprehensive analysis of EU renewable energy data.",
+                exercise: "Full EDA pipeline: load ENTSO-E data → descriptive stats → distributions → correlations → feature engineering → dimensionality reduction → export features.",
+                deliverable: "Complete EDA notebook. GitHub with polished visualizations and insights. LinkedIn: 'Day 40/100: Statistical mastery of EU energy data—ready for ML.'"
+            },
 
-      localStorage.setItem('eu_ds_completed', JSON.stringify(completedDays));
-      updateProgress();
-    }
+            // PHASE 3: Classical ML (Days 41-60)
+            {
+                day: 41,
+                title: "Linear Regression from Scratch",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Understand linear regression deeply: closed-form solution, gradient descent, cost function minimization.",
+                exercise: "Implement linear regression using NumPy (no sklearn). Fit on EU solar power data. Compare with sklearn implementation.",
+                deliverable: "Custom linear regression implementation. GitHub with comparison. LinkedIn: 'Day 41: Built linear regression from scratch—understanding > memorization.'"
+            },
+            {
+                day: 42,
+                title: "Linear Regression for Energy Forecasting",
+                phase: 3,
+                tags: ["ml", "energy"],
+                concept: "Apply linear regression to predict wind/solar output from weather features.",
+                exercise: "Predict daily solar output using: temperature, humidity, cloud cover from Copernicus data. Evaluate MSE, R-squared, MAE.",
+                deliverable: "Solar forecasting model. GitHub with evaluation metrics. LinkedIn: 'Day 42: Predicting solar output—first forecasting model deployed.'"
+            },
+            {
+                day: 43,
+                title: "Logistic Regression & Classification",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Binary and multi-class classification. Sigmoid activation, decision boundaries, cross-entropy loss.",
+                exercise: "Classify grid events: 'congestion' vs. 'normal'. Use load and generation features. Calculate precision, recall, F1.",
+                deliverable: "Grid event classifier. GitHub with confusion matrix. LinkedIn: 'Day 43: Classifying grid anomalies—binary classifier working.'"
+            },
+            {
+                day: 44,
+                title: "Model Evaluation Metrics",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Regression: MAE, MSE, RMSE, R-squared. Classification: accuracy, precision, recall, F1, ROC-AUC. Energy: choose metrics by business goal.",
+                exercise: "Compare metrics for your forecasting model. Discuss: is high R-squared enough? What about worst-case forecast error?",
+                deliverable: "Metrics comparison framework. GitHub with evaluation script. LinkedIn: 'Day 44: Choosing right metrics—critical for energy accuracy.'"
+            },
+            {
+                day: 45,
+                title: "Cross-Validation & Overfitting",
+                phase: 3,
+                tags: ["ml"],
+                concept: "K-fold CV, time-series CV, detecting overfitting. Energy: avoid future leakage in temporal data.",
+                exercise: "Compare simple model + CV vs. complex model + CV on EU load prediction. Show overfitting symptoms.",
+                deliverable: "CV analysis comparing model complexity. GitHub with learning curves. LinkedIn: 'Day 45: Cross-validation protects against overfitting.'"
+            },
+            {
+                day: 46,
+                title: "Hyperparameter Tuning Basics",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Grid search, random search, Bayesian optimization. Tune learning rates, regularization, tree depth.",
+                exercise: "Tune a linear regression model: test different regularization strengths (L1, L2). Compare CV scores.",
+                deliverable: "Hyperparameter tuning script. GitHub with results. LinkedIn: 'Day 46: Systematic tuning beats manual tweaking every time.'"
+            },
+            {
+                day: 47,
+                title: "Decision Trees & Interpretability",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Tree-based models: easy to interpret, handle non-linearity. Energy: understand what features drive grid congestion.",
+                exercise: "Build decision tree for grid congestion prediction. Visualize tree. Extract decision rules. Discuss feature importance.",
+                deliverable: "Interpretable tree model. GitHub with visualized tree. LinkedIn: 'Day 47: Tree models—interpretable ML for energy stakeholders.'"
+            },
+            {
+                day: 48,
+                title: "Random Forests & Ensemble Methods",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Bagging, bootstrapping, ensemble wisdom. Random forests reduce overfitting and improve accuracy.",
+                exercise: "Train random forest on EU renewable generation prediction. Compare single tree vs. forest. Feature importance analysis.",
+                deliverable: "Random forest model with feature importance. GitHub. LinkedIn: 'Day 48: Ensembles beat single models—proven pattern.'"
+            },
+            {
+                day: 49,
+                title: "Gradient Boosting & XGBoost",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Sequential tree building, learning from mistakes. XGBoost: regularized, fast, powerful. Industry standard for energy forecasting.",
+                exercise: "Train XGBoost on day-ahead price prediction. Compare with random forest. Use early stopping. Evaluate on test set.",
+                deliverable: "XGBoost price forecasting model. GitHub with performance comparison. LinkedIn: 'Day 49: XGBoost—the model winning Kaggle energy competitions.'"
+            },
+            {
+                day: 50,
+                title: "Support Vector Machines (SVM)",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Support vectors, kernels, margins. Powerful for classification. Energy: fault detection in turbines.",
+                exercise: "SVM classifier for turbine fault detection (healthy vs. faulty). Test linear and RBF kernels. Tune C parameter.",
+                deliverable: "SVM fault detector. GitHub with kernel comparison. LinkedIn: 'Day 50: SVM for anomaly detection in renewable assets.'"
+            },
+            {
+                day: 51,
+                title: "K-Nearest Neighbors (KNN)",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Instance-based learning, lazy learner. Good for anomaly detection; sensitive to feature scaling.",
+                exercise: "KNN for identifying similar wind farms in Europe (by location, capacity, generation patterns). Find k using CV.",
+                deliverable: "KNN similarity model. GitHub. LinkedIn: 'Day 51: KNN finds similar renewable assets—clustering foundation.'"
+            },
+            {
+                day: 52,
+                title: "Clustering: K-Means & Hierarchical",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Unsupervised learning. K-means, silhouette score, hierarchical clustering. Application: group wind farms by generation patterns.",
+                exercise: "Cluster EU wind farms by hourly generation time-series similarity. Determine optimal k. Visualize clusters.",
+                deliverable: "Wind farm clustering analysis. GitHub with dendrograms and silhouette plots. LinkedIn: 'Day 52: Clustering reveals hidden wind farm archetypes.'"
+            },
+            {
+                day: 53,
+                title: "Anomaly Detection for Grid",
+                phase: 3,
+                tags: ["ml", "energy"],
+                concept: "Isolation forests, Local Outlier Factor (LOF), one-class SVM. Detect grid faults, price spikes, generation anomalies.",
+                exercise: "Train anomaly detector on normal EU grid operations. Test on negative price events and extreme weather days.",
+                deliverable: "Anomaly detection system. GitHub with evaluation. LinkedIn: 'Day 53: Real-time anomaly detection for grid monitoring.'"
+            },
+            {
+                day: 54,
+                title: "Imbalanced Datasets",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Handle rare events: SMOTE, class weights, threshold tuning. Energy: grid faults are rare but critical.",
+                exercise: "Balanced vs. imbalanced grid fault classification. Apply SMOTE. Evaluate on minority class metrics (recall, precision).",
+                deliverable: "Imbalanced learning techniques on GitHub. Show metric improvements. LinkedIn: 'Day 54: Handling imbalanced data—critical for rare events.'"
+            },
+            {
+                day: 55,
+                title: "Feature Importance & Interpretability",
+                phase: 3,
+                tags: ["ml"],
+                concept: "SHAP, permutation importance, partial dependence plots. Explain model decisions to stakeholders.",
+                exercise: "Use SHAP to explain energy forecasting model. Which weather features matter most? Create interpretability report.",
+                deliverable: "SHAP analysis notebook. GitHub with visualizations. LinkedIn: 'Day 55: SHAP makes black-box models explainable—stakeholder trust.'"
+            },
+            {
+                day: 56,
+                title: "Ensemble Stacking & Voting",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Combine diverse models: voting classifier/regressor, stacking. Better generalization than single models.",
+                exercise: "Ensemble: linear regression + random forest + XGBoost for price forecasting. Compare single models vs. ensemble.",
+                deliverable: "Ensemble model combining diverse algorithms. GitHub. LinkedIn: 'Day 56: Ensemble stacking improves forecast accuracy 5%.'"
+            },
+            {
+                day: 57,
+                title: "Calibration & Probability Estimation",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Calibrated probabilities matter for decision-making. Platt scaling, isotonic regression.",
+                exercise: "Calibrate your grid fault classifier. Ensure predicted probabilities match actual fault rates. Business impact: better thresholds.",
+                deliverable: "Calibration analysis. GitHub with calibration curves. LinkedIn: 'Day 57: Calibrated probabilities—critical for risk management.'"
+            },
+            {
+                day: 58,
+                title: "Model Comparison & Selection",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Rigorous comparison: statistical tests, learning curves, practical significance. Pick best model for deployment.",
+                exercise: "Compare 5 models (LR, tree, RF, XGBoost, SVM) on energy forecasting. Statistical tests, compute power, choose winner.",
+                deliverable: "Comprehensive model comparison report. GitHub with statistical tests. LinkedIn: 'Day 58: Rigorous model selection—no guessing.'"
+            },
+            {
+                day: 59,
+                title: "Industry Best Practices",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Reproducibility, documentation, versioning. Production-ready: logging, monitoring, A/B testing readiness.",
+                exercise: "Document your best model: hyperparameters, training data, preprocessing, expected performance. Package for deployment.",
+                deliverable: "Production-ready model documentation. GitHub with training script. LinkedIn: 'Day 59: Documenting models for team handoff.'"
+            },
+            {
+                day: 60,
+                title: "Phase 3 Capstone: Multi-Task Energy Forecasting",
+                phase: 3,
+                tags: ["ml"],
+                concept: "Integrate all ML techniques: build an ensemble forecasting system for EU renewable generation.",
+                exercise: "Predict: wind output, solar output, and grid load 24 hours ahead. Use ensemble of best models. Evaluate rigorously. Compare against baseline.",
+                deliverable: "End-to-end forecasting system. GitHub with models, evaluation, documentation. LinkedIn: 'Day 60/100: ML-powered energy forecasting—production-ready.'"
+            },
 
-    function updateProgress() {
-      const completedDays = JSON.parse(localStorage.getItem('eu_ds_completed') || '[]');
-      const count = completedDays.length;
-      const percentage = Math.round((count / 100) * 100);
+            // PHASE 4: Specialized Energy DS (Days 61-80)
+            {
+                day: 61,
+                title: "Time-Series Forecasting Basics",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Time-series specific techniques: ARIMA, exponential smoothing, autoregressive models.",
+                exercise: "Fit ARIMA to EU electricity load. Use ACF/PACF to determine (p,d,q). Forecast 30 days ahead. Evaluate MAE.",
+                deliverable: "ARIMA forecasting notebook. GitHub with predictions vs. actuals. LinkedIn: 'Day 61: ARIMA—classical time-series forecasting.'"
+            },
+            {
+                day: 62,
+                title: "Seasonal Decomposition & STL",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Separate trend, seasonal, residual components. Energy: load has strong daily and yearly seasonality.",
+                exercise: "Decompose EU load with STL. Forecast each component separately. Reconstruct. Compare with standard ARIMA.",
+                deliverable: "Seasonal decomposition analysis. GitHub with component plots. LinkedIn: 'Day 62: Seasonality—electricity demand is highly predictable.'"
+            },
+            {
+                day: 63,
+                title: "Advanced Time-Series: Prophet",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Facebook's Prophet: handles seasonality, holidays, changepoints. Robust to missing data.",
+                exercise: "Train Prophet on German electricity load (include holidays). Forecast 3 months. Add custom seasonality for EU holidays.",
+                deliverable: "Prophet model with holiday effects. GitHub. LinkedIn: 'Day 63: Prophet makes holiday-aware forecasts—captures real calendar effects.'"
+            },
+            {
+                day: 64,
+                title: "LSTM & Recurrent Neural Networks",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Deep learning for sequences: LSTM, GRU. Memory for long-term dependencies. Energy: capture generation patterns.",
+                exercise: "LSTM model for 24-hour wind generation forecast. Use previous 7 days as input. Evaluate against ARIMA.",
+                deliverable: "LSTM model notebook. GitHub with performance comparison. LinkedIn: 'Day 64: LSTMs capture complex temporal patterns better than classical methods.'"
+            },
+            {
+                day: 65,
+                title: "Attention Mechanisms & Transformers",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Transformer architecture: multi-head attention. State-of-the-art for time-series. Energy: attend to weather, time-of-day.",
+                exercise: "Build transformer for electricity price forecasting. Attention over weather features and lagged prices. Compare with LSTM.",
+                deliverable: "Transformer model. GitHub with attention visualizations. LinkedIn: 'Day 65: Transformers—next generation of forecasting.'"
+            },
+            {
+                day: 66,
+                title: "Geospatial Analysis: GeoPandas",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Work with geographic data: shapefiles, coordinates, spatial joins. Map renewable assets across EU.",
+                exercise: "Load EU wind farm locations. Visualize on map. Calculate distances between farms. Identify clusters.",
+                deliverable: "GeoPandas map visualization. GitHub with spatial analysis. LinkedIn: 'Day 66: Mapping renewable assets across Europe.'"
+            },
+            {
+                day: 67,
+                title: "Solar Potential Mapping",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Assess solar potential by location: latitude, cloud cover, terrain. Copernicus data integration.",
+                exercise: "Use Copernicus solar radiation data. Map theoretical solar capacity for EU regions. Compare with actual installed capacity.",
+                deliverable: "Solar potential map. GitHub with capacity factor analysis. LinkedIn: 'Day 67: Identifying optimal solar sites across Europe.'"
+            },
+            {
+                day: 68,
+                title: "Wind Farm Siting & Optimization",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Geospatial analysis for wind farm placement: wind speed, proximity to grid, environmental constraints.",
+                exercise: "Identify candidate sites for new wind farms. Score locations by wind speed (Renewables.ninja) and grid proximity.",
+                deliverable: "Wind siting analysis. GitHub with candidate site ranking. LinkedIn: 'Day 68: Data-driven wind farm siting—millions saved.'"
+            },
+            {
+                day: 69,
+                title: "Anomaly Detection: Turbine Health",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Detect turbine failures early: vibration, power output patterns, temperature anomalies. Predictive maintenance.",
+                exercise: "SCADA data analysis: train autoencoder on normal operations. Detect deviations. Correlate with maintenance events.",
+                deliverable: "Turbine health anomaly detector. GitHub with case studies. LinkedIn: 'Day 69: Predictive maintenance saves millions—real application.'"
+            },
+            {
+                day: 70,
+                title: "Grid Forecasting & Load Prediction",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Forecast total electricity demand by country/region. Foundation for grid planning and pricing.",
+                exercise: "Multi-variable load forecasting: temperature, humidity, day-of-week, holidays. Deploy model for multiple EU countries.",
+                deliverable: "Multi-country load forecasting system. GitHub. LinkedIn: 'Day 70: Predicting electricity demand for grid operators.'"
+            },
+            {
+                day: 71,
+                title: "Price Forecasting Under Volatility",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "Volatile markets: extreme price events, negative prices. Quantile regression, ensemble methods.",
+                exercise: "Forecast day-ahead prices including tails (probability of negative prices). Use quantile regression (0.1, 0.5, 0.9).",
+                deliverable: "Probabilistic price forecasting. GitHub with quantile plots. LinkedIn: 'Day 71: Forecasting tail risks in energy markets.'"
+            },
+            {
+                day: 72,
+                title: "Curtailment & Congestion Prediction",
+                phase: 4,
+                tags: ["energy", "ml"],
+                concept: "When is renewable generation curtailed or congestion occurs? Business impact: lost revenue, grid stability.",
+                exercise: "Predict curtailment events from generation and grid constraints. Classify: 'curtailed' vs. 'full generation'.",
+                deliverable: "Curtailment predictor. GitHub. LinkedIn: 'Day 72: Predicting when renewables are wasted—critical for economics.'"
+            },
+            {
+                day: 73,
+                title: "Battery Dispatch Optimization",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Linear programming for battery scheduling: charge at low prices, discharge at high prices, manage constraints.",
+                exercise: "Optimize 4-hour battery dispatch over 24-hour horizon. Maximize revenue given price forecast and battery constraints.",
+                deliverable: "Battery dispatch optimizer using pyomo/cvxpy. GitHub with profit calculations. LinkedIn: 'Day 73: Optimal battery operation—ML meets optimization.'"
+            },
+            {
+                day: 74,
+                title: "Power Flow Analysis",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Simulate electricity flows through grid. AC/DC power flow equations. Identify bottlenecks.",
+                exercise: "Use pandapower: build simplified EU grid model. Run power flow. Identify congested lines. Simulate renewable injection impacts.",
+                deliverable: "Power flow simulation. GitHub with congestion analysis. LinkedIn: 'Day 74: Physics-informed grid modeling.'"
+            },
+            {
+                day: 75,
+                title: "Market Simulation & Price Modeling",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Agent-based modeling, game theory. Simulate market dynamics: supply-demand, strategic bidding.",
+                exercise: "Simplified electricity market sim: generators bid, load demanded, prices clear. See how renewable injection changes prices.",
+                deliverable: "Market simulation model. GitHub. LinkedIn: 'Day 75: Simulating energy markets—understanding economics.'"
+            },
+            {
+                day: 76,
+                title: "EU Taxonomy & ESG Analytics",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Track sustainable metrics: carbon emissions, renewable percentage, EU Taxonomy alignment. Growing compliance demand.",
+                exercise: "Analyze EU power plant data. Calculate emissions by technology and country. Track renewable trajectory vs. RED III targets.",
+                deliverable: "ESG metrics dashboard. GitHub with country-level analysis. LinkedIn: 'Day 76: ESG analytics—the future of energy reporting.'"
+            },
+            {
+                day: 77,
+                title: "Multi-Objective Optimization",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Trade-offs: cost vs. emissions, cost vs. reliability. Pareto frontiers. Real energy systems have multiple goals.",
+                exercise: "Optimize generation portfolio: minimize cost AND emissions. Visualize Pareto frontier. Discuss trade-offs.",
+                deliverable: "Multi-objective optimization analysis. GitHub with Pareto plots. LinkedIn: 'Day 77: Balancing cost, emissions, and reliability.'"
+            },
+            {
+                day: 78,
+                title: "Uncertainty Quantification",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Probabilistic forecasts, confidence intervals, Monte Carlo simulations. Energy: handle weather uncertainty.",
+                exercise: "Probabilistic wind forecast: not just point estimate, but distribution. Use ensemble methods or quantile regression.",
+                deliverable: "Probabilistic forecasting system. GitHub with uncertainty bounds. LinkedIn: 'Day 78: Quantifying forecast uncertainty—essential for planning.'"
+            },
+            {
+                day: 79,
+                title: "Causal Inference in Energy",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Causal questions: does nuclear shutoff increase prices? What's the impact of a new wind farm?",
+                exercise: "Causal analysis: measure impact of German Energiewende (renewable expansion) on prices using synthetic control methods.",
+                deliverable: "Causal impact analysis. GitHub with methodology. LinkedIn: 'Day 79: Causal inference—answering 'what if' questions.'"
+            },
+            {
+                day: 80,
+                title: "Phase 4 Capstone: EU Energy Analytics Platform",
+                phase: 4,
+                tags: ["energy"],
+                concept: "Integrate forecasting, geospatial, optimization, and analytics into comprehensive decision-support system.",
+                exercise: "Build: forecasting (wind/solar/load/price) + geospatial map + battery optimizer + ESG dashboard. Multi-country, production-grade.",
+                deliverable: "Integrated energy analytics system. GitHub with all components. LinkedIn: 'Day 80/100: Enterprise-grade energy analytics platform.'"
+            },
 
-      document.getElementById('progress-count').innerText = `${count} / 100 Days`;
-      document.getElementById('progress-percentage').innerText = `${percentage}%`;
-      document.getElementById('progress-bar').style.width = `${percentage}%`;
-    }
+            // PHASE 5: MLOps & Deployment (Days 81-95)
+            {
+                day: 81,
+                title: "FastAPI Fundamentals",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Build REST APIs with FastAPI. Deploy ML models as services. Energy: expose forecasting models to grid operators.",
+                exercise: "Create FastAPI app with endpoint: POST wind speed → GET forecast. Document with Swagger. Test locally.",
+                deliverable: "FastAPI app on GitHub with working endpoints. LinkedIn: 'Day 81: ML models are just code—APIs make them useful.'"
+            },
+            {
+                day: 82,
+                title: "API Development & Data Validation",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Pydantic models for request/response validation. Error handling. Input sanitization. Production robustness.",
+                exercise: "Extend FastAPI app: validate inputs (wind speed range), handle errors gracefully, return meaningful messages.",
+                deliverable: "Robust API with validation. GitHub. LinkedIn: 'Day 82: Production APIs require defensive programming.'"
+            },
+            {
+                day: 83,
+                title: "Streamlit for Interactive Dashboards",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Rapid dashboard development. No frontend coding needed. Perfect for data science demos and internal tools.",
+                exercise: "Build Streamlit dashboard: load EU energy data, display forecasts, allow interactivity (date picker, location filter).",
+                deliverable: "Streamlit app deployed. GitHub. LinkedIn: 'Day 83: Streamlit—from analysis to dashboard in minutes.'"
+            },
+            {
+                day: 84,
+                title: "Model Persistence & Versioning",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Save/load models. Track versions: parameters, training data, performance metrics. Critical for reproducibility.",
+                exercise: "Pickle and joblib your best models. Version them: v1.0, v1.1, v2.0. Document what changed.",
+                deliverable: "Model versioning strategy on GitHub. Documentation. LinkedIn: 'Day 84: Model versioning—essential for production systems.'"
+            },
+            {
+                day: 85,
+                title: "Docker Containerization",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Containerize applications. Consistent environments: dev, test, production. Energy: deploy everywhere identically.",
+                exercise: "Create Dockerfile for FastAPI app + model. Build image. Test locally. Document deployment steps.",
+                deliverable: "Working Docker container. GitHub with Dockerfile and docker-compose. LinkedIn: 'Day 85: Docker ensures consistency from laptop to production.'"
+            },
+            {
+                day: 86,
+                title: "CI/CD with GitHub Actions",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Automated testing, linting, building. On every push: run tests, build Docker image, validate quality.",
+                exercise: "Set up GitHub Actions workflow: pytest on push, build Docker image, check code quality (pylint/black).",
+                deliverable: "Working CI/CD pipeline. GitHub Actions configured. LinkedIn: 'Day 86: CI/CD automates quality checks—catches bugs early.'"
+            },
+            {
+                day: 87,
+                title: "MLflow Experiment Tracking",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Log experiments: hyperparameters, metrics, artifacts. Compare runs. Reproducibility and team collaboration.",
+                exercise: "Train 5 models with MLflow. Log hyperparameters and RMSE. View experiments UI. Compare best models.",
+                deliverable: "MLflow tracking setup. GitHub with experiment logs. LinkedIn: 'Day 87: MLflow—scientific experiment management for ML.'"
+            },
+            {
+                day: 88,
+                title: "Model Registry & Versioning",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "MLflow Model Registry: stage models (staging → production → archived). Governance and rollback capability.",
+                exercise: "Promote best model to production in MLflow. Document transition. Set up staging environment.",
+                deliverable: "Model registry configured. GitHub documentation. LinkedIn: 'Day 88: Model governance—tracking what's live.'"
+            },
+            {
+                day: 89,
+                title: "Monitoring & Drift Detection",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Monitor model performance in production. Detect data drift, prediction drift. Alert when retraining needed.",
+                exercise: "Set up monitoring: compare current data distribution to training data. Flag if drift detected.",
+                deliverable: "Drift detection system. GitHub. LinkedIn: 'Day 89: Models degrade over time—monitoring catches degradation.'"
+            },
+            {
+                day: 90,
+                title: "Automated Model Retraining",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Pipelines to retrain periodically. Energy: new data arrives daily. Automate: fetch data → retrain → evaluate → deploy if improved.",
+                exercise: "Cron job or scheduler (APScheduler): daily retraining pipeline for your forecast model.",
+                deliverable: "Automated retraining pipeline. GitHub. LinkedIn: 'Day 90: Continuous learning—models improve without manual intervention.'"
+            },
+            {
+                day: 91,
+                title: "Production Logging & Observability",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Comprehensive logging. Structured logs, error tracking. Energy: trace issues quickly, debug in production.",
+                exercise: "Add logging to FastAPI app. Log inputs, predictions, inference time. Use structured logging (JSON).",
+                deliverable: "Logging system on GitHub. LinkedIn: 'Day 91: Observability—the difference between chaos and control.'"
+            },
+            {
+                day: 92,
+                title: "A/B Testing & Gradual Rollout",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Test new models safely. Gradual rollout: 5% traffic → 25% → 100%. Energy: grid operators trust proven models.",
+                exercise: "Design A/B test: old model vs. new model. Calculate sample size. Metrics to track (forecast accuracy, business impact).",
+                deliverable: "A/B testing framework on GitHub. LinkedIn: 'Day 92: A/B testing validates improvements rigorously.'"
+            },
+            {
+                day: 93,
+                title: "Kubernetes & Scaling",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Container orchestration. Auto-scaling based on load. Production deployment at enterprise scale.",
+                exercise: "Deploy containerized app to cloud (AWS ECS, GCP Cloud Run, or local minikube). Set up auto-scaling policy.",
+                deliverable: "Kubernetes deployment manifests. GitHub. LinkedIn: 'Day 93: Kubernetes—enterprise ML infrastructure.'"
+            },
+            {
+                day: 94,
+                title: "API Documentation & User Onboarding",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Document APIs: endpoints, parameters, examples, errors. Make it easy for users (grid operators, analysts) to adopt.",
+                exercise: "Write comprehensive API docs. Include curl/Python examples. Create video walkthrough. Publish docs.",
+                deliverable: "Published API documentation. GitHub. LinkedIn: 'Day 94: Great documentation drives adoption.'"
+            },
+            {
+                day: 95,
+                title: "Scalability & Performance Optimization",
+                phase: 5,
+                tags: ["mlops"],
+                concept: "Profile code. Optimize hot paths. Batch inference. Caching. Energy forecasting must be fast.",
+                exercise: "Benchmark your API response time. Optimize: model loading, inference, response serialization. Target: <100ms.",
+                deliverable: "Performance-optimized system. GitHub with benchmarks. LinkedIn: 'Day 95: Sub-100ms predictions—user expectations met.'"
+            },
 
-    // Filter Buttons logic
-    function filterDays(tag) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      renderDays(tag);
-    }
+            // PHASE 6: Capstone & Interview (Days 96-100)
+            {
+                day: 96,
+                title: "EU Energy Portfolio Project 1: Price Forecasting System",
+                phase: 6,
+                tags: ["energy"],
+                concept: "Showcase-quality project: end-to-end ML + MLOps for day-ahead price forecasting.",
+                exercise: "Build, deploy, document: ENTSO-E price data → preprocessing → ensemble models → API → dashboard → monitoring. Production-ready.",
+                deliverable: "GitHub repo with README, Docker, CI/CD, API docs, dashboard, monitoring. LinkedIn: 'Day 96: Portfolio project showcasing full ML pipeline.'"
+            },
+            {
+                day: 97,
+                title: "EU Energy Portfolio Project 2: Wind Farm Anomaly Detection",
+                phase: 6,
+                tags: ["energy"],
+                concept: "Real-world problem: detect wind turbine faults early. Showcase anomaly detection, geospatial analysis, predictive maintenance insights.",
+                exercise: "Synthetic or real SCADA data → autoencoder/isolation forest → fault detection → geospatial viz of turbines. API + Streamlit.",
+                deliverable: "Complete anomaly detection system. GitHub. LinkedIn: 'Day 97: Predictive maintenance—preventing million-euro failures.'"
+            },
+            {
+                day: 98,
+                title: "Resume & LinkedIn Optimization",
+                phase: 6,
+                tags: ["energy"],
+                concept: "Tailor resume for EU energy data science roles. Highlight: EU market knowledge, real data sources, domain expertise.",
+                exercise: "Update resume: quantify achievements (% accuracy improvements, revenue impact). Highlight ENTSO-E, Open Power System Data work. EU Taxonomy knowledge.",
+                deliverable: "Updated resume + LinkedIn profile. Show portfolio projects prominently. LinkedIn: 'Excited to pursue remote data science roles in European renewable energy.'"
+            },
+            {
+                day: 99,
+                title: "Interview Preparation: Technical & Domain",
+                phase: 6,
+                tags: ["energy"],
+                concept: "Prepare for interviews at Orsted, Vestas, Enel, Vattenfall, EDP, Statkraft, Tennet, etc.",
+                exercise: "Study: (1) ML concepts (bias-variance trade-off, why ensemble methods work). (2) Energy domain (RED III, negative prices, grid balancing). (3) Your projects in depth.",
+                deliverable: "Interview notes on GitHub. LinkedIn: 'Prepared for technical interviews at leading EU energy companies.'"
+            },
+            {
+                day: 100,
+                title: "Phase 6 Capstone: Comprehensive Case Study & Launch",
+                phase: 6,
+                tags: ["energy"],
+                concept: "Synthesize everything. Real case study: solving actual EU energy problem with your skills.",
+                exercise: "Case study write-up (Medium/blog): problem statement → data exploration → modeling → deployment → impact. Final LinkedIn post: journey reflection.",
+                deliverable: "Comprehensive case study published. All GitHub repos polished with stars. LinkedIn post celebrating 100-day milestone. Ready to apply for EU energy DS roles."
+            }
+        ];
 
-    // Populate Post Generator Options
-    function populatePostGenerator() {
-      const select = document.getElementById('day-selector');
-      daysData.forEach(item => {
-        const opt = document.createElement('option');
-        opt.value = item.day;
-        opt.innerText = `Day ${item.day}: ${item.title}`;
-        select.appendChild(opt);
-      });
+        // Render curriculum
+        function renderCurriculum() {
+            const container = document.getElementById('daysContainer');
+            container.innerHTML = '';
 
-      select.addEventListener('change', (e) => generatePost(e.target.value));
-      generatePost(1);
-    }
+            let currentPhase = 0;
+            let phaseHtml = '';
 
-    function generatePost(dayNum) {
-      const item = daysData.find(d => d.day == dayNum);
-      if (!item) return;
+            curriculum.forEach(day => {
+                if (day.phase !== currentPhase) {
+                    if (phaseHtml) {
+                        container.innerHTML += `<div id="phase${currentPhase}" style="scroll-margin-top: 150px;">${phaseHtml}</div>`;
+                    }
+                    currentPhase = day.phase;
+                    phaseHtml = `<h2 style="color: var(--accent-primary); font-size: 1.8rem; margin: 2rem 0 1rem 0; padding-bottom: 1rem; border-bottom: 2px solid var(--accent-primary);">
+                                    Phase ${day.phase}: ${getPhaseTitle(day.phase)}
+                                </h2>`;
+                }
 
-      const postText = `⚡ Day ${item.day}/100: Building my EU Renewable Energy Data Science Stack 🇪🇺
+                const tagHtml = day.tags.map(tag => `<span class="tag ${tag}">${tag.toUpperCase()}</span>`).join('');
 
-Today's Focus: ${item.title}
+                phaseHtml += `
+                    <div class="day-card" data-day="${day.day}" data-phase="${day.phase}" data-tags="${day.tags.join(',')}">
+                        <div class="day-header" onclick="toggleDay(${day.day})">
+                            <input type="checkbox" class="day-checkbox" data-day="${day.day}" onclick="event.stopPropagation(); toggleComplete(${day.day});">
+                            <span class="day-number">Day ${day.day}</span>
+                            <span class="day-title">${day.title}</span>
+                            <div class="day-tags">${tagHtml}</div>
+                            <span class="collapse-icon">▼</span>
+                        </div>
+                        <div class="day-content">
+                            <div class="section">
+                                <div class="section-title">🎯 Core Concept & Theory</div>
+                                <div class="section-content">${day.concept}</div>
+                            </div>
+                            <div class="section">
+                                <div class="section-title">💻 Hands-On Exercise</div>
+                                <div class="exercise-highlight">${day.exercise}</div>
+                            </div>
+                            <div class="section">
+                                <div class="section-title">📦 GitHub/LinkedIn Deliverable</div>
+                                <div class="deliverable">${day.deliverable}</div>
+                            </div>
+                            <div class="linkedin-template">
+                                <strong>💡 LinkedIn Post Tip:</strong> ${day.linkedinTip}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
 
-💡 Key Theoretical Insight:
-${item.concept}
+            if (phaseHtml) {
+                container.innerHTML += `<div id="phase${currentPhase}" style="scroll-margin-top: 150px;">${phaseHtml}</div>`;
+            }
 
-🛠️ Practical Application:
-${item.exercise}
+            loadProgress();
+        }
 
-📂 Today's Deliverable:
-${item.deliverable}
+        function getPhaseTitle(phase) {
+            const titles = [
+                '',
+                'Python & Foundations (Days 1-20)',
+                'Math & Stats for Data Science (Days 21-40)',
+                'Classical Machine Learning (Days 41-60)',
+                'Specialized EU Energy Data Science (Days 61-80)',
+                'MLOps & Deployment (Days 81-95)',
+                'Capstone & Interview Preparation (Days 96-100)'
+            ];
+            return titles[phase];
+        }
 
-Targeting remote Data Science roles in European Grid & Energy Analytics. Learning in public every single day!
+        function toggleDay(day) {
+            const card = document.querySelector(`[data-day="${day}"]`);
+            const content = card.querySelector('.day-content');
+            const header = card.querySelector('.day-header');
 
-#DataScience #MachineLearning #RenewableEnergy #CleanTech #Python #BuildInPublic #GridAnalytics #EnergyTransition`;
+            content.classList.toggle('active');
+            header.classList.toggle('collapsed');
+        }
 
-      document.getElementById('post-output').value = postText;
-    }
+        function toggleComplete(day) {
+            const checkbox = document.querySelector(`[data-day="${day}"].day-checkbox`);
+            saveProgress();
+            updateStats();
+        }
 
-    // Initialize Page
-    document.addEventListener('DOMContentLoaded', () => {
-      renderDays();
-      populatePostGenerator();
-    });
-  </script>
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const completed = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.dataset.day);
+            localStorage.setItem('completedDays', JSON.stringify(completed));
+        }
+
+        function loadProgress() {
+            const completed = JSON.parse(localStorage.getItem('completedDays') || '[]');
+            completed.forEach(day => {
+                const checkbox = document.querySelector(`[data-day="${day}"].day-checkbox`);
+                if (checkbox) checkbox.checked = true;
+            });
+            updateStats();
+        }
+
+        function updateStats() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const total = checkboxes.length;
+            const percent = Math.round((completed / total) * 100);
+
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('streak').textContent = calculateStreak();
+        }
+
+        function calculateStreak() {
+            const completed = JSON.parse(localStorage.getItem('completedDays') || '[]').map(Number).sort((a, b) => a - b);
+            if (completed.length === 0) return 0;
+
+            let streak = 1;
+            for (let i = completed.length - 1; i > 0; i--) {
+                if (completed[i] - completed[i - 1] === 1) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            return streak;
+        }
+
+        function filterDays(filter) {
+            const cards = document.querySelectorAll('.day-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                let show = true;
+
+                if (filter === 'all') {
+                    show = true;
+                } else if (filter === 'completed') {
+                    const day = card.dataset.day;
+                    const checkbox = document.querySelector(`[data-day="${day}"].day-checkbox`);
+                    show = checkbox.checked;
+                } else {
+                    const tags = card.dataset.tags.split(',');
+                    show = tags.includes(filter);
+                }
+
+                card.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function scrollToPhase(phaseId) {
+            const element = document.getElementById(phaseId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToReferences() {
+            document.getElementById('referencesSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function scrollToLinkedIn() {
+            document.getElementById('linkedinSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initialize
+        renderCurriculum();
+    </script>
 </body>
 </html>
