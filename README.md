@@ -23,7 +23,15 @@ Documentation, code runs, and exploratory data analysis across a 100-day learnin
 - `data/`: Local data directory (`raw/` for input benchmarks, `processed/` for pipeline outputs).
 
 ---
+## List of all mini Projects:
+1. [Wind Farm Energy Output Calculator](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D02/Wind_Farm_Energy_Output_Calculator.ipynb)
+2. [Price Classifier](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D03/price_classifier.ipynb)
+---
+## List of Capstone Projects:
 
+---
+## List of Associated Research Paper's that I am currently working on:
+---
 ## ⚙️ Environment Setup
 
 1. **Clone the repository:**
