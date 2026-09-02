@@ -4,11 +4,13 @@ Documentation, code runs, and exploratory data analysis across a 100-day learnin
 
 ## 📌 Progress Overview
 
-| Day | Topic | Module | Notebook / Code | Status |
-|---|---|---|---|---|
-| Day 001 | Python Data Structures & Control Flow | Foundations | [`notebooks/01-python-foundations/day-001.ipynb`](#) | ✅ Done |
-| Day 015 | Descriptive Statistics & Hypothesis Testing | Math & EDA | [`notebooks/02-eda-and-math/day-015.ipynb`](#) | ✅ Done |
-| Day 030 | Logistic Regression from Scratch | Machine Learning | [`notebooks/03-machine-learning/day-030.ipynb`](#) | 🔄 In Progress |
+| Day | Topic | Notebook / Code | Status | % Completed |
+|---|---|---|---|------|
+| Phase 01 | Python & foundations | [**Phase 01**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase01) | 🔄 In Progress | 4 % |
+| Phase 02 | Maths & stats | [**Phase 02**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase02) | 🔄 In Progress | 0% |
+| Phase 03 | Classical ML | [**Phase 03**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase03) | 🔄 In Progress | 0% |
+| Phase 04 | Energy Data science & Speaclization| [**Phase 04**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase04) | 🔄 In Progress | 0% |
+| Phase 05 | MLOPs & Deployment | [**Phase 05**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase05) | 🔄 In Progress | 0% |
 ---
 
 ### Follow the Website for further daily task:
@@ -26,6 +28,7 @@ Documentation, code runs, and exploratory data analysis across a 100-day learnin
 ## List of all mini Projects:
 1. [Wind Farm Energy Output Calculator](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D02/Wind_Farm_Energy_Output_Calculator.ipynb)
 2. [Price Classifier](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D03/price_classifier.ipynb)
+3. [Energy_calculator](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D04/energy_calculator.ipynb)
 ---
 ## List of Capstone Projects:
 
