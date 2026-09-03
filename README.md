@@ -6,7 +6,7 @@ Documentation, code runs, and exploratory data analysis across a 100-day learnin
 
 | Day | Topic | Notebook / Code | Status | % Completed |
 |---|---|---|---|------|
-| Phase 01 | Python & foundations | [**Phase 01**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase01) | 🔄 In Progress | 4 % |
+| Phase 01 | Python & foundations | [**Phase 01**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase01) | 🔄 In Progress | 5 % |
 | Phase 02 | Maths & stats | [**Phase 02**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase02) | 🔄 In Progress | 0% |
 | Phase 03 | Classical ML | [**Phase 03**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase03) | 🔄 In Progress | 0% |
 | Phase 04 | Energy Data science & Speaclization| [**Phase 04**](https://github.com/CoolatMax/100-day-data-science/tree/main/notebooks/Phase04) | 🔄 In Progress | 0% |
@@ -29,6 +29,7 @@ Documentation, code runs, and exploratory data analysis across a 100-day learnin
 1. [Wind Farm Energy Output Calculator](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D02/Wind_Farm_Energy_Output_Calculator.ipynb)
 2. [Price Classifier](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D03/price_classifier.ipynb)
 3. [Energy_calculator](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D04/energy_calculator.ipynb)
+4. [EU_Renewable_price_Analysis](https://github.com/CoolatMax/100-day-data-science/blob/main/notebooks/Phase01/D05/eu_renewable_price_analysis.ipynb)
 ---
 ## List of Capstone Projects:
 
